@@ -9,11 +9,11 @@ const SkillEditor = ({skill, handleChange}) => {
     return (
         <div className="skillEditor">
             <h4>{skill.name}: </h4>
-            <label for="prof">Proficient: </label>
+            <label className="buttonLabel" >Proficient: </label>
                 <input id="prof"
                     type="radio"
                 />
-            <label for="expert">Expert: </label>
+            <label className="buttonLabel" >Expert: </label>
                 <input id="expert"
                     type="radio"
                     
@@ -24,6 +24,8 @@ const SkillEditor = ({skill, handleChange}) => {
                     Include non editable number val to show adjusted roll based on Prof and Exp
                     This number can be a local state calculated from ability number and Prof number
                     which means it will need those values! 
+
+                    -- Do buttons instead of inputs(radio) for cute factor
              */}
         </div>
         
