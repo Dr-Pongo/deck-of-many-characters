@@ -6,7 +6,7 @@ const AbilityEditor = ({ability, handleChange}) => {
         <div className="abilityEditor" >
             <label>{ability.name}: </label>
             <input type="number"
-                max="25" min="0"
+                max={30} min={1}
                 value={ability.val} 
                 onChange={handleChange} 
             />

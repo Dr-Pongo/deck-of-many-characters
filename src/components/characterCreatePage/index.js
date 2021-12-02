@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import "./styles.scss";
 import AbilityEditor from './abilityEditor/index';
-import SkillEditor from './skillEditor/index'
 import map from 'lodash/map';
+//GLOBALS
+const SHOULD_BE_NUMBER = true;
 
 class CharacterCreatePage extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -51,21 +51,73 @@ class CharacterCreatePage extends Component {
     };
   };
 
-  handleSkillChange = (key) => {
-    // TODO: update based on key that will probably need to be added 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.level !== this.state.level) {
+      this.calculateProficiency();
+    }
+  };
+
+  handleSkillButtonClick = (key, buttonLabel) => {
+    this.setState({ 
+      skills: { ...this.state.skills, 
+        [key]: {...this.state.skills[key],
+          [buttonLabel]: !this.state.skills[key][buttonLabel]
+        }
+      }
+    })
   };
   
   updateAbility = (key) => (event) => {
     this.setState({ 
       abilities: {...this.state.abilities, 
         [key]:{...this.state.abilities[key], 
-          val:event.target.value}}
+          val:parseInt(event.target.value)}}
     })
   };
 
-  updateBasicInfoValue = (key) => (event) => {
-    this.setState({ [key]: event.target.value, });
+  updateBasicInfoValue = (key, shouldBeNumber = false) => (event) => {
+    if(!shouldBeNumber){
+      this.setState({ [key]: event.target.value, });
+      return;
+    }
+    this.setState({ [key]: parseInt(event.target.value) });
   };
+
+  calculateProficiency = () => {
+    const curLevel = this.state.level;
+    switch(true){
+      case (curLevel < 5):
+        this.setState({proficiency: 2});
+        break;
+      case (curLevel < 9):
+        this.setState({proficiency: 3});
+        break;
+      case (curLevel < 13):
+        this.setState({proficiency: 4});
+        break;
+      case (curLevel < 17):
+        this.setState({proficiency: 5});
+        break;
+      default: 
+        this.setState({proficiency: 6});
+    }
+  };
+
+  calculateAbilityModifier = (abilityValue) => {
+    return Math.floor((abilityValue - 10) / 2);
+  };
+
+  deriveSkillValue = (prof, exp, ability) => {
+    if(prof) {
+      if(exp) {
+        return this.calculateAbilityModifier(this.state.abilities[ability].val) + this.state.proficiency * 2;
+      } else {
+        return this.calculateAbilityModifier(this.state.abilities[ability].val) + this.state.proficiency;
+      }
+    }
+    return this.calculateAbilityModifier(this.state.abilities[ability].val);
+  };
+  
 
   render() {
     const {abilities, skills, level} = this.state;
@@ -76,48 +128,48 @@ class CharacterCreatePage extends Component {
         <div className="basicInfo">
           <label>Character Name: 
             <input type="text" 
-              onChange={this.updateBasicInfoValue('name')} 
-              required />
+              onChange={this.updateBasicInfoValue('name')} />
           </label>
           <label>Level: 
             <input type="number" 
               max="20" min="1" 
               value={level} 
-              onChange={this.updateBasicInfoValue('level')} 
-              required />
+              onChange={this.updateBasicInfoValue('level', SHOULD_BE_NUMBER)} />
           </label>
           <label>Class: 
             <input type="text" 
-              onChange={this.updateBasicInfoValue('class')} 
-              required />
+              onChange={this.updateBasicInfoValue('class')} />
           </label>
           <label>SubClass: 
             <input type="text" onChange={this.updateBasicInfoValue('subclass')} />
           </label>
         </div>
         <div className="abilities" >
-          { 
-            map(abilities, (ab, thisIsAVariableNameThatImUsingHere) => {
+          { map(abilities, (ab, index) => {
                 return (
                   <AbilityEditor
                     key={ab.id}
                     ability={ab}
-                    handleChange={this.updateAbility(thisIsAVariableNameThatImUsingHere)} />
+                    handleChange={this.updateAbility(index)} />
                 )
-            })
-          }
+            }) }
         </div>
         <div className="skills" >
           <h3>Skills: </h3>
-          {
-            map(skills, (skill) => {
+          { map(skills, (skill, index) => {
               return (
-                <SkillEditor
-                  key={skill.name + skill.ability}
-                  skill={skill}
-                  handleChange={this.handleSkillChange} />
+                <div className="skillEditor" key={`${skill.name}-${skill.ability}`}>
+                    <h4>{skill.name}: </h4>
+                    <p>{this.deriveSkillValue(skill.prof, skill.exp, skill.ability)}</p>
+                    <button className={skill.prof ? 'clicked' : ''} type="button" onClick={() => this.handleSkillButtonClick(index, 'prof')}>Proficiency</button>
+                    {skill.prof && <button className={skill.exp ? 'clicked' : ''} type="button" onClick={() => this.handleSkillButtonClick(index, 'exp')}>Expertise</button>}
+                </div>
               );
-            })
+            }) }
+        </div>
+        <div className="saves" >
+          <h3>Saves: </h3>
+          { 
           }
         </div>
       <input type="submit" value="Submit" />
