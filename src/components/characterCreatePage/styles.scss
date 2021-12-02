@@ -1,0 +1,21 @@
+
+.basicInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    border: solid black .025rem; 
+    padding: .25rem;
+}
+
+.abilities {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}

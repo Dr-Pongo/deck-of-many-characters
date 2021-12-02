@@ -10,6 +10,11 @@ const AbilityEditor = ({abilityName, abilityVal, handleChange}) => {
                 value={abilityVal} 
                 onChange={({target}) => handleChange(abilityName, target.value)} 
             />
+            {/* <input type="number"
+                max="25" min="0"
+                value={abilityVal} 
+                onChange={handleChange(abilityName)} 
+            /> */}
         </div>
     );
 }

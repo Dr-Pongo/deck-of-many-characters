@@ -1,14 +1,1 @@
 
-.basicInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: flex-start;
-    border: solid black .025rem; 
-    padding: .25rem;
-}
-
-.abilities {
-    display: flex;
-    justify-content: space-evenly;
-}

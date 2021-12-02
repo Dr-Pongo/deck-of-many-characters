@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./styles.scss";
 import AbilityEditor from './abilityEditor/index';
+import SkillEditor from './skillEditor/index'
 
 class CharacterCreatePage extends Component {
 
@@ -22,6 +23,9 @@ class CharacterCreatePage extends Component {
         charisma: {val: 0, save: false},
       },
       skills: [
+        /* 
+            TODO: These probably need unique IDs
+        */
         /* Strength */
         {name: "Athletics", ability: "strength", prof: false, exp: false},
         /* Dexterity */
@@ -47,15 +51,31 @@ class CharacterCreatePage extends Component {
         {name: "Persuasion", ability: "charisma", prof: false, exp: false},
       ],
     };
-  }
+  };
 
   handleAbilityChange = (abilityName, abilityVal) => {
       this.setState({...this.state, 
         abilities: {...this.state.abilities, 
-          [abilityName]:{...this.state.abilities.strength, 
+          [abilityName]:{...this.state.abilities[abilityName], 
             val:abilityVal}}
       })
-  }
+  };
+
+  handleSkillChange = (key) => {
+    // TODO: update based on key that will probably need to be added 
+  };
+
+  updateAbility = (key) => (event) => {
+    this.setState({...this.state, 
+      abilities: {...this.state.abilities, 
+        [key]:{...this.state.abilities[key], 
+          val:event.target.val}}
+    })
+  };
+
+  updateBasicInfoValue = (key) => (event) => {
+    this.setState({ [key]: event.target.value, });
+  };
 
   render() {
     return (
@@ -65,27 +85,32 @@ class CharacterCreatePage extends Component {
         <div className="basicInfo">
           <label>Character Name: 
             <input type="text" 
-              onChange={({target}) => this.setState({...this.state, name: target.value})} 
+              onChange={this.updateBasicInfoValue('name')} 
               required />
           </label>
           <label>Level: 
             <input type="number" 
               max="20" min="1" 
               value={this.state.level} 
-              onChange={({target}) => this.setState({...this.state, level: target.value})} 
+              onChange={this.updateBasicInfoValue('level')} 
               required />
           </label>
           <label>Class: 
             <input type="text" 
-              onChange={({target}) => this.setState({...this.state, class: target.value})} 
+              onChange={this.updateBasicInfoValue('class')} 
               required />
           </label>
           <label>SubClass: 
-            <input type="text" onChange={({target}) => this.setState({...this.state, subclass: target.value})} />
+            <input type="text" onChange={this.updateBasicInfoValue('subclass')} />
           </label>
         </div>
         <div className="abilities" >
-          {
+          { 
+            /* 
+                TODO:
+                  Need to add unique IDs so this is done "correctly"
+                  (get generator from samwise)
+            */
             Object.keys(this.state.abilities).map(ab => {
               return (
                 <AbilityEditor
@@ -96,10 +121,21 @@ class CharacterCreatePage extends Component {
             })
           }
         </div>
+        <div className="skills" >
+          {
+            this.state.skills.map(skill => {
+              return (
+                <SkillEditor
+                  skill={skill}
+                  handleChange={this.handleSkillChange} />
+              );
+            })
+          }
+        </div>
       <input type="submit" value="Submit" />
       </form>
     </div>);
   }
-}
+};
 
 export default CharacterCreatePage;
