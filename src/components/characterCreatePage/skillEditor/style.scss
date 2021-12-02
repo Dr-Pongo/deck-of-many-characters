@@ -1,3 +1,18 @@
 .skillEditor {
     border: solid black .025rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    padding: 0;
+    width: 30%;
+    margin-left: 1rem;
+}
+
+.skillEditor h4 {
+    margin-right: .25rem;
+}
+
+.skillEditor * {
+    padding: 0;
 }
