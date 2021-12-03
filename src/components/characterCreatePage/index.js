@@ -155,61 +155,22 @@ class CharacterCreatePage extends Component {
   /* ==================================== *
    * Attack Method(s)                     *
    * ==================================== */
-  handleAttackAdd = () => {
-    this.setState({
-      attacks: [...this.state.attacks, {
+  handleAttackAddRemove = (removeID = 0) => () => {
+    const attacks = removeID ? 
+      this.state.attacks.filter((attack) => attack.id !== removeID) :
+      [...this.state.attacks, {
         id: uuidv4(),
         name: '', 
         attackStat: '',
         proficiency: false,
         damageDice: '',
-      }]
-    })
-  };
+      }];
 
-  handleAttackRemove = (removeID) => {
-    const newAttacks = this.state.attacks.filter((attack) => attack.id !== removeID);
     this.setState({
-      attacks: newAttacks
+      attacks
     })
   };
   
-  //So this probably isn't the best way to handle this
-  handleAttackNameChange = (id, value) => {
-    const newAttacks = this.state?.attacks.map(attack => {
-      return attack.id === id ? {...attack, name: value} : attack;
-    });
-
-    this.setState({
-      attacks: newAttacks
-    });
-  }
-
-  handleAttackDamageChange = (id, value) => {
-    const newAttacks = this.state?.attacks.map(attack => {
-      return attack.id === id ? {...attack, damageDice: value} : attack;
-    });
-
-    this.setState({
-      attacks: newAttacks
-    });
-  }
-
-  handleAttackProficiencyChange = (id) => {
-    const newAttacks = this.state?.attacks.map(attack => {
-      return attack.id === id ? {...attack, proficiency: !attack.proficiency} : attack;
-    });
-
-    this.setState({
-      attacks: newAttacks
-    });
-  };
-
-  /* =========================
-   * Generic Attack Function
-   * =========================
-   */
-    // need attack.id, key, newValue
   handleAttackChange = (attackId, attackKeyValue) => ({target}) => {
     const attacks = this.state?.attacks.map(attack => {
       return attack.id === attackId ? {...attack, [attackKeyValue]: target.value} : attack;
@@ -276,6 +237,7 @@ class CharacterCreatePage extends Component {
         </div>
         <div className="attacks" >
           <h3>Attacks!: </h3>
+          <button type="button" onClick={this.handleAttackAddRemove()} >Add Attaack!</button>
           { 
             this.state.attacks.map((attack, index) => {
               return (
@@ -283,19 +245,18 @@ class CharacterCreatePage extends Component {
                   <h4>Attack #{index}</h4>
                   <div className="attackInfo">
                     <label>Attack Name: </label>
-                    <input type="text" value={attack.name} onChange={this.handleAttackChange(attack.id, 'text')} />
+                    <input type="text" value={attack.name} onChange={this.handleAttackChange(attack.id, 'name')} />
                   </div>
                   <div className="attackInfo" >
                     <label>Damage:</label>
-                    <input type="text" value={attack.damageDice} onChange={({target}) => this.handleAttackDamageChange(attack.id, target.value)} />
+                    <input type="text" value={attack.damageDice} onChange={this.handleAttackChange(attack.id, 'damageDice')} />
                   </div> 
-                  <button type="button" className={attack.proficiency ? 'clicked' : ''} onClick={() => this.handleAttackProficiencyChange(attack.id)} >Proficient</button>
-                  <button type="button" onClick={() => this.handleAttackRemove(attack.id)}>Remove</button>
+                  <button type="button" className={attack.proficiency ? 'clicked' : ''} value={!attack.proficiency} onClick={this.handleAttackChange(attack.id, 'proficiency')} >Proficient</button>
+                  <button type="button" onClick={this.handleAttackAddRemove(attack.id)}>Remove</button>
                 </div>
               );
             })
           }
-          <button type="button" onClick={this.handleAttackAdd} >Add Attaack!</button>
         </div>
       <input type="submit" value="Submit" />
       </form>
