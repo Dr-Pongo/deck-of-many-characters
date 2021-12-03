@@ -32,3 +32,14 @@
 .clicked {
     color: blue;
 }
+
+.attack {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    align-content: flex-start;   
+}
+.attackInfo {
+    display: flex;
+    flex-direction: column;
+}

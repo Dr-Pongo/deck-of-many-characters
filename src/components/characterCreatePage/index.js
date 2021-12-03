@@ -156,12 +156,7 @@ class CharacterCreatePage extends Component {
   };
 
   handleAttackRemove = (removeID) => {
-    const newAttacks = this.state.attacks.filter((attack) => {
-      console.log(attack.id);
-      console.log(removeID);
-      return attack.id !== removeID;
-    });
-    
+    const newAttacks = this.state.attacks.filter((attack) => attack.id !== removeID);
     this.setState({
       attacks: newAttacks
     })
@@ -171,6 +166,24 @@ class CharacterCreatePage extends Component {
   handleAttackNameChange = (id, value) => {
     const newAttacks = this.state?.attacks.map(attack => {
       return attack.id === id ? {...attack, name: value} : attack;
+    });
+
+    this.setState({
+      attacks: newAttacks
+    });
+  }
+  handleAttackDamageChange = (id, value) => {
+    const newAttacks = this.state?.attacks.map(attack => {
+      return attack.id === id ? {...attack, damageDice: value} : attack;
+    });
+
+    this.setState({
+      attacks: newAttacks
+    });
+  }
+  handleAttackProficiencyChange = (id) => {
+    const newAttacks = this.state?.attacks.map(attack => {
+      return attack.id === id ? {...attack, proficiency: !attack.proficiency} : attack;
     });
 
     this.setState({
@@ -236,14 +249,17 @@ class CharacterCreatePage extends Component {
           { 
             this.state.attacks.map((attack, index) => {
               return (
-                <div key={`${attack.name}-${attack.attackStat}`} >
+                <div key={attack.id} className="attack" >
                   <h4>Attack #{index}</h4>
-                  {/* <input type="text" value={attack.name} onChange={({target}) => this.handleAttackNameChange(attack.id, target.value)} />
-                  <div className="attackDamage" >
+                  <div className="attackInfo">
+                    <label>Attack Name: </label>
+                    <input type="text" value={attack.name} onChange={({target}) => this.handleAttackNameChange(attack.id, target.value)} />
+                  </div>
+                  <div className="attackInfo" >
                     <label>Damage:</label>
-                    <input type="text" value={attack.damageDice} />
+                    <input type="text" value={attack.damageDice} onChange={({target}) => this.handleAttackDamageChange(attack.id, target.value)} />
                   </div> 
-                  <button type="button" className={attack.proficiency ? 'clicked' : ''} >Proficient</button> */}
+                  <button type="button" className={attack.proficiency ? 'clicked' : ''} onClick={() => this.handleAttackProficiencyChange(attack.id)} >Proficient</button>
                   <button type="button" onClick={() => this.handleAttackRemove(attack.id)}>Remove</button>
                 </div>
               );
