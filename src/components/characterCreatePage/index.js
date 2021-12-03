@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./styles.scss";
 import AbilityEditor from './abilityEditor/index';
 import map from 'lodash/map';
+import {v4 as uuidv4} from 'uuid';
+// UUID DOCS: npmjs.com/package/uuid
+
 //GLOBALS
 const SHOULD_BE_NUMBER = true;
 
@@ -15,12 +18,12 @@ class CharacterCreatePage extends Component {
       subclass: '',
       proficiency: 2,
       abilities: {
-        strength: {name: "Strength", val: 10, save: false, id:"158a7750-126a-4389-ab4a-c247cb09b783"},
-        dexterity: {name: "Dexterity", val: 10, save: false, id:"fffadc2d-e76e-4b1a-adc6-3b07ee29e40a"},
-        constitution: {name: "Constitution", val: 10, save: false, id:"6d2b5827-d3b2-4d52-9a67-a515ab7033a5"},
-        intelligence: {name: "Intelligence", val: 10, save: false, id:"3903d58f-6fdb-4ba1-9b2b-1e6aefa4b9e5"},
-        wisdom: {name: "Wisdom", val: 10, save: false, id:"fbbce06a-2395-49f2-99d0-4c169ae124bf"},
-        charisma: {name: "Charisma", val: 10, save: false, id:"4a643c5e-11e4-4358-bc03-f51a0fd87905"},
+        strength: {name: "Strength", val: 10, save: false, id:uuidv4()},
+        dexterity: {name: "Dexterity", val: 10, save: false, id:uuidv4()},
+        constitution: {name: "Constitution", val: 10, save: false, id:uuidv4()},
+        intelligence: {name: "Intelligence", val: 10, save: false, id:uuidv4()},
+        wisdom: {name: "Wisdom", val: 10, save: false, id:uuidv4()},
+        charisma: {name: "Charisma", val: 10, save: false, id:uuidv4()},
       },
       skills: {
         /* Strength */
@@ -137,16 +140,17 @@ class CharacterCreatePage extends Component {
     return abilityValue;
   };
 
-  getUniqueIDForAttack = () => {
-    const newVal = Math.floor(Math.random() * 10000);
-    return this.state.attacks.every(attack => attack.id !== newVal) ? newVal : this.getUniqueIDForAttack();
-  };
+  // Depricated with UUID intall
+  // getUniqueIDForAttack = () => {
+  //   const newVal = Math.floor(Math.random() * 10000);
+  //   return this.state.attacks.every(attack => attack.id !== newVal) ? newVal : this.getUniqueIDForAttack();
+  // };
 
   // baseline stats. May add others.
   handleAttackAdd = () => {
     this.setState({
       attacks: [...this.state.attacks, {
-        id: this.getUniqueIDForAttack(),
+        id: uuidv4(),
         name: '', 
         attackStat: '',
         proficiency: false,
