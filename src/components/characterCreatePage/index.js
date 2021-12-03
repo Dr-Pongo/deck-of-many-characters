@@ -50,7 +50,7 @@ class CharacterCreatePage extends Component {
         performance: {name: "Performance", ability: "charisma", prof: false, exp: false},
         persuasion: {name: "Persuasion", ability: "charisma", prof: false, exp: false},
       },
-      attacks: [],
+      actions: [],
     };
   };
 
@@ -151,33 +151,49 @@ class CharacterCreatePage extends Component {
     }
     return abilityValue;
   };
+
+
   
   /* ==================================== *
-   * Attack Method(s)                     *
+   * Action Method(s)                     *
    * ==================================== */
-  handleAttackAddRemove = (removeID = 0) => () => {
-    const attacks = removeID ? 
-      this.state.attacks.filter((attack) => attack.id !== removeID) :
-      [...this.state.attacks, {
-        id: uuidv4(),
-        name: '', 
-        attackStat: '',
-        proficiency: false,
-        damageDice: '',
-      }];
+  handleActionAddRemove = (removeID = 0) => () => {
+    const initialAction = {
+      // must Haves
+      id: uuidv4(),
+      name: '', 
+      proficiency: false,
+      // attempt
+      attemptActive: false,
+      attemptAbility: '',
+      attemptBonus: 0,
+      // result
+      resultActive: false,
+      resultAbility: '',
+      resultBonus: 0,
+      resulteDice: '',
+    };
+
+
+    // TODO: [Insert something that explains here]
+    const actions = removeID ? 
+      this.state.actions.filter((action) => action.id !== removeID) :
+      [...this.state.actions, initialAction];
 
     this.setState({
-      attacks
-    })
+      actions
+    });
   };
   
-  handleAttackChange = (attackId, attackKeyValue) => ({target}) => {
-    const attacks = this.state?.attacks.map(attack => {
-      return attack.id === attackId ? {...attack, [attackKeyValue]: target.value} : attack;
+  handleActionChange = (actionID, actionKeyValue) => ({target}) => {
+    console.log(`Handle Action Change \nactionKeyValue:${actionKeyValue}\ntargetValue:${target.value}`);
+    
+    const actions = this.state?.actions.map(action => {
+      return action.id === actionID ? {...action, [actionKeyValue]: target.value} : action;
     });
 
     this.setState({
-      attacks
+      actions
     });
   };
 
@@ -231,28 +247,59 @@ class CharacterCreatePage extends Component {
             }) }
         </div>
         <div className="saves" >
-          <h3>Saves: </h3>
-          { 
-          }
+          <h3>Saving Throws: </h3>
+          { map(abilities, (ab, index) => {
+                return (
+                 <div className="save" key={ab.id} >
+                   <h4>{ab.name}</h4>
+                   <p>{`${this.calculateAbilityModifier(ab.val)}` + ab.save ? this.state.proficiency : 0}</p>
+                 </div> 
+                )
+            }) }
         </div>
-        <div className="attacks" >
-          <h3>Attacks!: </h3>
-          <button type="button" onClick={this.handleAttackAddRemove()} >Add Attaack!</button>
+        <div className="actions" >
+          <h3>Actions!</h3>
+          <button type="button" onClick={this.handleActionAddRemove()} >Add Attaack!</button>
           { 
-            this.state.attacks.map((attack, index) => {
+            this.state.actions.map((action, index) => {
               return (
-                <div key={attack.id} className="attack" >
-                  <h4>Attack #{index}</h4>
-                  <div className="attackInfo">
-                    <label>Attack Name: </label>
-                    <input type="text" value={attack.name} onChange={this.handleAttackChange(attack.id, 'name')} />
+                <div key={action.id} className="action" >
+                  <h4>Action #{index}</h4>
+                  <div className="actionInfo">
+                    <label>Action Name: </label>
+                    <input type="text" value={action.name} onChange={this.handleActionChange(action.id, 'name')} />
+                    <button type="button" className={action.proficiency ? 'clicked' : ''} value={!action.proficiency} onClick={this.handleActionChange(action.id, 'proficiency')} >Proficient</button>
                   </div>
-                  <div className="attackInfo" >
-                    <label>Damage:</label>
-                    <input type="text" value={attack.damageDice} onChange={this.handleAttackChange(attack.id, 'damageDice')} />
-                  </div> 
-                  <button type="button" className={attack.proficiency ? 'clicked' : ''} value={!attack.proficiency} onClick={this.handleAttackChange(attack.id, 'proficiency')} >Proficient</button>
-                  <button type="button" onClick={this.handleAttackAddRemove(attack.id)}>Remove</button>
+                  {!action.attemptActive && <button type="button" value={!action.attemptActive} onClick={this.handleActionChange(action.id, 'attemptActive')}>Attempt Modifier</button>}
+                  {action.attemptActive && 
+                    <div className="actionInfo" >
+                      <label>Attempt Ability:</label>
+                      <select value={action.attemptAbility} onChange={this.handleActionChange(action.id, 'attemptAbility')} >
+                        <option value="none" >None</option>
+                        {
+                          map(abilities, (ab, index) => {
+                            return (
+                              <option key={uuidv4()} value={abilities[ab]} >{ab.name}</option>
+                            )
+                          })
+                        }
+                      </select>
+                      <label>Attempt Bonus:</label>
+                      <input type="number" value={action.attemptBonus} onChange={this.handleActionChange(action.id, 'attemptBonus')} />
+                      <button type="button" value={!action.attemptActive} onClick={this.handleActionChange(action.id, 'attemptActive')}>Remove Modifier</button>
+                    </div>
+                  } 
+
+
+                  {/* {!action.resultActive && <button type="button" onClick={this.handleActionAddRemove(action.id)}>Result Modifier</button>} */}
+                  {/* {action.resultActive && 
+                    <div className="actionInfo" >
+                      <label>Result:</label>
+                      <input type="text" value={action.resultDice} onChange={this.handleActionChange(action.id, 'resultDice')} />
+                      <button type="button" onClick={this.handleActionAddRemove(action.id)}>Remove Modifier</button>
+                    </div> 
+                  } */}
+                  <button type="button" onClick={this.handleActionAddRemove(action.id)}>Remove Action</button>
                 </div>
               );
             })

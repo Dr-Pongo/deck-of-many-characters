@@ -33,13 +33,13 @@
     color: blue;
 }
 
-.attack {
+.action {
     display: flex;
     flex-direction: row;
     align-items: baseline;
     align-content: flex-start;   
 }
-.attackInfo {
+.actionInfo {
     display: flex;
     flex-direction: column;
 }
