@@ -54,12 +54,18 @@ class CharacterCreatePage extends Component {
     };
   };
 
+  /* ==================================== *
+   * Lifecycle Method(s)                  *
+   * ==================================== */
   componentDidUpdate(prevProps, prevState) {
     if(prevState.level !== this.state.level) {
       this.calculateProficiency();
     }
   };
 
+  /* ==================================== *
+   * Skill Method(s)                      *
+   * ==================================== */
   handleProfSkillButtonClick = (key) => {
     if(this.state.skills[key].prof && this.state.skills[key].exp){
       this.setState({ 
@@ -91,14 +97,9 @@ class CharacterCreatePage extends Component {
     })
   };
   
-  updateAbility = (key) => (event) => {
-    this.setState({ 
-      abilities: {...this.state.abilities, 
-        [key]:{...this.state.abilities[key], 
-          val:parseInt(event.target.value)}}
-    })
-  };
-
+  /* ==================================== *
+   * Baisic Character Method(s)           *
+   * ==================================== */
   updateBasicInfoValue = (key, shouldBeNumber = false) => (event) => {
     if(!shouldBeNumber){
       this.setState({ [key]: event.target.value, });
@@ -126,6 +127,17 @@ class CharacterCreatePage extends Component {
         this.setState({proficiency: 6});
     }
   };
+  
+  /* ==================================== *
+   * Ability Method(s)                    *
+   * ==================================== */
+  updateAbility = (key) => (event) => {
+    this.setState({ 
+      abilities: {...this.state.abilities, 
+        [key]:{...this.state.abilities[key], 
+          val:parseInt(event.target.value)}}
+    })
+  };
 
   calculateAbilityModifier = (abilityValue) => {
     return Math.floor((abilityValue - 10) / 2);
@@ -139,14 +151,10 @@ class CharacterCreatePage extends Component {
     }
     return abilityValue;
   };
-
-  // Depricated with UUID intall
-  // getUniqueIDForAttack = () => {
-  //   const newVal = Math.floor(Math.random() * 10000);
-  //   return this.state.attacks.every(attack => attack.id !== newVal) ? newVal : this.getUniqueIDForAttack();
-  // };
-
-  // baseline stats. May add others.
+  
+  /* ==================================== *
+   * Attack Method(s)                     *
+   * ==================================== */
   handleAttackAdd = () => {
     this.setState({
       attacks: [...this.state.attacks, {
@@ -176,6 +184,7 @@ class CharacterCreatePage extends Component {
       attacks: newAttacks
     });
   }
+
   handleAttackDamageChange = (id, value) => {
     const newAttacks = this.state?.attacks.map(attack => {
       return attack.id === id ? {...attack, damageDice: value} : attack;
@@ -185,6 +194,7 @@ class CharacterCreatePage extends Component {
       attacks: newAttacks
     });
   }
+
   handleAttackProficiencyChange = (id) => {
     const newAttacks = this.state?.attacks.map(attack => {
       return attack.id === id ? {...attack, proficiency: !attack.proficiency} : attack;
@@ -193,7 +203,23 @@ class CharacterCreatePage extends Component {
     this.setState({
       attacks: newAttacks
     });
-  }
+  };
+
+  /* =========================
+   * Generic Attack Function
+   * =========================
+   */
+    // need attack.id, key, newValue
+  handleAttackChange = (attackId, attackKeyValue) => ({target}) => {
+    const attacks = this.state?.attacks.map(attack => {
+      return attack.id === attackId ? {...attack, [attackKeyValue]: target.value} : attack;
+    });
+
+    this.setState({
+      attacks
+    });
+  };
+
 
   render() {
     const {abilities, skills, level} = this.state;
@@ -257,7 +283,7 @@ class CharacterCreatePage extends Component {
                   <h4>Attack #{index}</h4>
                   <div className="attackInfo">
                     <label>Attack Name: </label>
-                    <input type="text" value={attack.name} onChange={({target}) => this.handleAttackNameChange(attack.id, target.value)} />
+                    <input type="text" value={attack.name} onChange={this.handleAttackChange(attack.id, 'text')} />
                   </div>
                   <div className="attackInfo" >
                     <label>Damage:</label>
