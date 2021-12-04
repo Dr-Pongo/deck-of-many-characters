@@ -156,6 +156,7 @@ class CharacterCreatePage extends Component {
    * Action Method(s)                     *
    * ==================================== */
   handleActionAddRemove = (removeID = 0) => () => {
+    // Empty Action object
     const initialAction = {
       // must Haves
       id: uuidv4(),
@@ -169,11 +170,11 @@ class CharacterCreatePage extends Component {
       resultActive: false,
       resultAbility: '',
       resultBonus: 0,
-      resulteDice: '',
+      resultDice: '',
     };
 
-
-    // TODO: [Insert something that explains here]
+    // If a remove ID is recieved, removed selected ID from the current actions list
+    // Otherwise add a new initialAction from above
     const actions = removeID ? 
       this.state.actions.filter((action) => action.id !== removeID) :
       [...this.state.actions, initialAction];
@@ -184,10 +185,24 @@ class CharacterCreatePage extends Component {
   };
   
   handleActionChange = (actionID, actionKeyValue) => ({target}) => {
-    console.log(`Handle Action Change \nactionKeyValue:${actionKeyValue}\ntargetValue:${target.value}`);
+    // We need some type checks here so we don't get 'true' instead of a good true...
+    let newValue;
+    switch(actionKeyValue){
+      case 'proficiency':
+      case 'attemptActive':
+      case 'resultActive':
+        newValue = target.value === 'true';
+        break;
+      case 'attemptBonus':
+      case 'resultBonus':
+        newValue = parseInt(target.value);
+        break;
+      default:
+        newValue = target.value;
+    }
     
     const actions = this.state?.actions.map(action => {
-      return action.id === actionID ? {...action, [actionKeyValue]: target.value} : action;
+      return action.id === actionID ? {...action, [actionKeyValue]: newValue} : action;
     });
 
     this.setState({
@@ -267,7 +282,7 @@ class CharacterCreatePage extends Component {
                     <div className="actionInfo">
                       <label>Action Name: </label>
                       <input type="text" value={action.name} onChange={this.handleActionChange(action.id, 'name')} />
-                      <button type="button" className={action.proficiency ? 'clicked' : ''} value={!action.proficiency} onClick={this.handleActionChange(action.id, 'proficiency')} >{action.proficiency}</button>
+                      <button type="button" className={action.proficiency ? 'clicked' : ''} value={!action.proficiency} onClick={this.handleActionChange(action.id, 'proficiency')} >Proficiency</button>
                     </div>
                     {!action.attemptActive && <button type="button" value={!action.attemptActive} onClick={this.handleActionChange(action.id, 'attemptActive')}>Attempt Modifier</button>}
                     {action.attemptActive && 
@@ -288,14 +303,27 @@ class CharacterCreatePage extends Component {
                         <button type="button" value={!action.attemptActive} onClick={this.handleActionChange(action.id, 'attemptActive')}>Remove Modifier</button>
                       </div>
                     } 
-                    {/* {!action.resultActive && <button type="button" onClick={this.handleActionAddRemove(action.id)}>Result Modifier</button>} */}
-                    {/* {action.resultActive && 
+                    {!action.resultActive && <button type="button" value={!action.resultActive} onClick={this.handleActionChange(action.id, 'resultActive')}>Result Modifier</button>}
+                    {action.resultActive && 
                       <div className="actionInfo" >
-                        <label>Result:</label>
+                        <label>Result Ability:</label>
+                        <select value={action.resultAbility} onChange={this.handleActionChange(action.id, 'resultAbility')} >
+                          <option value="none" >None</option>
+                          {
+                            map(abilities, (ab, index) => {
+                              return (
+                                <option key={uuidv4()} value={abilities[ab]} >{ab.name}</option>
+                              )
+                            })
+                          }
+                        </select>
+                        <label>Result Bonus:</label>
+                        <input type="number" value={action.resultBonus} onChange={this.handleActionChange(action.id, 'resultBonus')} />
+                        <label>Result Dice:</label>
                         <input type="text" value={action.resultDice} onChange={this.handleActionChange(action.id, 'resultDice')} />
-                        <button type="button" onClick={this.handleActionAddRemove(action.id)}>Remove Modifier</button>
-                      </div> 
-                    } */}
+                        <button type="button" value={!action.resultActive} onClick={this.handleActionChange(action.id, 'resultActive')}>Remove Modifier</button>
+                      </div>
+                    } 
                     <button type="button" onClick={this.handleActionAddRemove(action.id)}>Remove Action</button>
                   </div>
                 );

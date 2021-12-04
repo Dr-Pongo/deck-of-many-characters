@@ -20,16 +20,27 @@
 .abilities {
     display: flex;
     justify-content: space-evenly;
+    width: 65%;
 }
 
 .saves {
-    flex-grow: 1;
+    width: 10%;
+}
+
+.save {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.save * {
+    margin: 3px;
 }
 
 .skills {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    width:25%;
 }
 
 .skillEditor {
@@ -45,7 +56,7 @@
     flex-direction: row;
     align-items: baseline;
     align-content: flex-start;   
-    flex-grow: 1;
+    border: solid black .025rem; 
 }
 
 .skillEditor * {
