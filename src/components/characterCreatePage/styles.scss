@@ -1,3 +1,7 @@
+.papaForm {
+    display: flex;
+    flex-direction: column;
+}
 
 .basicInfo {
     display: flex;
@@ -8,14 +12,24 @@
     padding: .25rem;
 }
 
+.additionalInfo {
+    display: inline-flex;
+    flex-direction: row;
+}
+
 .abilities {
     display: flex;
     justify-content: space-evenly;
 }
 
+.saves {
+    flex-grow: 1;
+}
+
 .skills {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
 .skillEditor {
@@ -23,6 +37,15 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: baseline;
+    flex-grow: 1;
+}
+
+.action {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    align-content: flex-start;   
+    flex-grow: 1;
 }
 
 .skillEditor * {
@@ -33,12 +56,6 @@
     color: blue;
 }
 
-.action {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    align-content: flex-start;   
-}
 .actionInfo {
     display: flex;
     flex-direction: column;
