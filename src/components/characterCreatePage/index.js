@@ -62,40 +62,6 @@ class CharacterCreatePage extends Component {
       this.calculateProficiency();
     }
   };
-
-  /* ==================================== *
-   * Skill Method(s)                      *
-   * ==================================== */
-  handleProfSkillButtonClick = (key) => {
-    if(this.state.skills[key].prof && this.state.skills[key].exp){
-      this.setState({ 
-        skills: { ...this.state.skills, 
-          [key]: {...this.state.skills[key],
-            prof: !this.state.skills[key].prof,
-            exp: false
-          }
-        }
-      })
-      return;
-    }
-    this.setState({ 
-      skills: { ...this.state.skills, 
-        [key]: {...this.state.skills[key],
-          prof: !this.state.skills[key].prof
-        }
-      }
-    })
-  };
-
-  handleExpSkillButtonClick = (key) => {
-    this.setState({ 
-      skills: { ...this.state.skills, 
-        [key]: {...this.state.skills[key],
-          exp: !this.state.skills[key].exp
-        }
-      }
-    })
-  };
   
   /* ==================================== *
    * Baisic Character Method(s)           *
@@ -139,6 +105,14 @@ class CharacterCreatePage extends Component {
     })
   };
 
+  handleAbilitySave = (key) => ({target}) => {
+    this.setState({ 
+      abilities: {...this.state.abilities, 
+        [key]:{...this.state.abilities[key], 
+          save:target.value === 'true'}}
+    })
+  };
+
   calculateAbilityModifier = (abilityValue) => {
     return Math.floor((abilityValue - 10) / 2);
   };
@@ -150,6 +124,41 @@ class CharacterCreatePage extends Component {
       return exp ? (abilityValue + this.state.proficiency * 2) : (abilityValue + this.state.proficiency);
     }
     return abilityValue;
+  };
+
+  /* ==================================== *
+   * Skill Method(s)                      *
+   * ==================================== */
+  handleProfSkillButtonClick = (key) => {
+    // Can't have expertise without proficiency!
+    if(this.state.skills[key].prof && this.state.skills[key].exp){
+      this.setState({ 
+        skills: { ...this.state.skills, 
+          [key]: {...this.state.skills[key],
+            prof: !this.state.skills[key].prof,
+            exp: false
+          }
+        }
+      })
+      return;
+    }
+    this.setState({ 
+      skills: { ...this.state.skills, 
+        [key]: {...this.state.skills[key],
+          prof: !this.state.skills[key].prof
+        }
+      }
+    })
+  };
+
+  handleExpSkillButtonClick = (key) => {
+    this.setState({ 
+      skills: { ...this.state.skills, 
+        [key]: {...this.state.skills[key],
+          exp: !this.state.skills[key].exp
+        }
+      }
+    })
   };
   
   /* ==================================== *
@@ -210,7 +219,9 @@ class CharacterCreatePage extends Component {
     });
   };
 
-
+  /* ==================================== *
+   * Render Time!                         *
+   * ==================================== */
   render() {
     const {abilities, skills, level} = this.state;
     return (
@@ -267,6 +278,7 @@ class CharacterCreatePage extends Component {
                    <div className="save" key={ab.id} >
                      <h4>{ab.name}</h4>
                      <p>{`${this.calculateAbilityModifier(ab.val)}` + ab.save ? this.state.proficiency : 0}</p>
+                    <button className={ab.save ? 'clicked' : ''} type="button" onClick={() => this.handleAbilitySave(ab)}>Proficiency</button>
                    </div> 
                   )
               }) }
