@@ -20,11 +20,6 @@
 .abilities {
     display: flex;
     justify-content: space-evenly;
-    width: 65%;
-}
-
-.saves {
-    width: 10%;
 }
 
 .save {
@@ -40,7 +35,6 @@
 .skills {
     display: flex;
     flex-direction: column;
-    width:25%;
 }
 
 .skillEditor {
@@ -48,7 +42,6 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: baseline;
-    flex-grow: 1;
 }
 
 .action {

@@ -98,6 +98,7 @@ class CharacterCreatePage extends Component {
    * Ability Method(s)                    *
    * ==================================== */
   updateAbility = (key) => (event) => {
+    console.log(`${key}`);
     this.setState({ 
       abilities: {...this.state.abilities, 
         [key]:{...this.state.abilities[key], 
@@ -106,10 +107,11 @@ class CharacterCreatePage extends Component {
   };
 
   handleAbilitySave = (key) => ({target}) => {
+    console.log(`${key}, ${target.value}`);
     this.setState({ 
       abilities: {...this.state.abilities, 
         [key]:{...this.state.abilities[key], 
-          save:target.value === 'true'}}
+          save: target.value === 'true'}}
     })
   };
 
@@ -120,7 +122,6 @@ class CharacterCreatePage extends Component {
   deriveSkillValue = (prof, exp, ability) => {
     const abilityValue = this.calculateAbilityModifier(this.state.abilities[ability].val);
     if(prof) {
-      console.log(`${this.state.proficiency}`);
       return exp ? (abilityValue + this.state.proficiency * 2) : (abilityValue + this.state.proficiency);
     }
     return abilityValue;
@@ -277,8 +278,9 @@ class CharacterCreatePage extends Component {
                   return (
                    <div className="save" key={ab.id} >
                      <h4>{ab.name}</h4>
-                     <p>{`${this.calculateAbilityModifier(ab.val)}` + ab.save ? this.state.proficiency : 0}</p>
-                    <button className={ab.save ? 'clicked' : ''} type="button" onClick={() => this.handleAbilitySave(ab)}>Proficiency</button>
+                     {/* Printing out Ability Modifier, adding proficiency if ability save is true */}
+                     <p>{`${ab.save ? this.calculateAbilityModifier(ab.val) + this.state.proficiency : this.calculateAbilityModifier(ab.val)}`}</p>
+                    <button className={ab.save ? 'clicked' : ''} type="button" value={!ab.save} onClick={this.handleAbilitySave(index)}>Proficiency</button>
                    </div> 
                   )
               }) }
