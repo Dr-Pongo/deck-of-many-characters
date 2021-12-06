@@ -1,0 +1,66 @@
+.papaForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.basicInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    border: solid black .025rem; 
+    padding: .25rem;
+}
+
+.additionalInfo {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.abilities {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.save {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.save * {
+    margin: 3px;
+}
+
+.skills {
+    display: flex;
+    flex-direction: column;
+}
+
+.skillEditor {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+}
+
+.action {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    align-content: flex-start;   
+    border: solid black .025rem; 
+}
+
+.skillEditor * {
+    margin: 2px;
+}
+
+.clicked {
+    color: blue;
+}
+
+.actionInfo {
+    display: flex;
+    flex-direction: column;
+}

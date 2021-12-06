@@ -1,8 +1,12 @@
 import React from "react";
 import "./styles.css";
+import CharacterCreatePage from '../characterCreatePage/index';
 
 function App() {
-  return <div className="App">the whole ass application goes here</div>;
+  return <div className="App">
+    <h1>Big ol text</h1>
+    <CharacterCreatePage />
+  </div>;
 }
 
 export default App;
