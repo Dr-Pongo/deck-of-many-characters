@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import "./styles.scss";
 import AbilityEditor from './abilityEditor/index';
 import map from 'lodash/map';
-import {v4 as uuidv4} from 'uuid';
 // UUID DOCS: npmjs.com/package/uuid
+import {v4 as uuidv4} from 'uuid';
+import { gotoHomePage } from '../app/pageSlice';
 
 //GLOBALS
 const SHOULD_BE_NUMBER = true;
@@ -221,6 +223,14 @@ class CharacterCreatePage extends Component {
   };
 
   /* ==================================== *
+   * Tester Fun!!                         *
+   * ==================================== */
+  pageUpdateTest = () => {
+    
+
+  }
+
+  /* ==================================== *
    * Render Time!                         *
    * ==================================== */
   render() {
@@ -346,9 +356,23 @@ class CharacterCreatePage extends Component {
           </div>
         </div>
       <input type="submit" value="Submit" />
+      <button onClick={() => this.props.updateCurrentPage()}>Update Current Page Test</button>
       </form>
     </div>);
-  }
+  };
 };
 
-export default CharacterCreatePage;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCurrentPage: () =>
+      dispatch(gotoHomePage()),
+  };
+};
+
+// export default CharacterCreatePage;
+
+
+// Connect goes somewhere here probalby 
+// mapStateToProps arg can be left as null since I don't care 
+//  about store updates in this particular component.
+export default connect(null, mapDispatchToProps)(CharacterCreatePage);

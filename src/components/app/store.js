@@ -1,9 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { pageSlice, selectPage } from './pageSlices.js';
+import pageSlice from './pageSlice.js';
 
 export const store = configureStore({
   reducer: {
     page: pageSlice,
-
   },
 });
