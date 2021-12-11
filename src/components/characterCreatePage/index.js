@@ -19,7 +19,7 @@ class CharacterCreatePage extends Component {
       name: '',
       level: 1,
       class: '',
-      subclass: '',
+      subClass: '',
       proficiency: 2,
       abilities: {
         strength: {name: "Strength", val: 10, save: false, id:uuidv4()},
@@ -268,7 +268,7 @@ class CharacterCreatePage extends Component {
               onChange={this.updateBasicInfoValue('class')} />
           </label>
           <label>SubClass: 
-            <input type="text" onChange={this.updateBasicInfoValue('subclass')} />
+            <input type="text" onChange={this.updateBasicInfoValue('subClass')} />
           </label>
           <div className="abilities" >
             { map(abilities, (ab, index) => {
