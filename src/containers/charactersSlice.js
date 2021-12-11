@@ -9,14 +9,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
  const charactersSlice = createSlice({
     name: 'characters',
-    initialState: [],
+    initialState: {},
     reducers: {
         addNewCharacter: (state, action) => {
             console.log(action);
-            return [...state, action.payload ];
+            return {...state, [action.payload.id]: action.payload};
         },
         removeCharacter: (state, action) => {
-            return state.filter(elem => elem.id !== action.payload);
+            delete state[action.payload];
         },
     }
  });

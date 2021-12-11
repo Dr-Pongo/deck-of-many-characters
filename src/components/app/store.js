@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import pageReducer from '../../containers/pageSlice';
-import charactersReducer from '../../containers/charactersSlice'
+import charactersReducer from '../../containers/charactersSlice';
+import selectedCharacterReducer from '../../containers/selectedCharacterSlice';
 
 export const store = configureStore({
   reducer: {
     page: pageReducer,
     characters: charactersReducer,
+    selectedCharacter: selectedCharacterReducer,
   },
 });
