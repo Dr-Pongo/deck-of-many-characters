@@ -1,0 +1,26 @@
+import { createSlice } from "@reduxjs/toolkit";
+/* 
+ * characterSlice holds a list of all current characters
+ * 
+ * This will be stored locally, but eventually I'd like a google auth to store
+ *  info in a database or somesuch option cus that's cool
+ * 
+ */
+
+ const charactersSlice = createSlice({
+    name: 'characters',
+    initialState: [],
+    reducers: {
+        addNewCharacter: (state, action) => {
+            console.log(action);
+            return [...state, action.payload ];
+        },
+        removeCharacter: (state, action) => {
+            return state.filter(elem => elem.id !== action.payload);
+        },
+    }
+ });
+ 
+export const selectCharacters = (state) => state.characters;
+export const { addNewCharacter, removeCharacter } = charactersSlice.actions;
+export default charactersSlice.reducer;

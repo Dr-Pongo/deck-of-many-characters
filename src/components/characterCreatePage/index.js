@@ -5,7 +5,8 @@ import AbilityEditor from './abilityEditor/index';
 import map from 'lodash/map';
 // UUID DOCS: npmjs.com/package/uuid
 import {v4 as uuidv4} from 'uuid';
-import { gotoHomePage } from '../app/pageSlice';
+import { gotoPage, HOME_PAGE } from '../../containers/pageSlice';
+import { addNewCharacter } from '../../containers/charactersSlice';
 
 //GLOBALS
 const SHOULD_BE_NUMBER = true;
@@ -14,6 +15,7 @@ class CharacterCreatePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: uuidv4(),
       name: '',
       level: 1,
       class: '',
@@ -223,11 +225,22 @@ class CharacterCreatePage extends Component {
   };
 
   /* ==================================== *
-   * Tester Fun!!                         *
+   * Form Finishers                       *
    * ==================================== */
-  pageUpdateTest = () => {
-    
-
+  handleSubmit = () => {
+    // Validate ALL the data
+    /**
+     * Probably need to have smaller handlers that feed this validation, 
+     *  it'll be a little cleaner..
+     */
+    // Add new character to store
+    this.props.addCharacter(this.state);
+    // return to the Home Page
+    this.props.updateCurrentPage(HOME_PAGE);
+  }
+  handleCancel = () => {
+    // nuke changes and return to the Home Page
+    this.props.updateCurrentPage(HOME_PAGE);
   }
 
   /* ==================================== *
@@ -297,7 +310,7 @@ class CharacterCreatePage extends Component {
           </div>
           <div className="actions" >
             <h3>Actions!</h3>
-            <button type="button" onClick={this.handleActionAddRemove()} >Add Attaack!</button>
+            <button type="button" onClick={this.handleActionAddRemove()} >Add Action!</button>
             { 
               this.state.actions.map((action, index) => {
                 return (
@@ -355,8 +368,8 @@ class CharacterCreatePage extends Component {
             }
           </div>
         </div>
-      <input type="submit" value="Submit" />
-      <button onClick={() => this.props.updateCurrentPage()}>Update Current Page Test</button>
+      <button type="button" onClick={this.handleSubmit}>Save Character</button>
+      <button type="button" onClick={this.handleCancel}>Cancel</button>
       </form>
     </div>);
   };
@@ -364,15 +377,9 @@ class CharacterCreatePage extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateCurrentPage: () =>
-      dispatch(gotoHomePage()),
+    updateCurrentPage: (destinationPage) => dispatch(gotoPage(destinationPage)),
+    addCharacter: (characterInfo) => dispatch(addNewCharacter(characterInfo)),
   };
 };
 
-// export default CharacterCreatePage;
-
-
-// Connect goes somewhere here probalby 
-// mapStateToProps arg can be left as null since I don't care 
-//  about store updates in this particular component.
 export default connect(null, mapDispatchToProps)(CharacterCreatePage);
