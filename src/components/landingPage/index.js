@@ -1,15 +1,42 @@
-import React, { Component } from "react";
-import "./styles";
+import React from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import "./styles.scss";
+import { selectCharacters, removeCharacter } from '../../containers/charactersSlice';
+import { gotoPage, CREATE_PAGE, EDIT_PAGE, PLAY_PAGE } from '../../containers/pageSlice';
+import { setSelectedCharacter } from '../../containers/selectedCharacterSlice';
+import map from 'lodash/map';
 
-class landingEditPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const LandingPage = () => {
+    const dispatch = useDispatch();
+    const charList = useSelector(selectCharacters);
 
-  render() {
-    return <div className="page">landing page goes here</div>;
-  }
+    const handleEdit = (id) => {
+      //Set Current Character
+      dispatch(setSelectedCharacter(id));
+      // Go to Edit Page
+      dispatch(gotoPage(EDIT_PAGE));
+    };
+
+    const handlePlay = (id) => {
+      //Set Current Character
+      dispatch(setSelectedCharacter(id));
+      // Go to Edit Page
+      dispatch(gotoPage(EDIT_PAGE));
+    };
+
+    return (
+      <div className="page">
+        <h2>Characters</h2>
+        <button onClick={() => dispatch(gotoPage(CREATE_PAGE))} type="button">Create New Character</button>
+        {map(charList, (character) => 
+          <div key={character.id} className="character">
+            <h3>{`${character.name} Level ${character.level} ${character.subClass} ${character.class}`}</h3>
+            <button onClick={() => dispatch(removeCharacter(character.id))} type="button">Delete</button>
+            <button onClick={() => handleEdit(character.id)} type="button">Edit</button>
+            <button onClick={() => handlePlay(character.id)} type="button">Play!</button>
+          </div>
+        )}
+      </div>);
 }
 
-export default landingEditPage;
+export default LandingPage;

@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import "./styles.scss";
 import AbilityEditor from './abilityEditor/index';
 import map from 'lodash/map';
-import {v4 as uuidv4} from 'uuid';
 // UUID DOCS: npmjs.com/package/uuid
+import {v4 as uuidv4} from 'uuid';
+import { gotoPage, HOME_PAGE } from '../../containers/pageSlice';
+import { addNewCharacter } from '../../containers/charactersSlice';
 
 //GLOBALS
 const SHOULD_BE_NUMBER = true;
@@ -12,10 +15,11 @@ class CharacterCreatePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: uuidv4(),
       name: '',
       level: 1,
       class: '',
-      subclass: '',
+      subClass: '',
       proficiency: 2,
       abilities: {
         strength: {name: "Strength", val: 10, save: false, id:uuidv4()},
@@ -221,6 +225,25 @@ class CharacterCreatePage extends Component {
   };
 
   /* ==================================== *
+   * Form Finishers                       *
+   * ==================================== */
+  handleSubmit = () => {
+    // Validate ALL the data
+    /**
+     * Probably need to have smaller handlers that feed this validation, 
+     *  it'll be a little cleaner..
+     */
+    // Add new character to store
+    this.props.addCharacter(this.state);
+    // return to the Home Page
+    this.props.updateCurrentPage(HOME_PAGE);
+  }
+  handleCancel = () => {
+    // nuke changes and return to the Home Page
+    this.props.updateCurrentPage(HOME_PAGE);
+  }
+
+  /* ==================================== *
    * Render Time!                         *
    * ==================================== */
   render() {
@@ -245,7 +268,7 @@ class CharacterCreatePage extends Component {
               onChange={this.updateBasicInfoValue('class')} />
           </label>
           <label>SubClass: 
-            <input type="text" onChange={this.updateBasicInfoValue('subclass')} />
+            <input type="text" onChange={this.updateBasicInfoValue('subClass')} />
           </label>
           <div className="abilities" >
             { map(abilities, (ab, index) => {
@@ -287,7 +310,7 @@ class CharacterCreatePage extends Component {
           </div>
           <div className="actions" >
             <h3>Actions!</h3>
-            <button type="button" onClick={this.handleActionAddRemove()} >Add Attaack!</button>
+            <button type="button" onClick={this.handleActionAddRemove()} >Add Action!</button>
             { 
               this.state.actions.map((action, index) => {
                 return (
@@ -345,10 +368,18 @@ class CharacterCreatePage extends Component {
             }
           </div>
         </div>
-      <input type="submit" value="Submit" />
+      <button type="button" onClick={this.handleSubmit}>Save Character</button>
+      <button type="button" onClick={this.handleCancel}>Cancel</button>
       </form>
     </div>);
-  }
+  };
 };
 
-export default CharacterCreatePage;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCurrentPage: (destinationPage) => dispatch(gotoPage(destinationPage)),
+    addCharacter: (characterInfo) => dispatch(addNewCharacter(characterInfo)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CharacterCreatePage);
