@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './style.scss';
 import map from 'lodash/map';
+import {v4 as uuidv4} from 'uuid';
 
 const DICE_MAP = new Map([
     ['d4', 4],
@@ -12,57 +13,14 @@ const DICE_MAP = new Map([
     ['d100', 100],
   ]);
 
-  /* ==================================== *
-   * TEMP handleDiceSelect                *
-   * ==================================== */
-  const handleDiceSelect = ({target}) => {
-    this.setState({currentRoll: { ...this.state.currentRoll, 
-      dice: { ...this.state.currentRoll.dice,
-        [target.value]: { ...this.state.currentRoll.dice[target.value], 
-          count: this.state.currentRoll.dice[target.value].count + 1 }
-      }}});
-  };
-
-  /* ==================================== *
-   * Handle Dice Roll!                    *
-   * ==================================== */
-  const handleDiceRoll = () => {
-    // concern - dirty data? is updating prevRoll, updating the state value..? I think it is
-    const prevRoll = this.state.currentRoll;
-
-    // Map over every die to do calculation
-    map(prevRoll.dice, (die, i) => {
-      console.log(die);
-      // Do the maths for each die, and add result to results array for that die
-      for(let p = 0; p < die.count; p++){
-        const tRes = Math.ceil(Math.random() * DICE_MAP.get(`${i}`))
-        console.log(`Current result! ${tRes}`);
-        die.result.push(tRes);
-      }
-      // keep running sum for total result
-      prevRoll.result = die.result.reduce((prev, curr) => prev + curr, prevRoll.result);
-    });
-    
-    // calculate total with modifiers
-    prevRoll.result += prevRoll.modifiers;
-
-    // Update the state! (reset currentRoll, add previous to history)
-    //this.setState({ currentRoll: cleanRoll, history: [...this.state.history, prevRoll] })
-  };
-
-  // Empty state
-  const cleanRoll = {
-    dice: {
-      d4: {count: 0, result: []},
-      d6: {count: 0, result: []},
-      d8: {count: 0, result: []}, 
-      d10: {count: 0, result: []},
-      d12: {count: 0, result: []},
-      d20: {count: 0, result: []},
-      d100: {count: 0, result: []},
-    },
-    modifiers: 0,
-    result: 0,
+  const newDice = {
+    d4: 0,
+    d6: 0,
+    d8: 0, 
+    d10: 0,
+    d12: 0,
+    d20: 0,
+    d100: 0,
   };
 
 /* ==================================== *
@@ -70,7 +28,57 @@ const DICE_MAP = new Map([
  * ==================================== */
 const DiceRoller = () => {
     const [history, setHistory] = useState([]);
-    const [currentRoll, setCurrentRoll] = useState(cleanRoll);
+    const [dice, setDice] = useState(newDice);
+    const [modifiers, setModifiers] = useState(0);
+ 
+    /* ==================================== *
+     * Handle Dice Roll!                    *
+     * ==================================== */
+    // Handle individual dice rolls based on the DICE_MAP die value
+    const individualDiceRoll = (die) => {
+        return Math.ceil(Math.random() * DICE_MAP.get(die));
+    };
+
+    const handleDiceRoll = () => {
+        // new result object that will populate history with necessary information
+        const result = {
+            d4: [],
+            d6: [],
+            d8: [], 
+            d10: [],
+            d12: [],
+            d20: [],
+            d100: [],
+            modifier: modifiers,
+            total: 0,
+        };
+
+        // Calculate individual results
+        DICE_MAP.forEach((value, key) => {
+            for(let p = 0; p < dice[key]; p++) {
+                const diceRoll = individualDiceRoll(key);
+                // update total
+                result.total += diceRoll;
+                // add individual results
+                result[key].push(diceRoll);
+            }
+        });
+        result.total += result.modifier;
+
+        // Set history and empty out current dice pool
+        setHistory(prev => [...prev, result]);
+        setDice(newDice);
+        setModifiers(0);
+    }
+
+    /* ==================================== *
+     * handleDiceSelect                     *
+     * ==================================== */
+    const handleDiceSelect = ({target}) => {
+        setDice(prev => ({...prev, 
+            [target.value]: prev[target.value] + 1
+        }));
+    };
 
     return (
         <div className="roll-space">
@@ -84,6 +92,9 @@ const DiceRoller = () => {
             <button type="button" value="d20"  onClick={handleDiceSelect} >d20</button>
             <button type="button" value="d100" onClick={handleDiceSelect} >d100</button>
           </div>
+          {history.map((roll, i) => {
+              return (<p key={uuidv4()} >{`Result: ${roll.total}`}</p>);
+          })}
         </div>
     );
 }
