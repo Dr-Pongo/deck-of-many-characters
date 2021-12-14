@@ -21,7 +21,7 @@ const LandingPage = () => {
       //Set Current Character
       dispatch(setSelectedCharacter(id));
       // Go to Edit Page
-      dispatch(gotoPage(EDIT_PAGE));
+      dispatch(gotoPage(PLAY_PAGE));
     };
 
     return (
