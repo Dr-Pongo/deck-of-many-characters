@@ -32,20 +32,25 @@ const DiceRoller = () => {
     const handleDiceRoll = () => {
         // new result object that will populate history with necessary information
         const result = {
-            d4: [],
-            d6: [],
-            d8: [], 
-            d10: [],
-            d12: [],
-            d20: [],
-            d100: [],
+            dice: [],
             modifier: modifiers,
             total: 0,
         };
 
-        // Calculate individual results
+        // Calculate dice roll
+        result.dice = dice.map((die, i) => {
+            const diceRoll = individualDiceRoll(die.value);
+            result.total += diceRoll;
+            return {...die, result: diceRoll};
+        });
+
+        // Add modifier
+        result.total += modifiers;
 
         // Set history and empty out current dice pool
+        setHistory(prev => [result, ...prev]);
+        setModifiers(0);
+        setDice([]);
     }
 
     /* ==================================== *
@@ -53,34 +58,42 @@ const DiceRoller = () => {
      * ==================================== */
     const handleDiceSelect = (die, dieValue) => {
         setDice(prev => ([...prev, 
-            { die: die, value: dieValue }
+            { name: die, value: dieValue, key: uuidv4(), }
         ]));
     };
 
     /* ==================================== *
      * handleDiceRemove                     *
      * ==================================== */
-    const handleDiceRemove = ({target}) => {
-        setDice(prev => ({...prev, 
-            [target.value]: prev[target.value] - 1
-        }));
+    const handleDiceRemove = (removeKey) => {
+        console.log(`Current Dice: ${dice}\nSelected Key: ${removeKey}`);
+        setDice(prev => prev.filter(cur => cur.key !== removeKey));
     };
 
     return (
         <div className="roll-space">
-          <button type="button" onClick={handleDiceRoll} >ROLL THE CLIP</button>
+          <button type="button" onClick={handleDiceRoll} >ROLL ALL THE DICE!</button>
           <div className="dice-box">
-          {map(DICE_MAP, (die, d) => {
-                return <button className={`dice-${d}`} type="button" onClick={() => handleDiceSelect(d, die)} >{d}</button>
+            {map(DICE_MAP, (die, d) => {
+                  return <button type="button" className={`dice-${d}`} key={uuidv4()} onClick={() => handleDiceSelect(d, die)} >{d}</button>
             })}
           </div>
           <div className='dice-tray'>
-            {/* {
-            } */}
+            {dice.map((die, d) =>
+                <button type="button" className={`dice-${die.name}`} key={die.key} onClick={() => handleDiceRemove(die.key)} >{die.name}</button>
+            )}
           </div>
-          {history.map((roll, i) => {
-              return (<p key={uuidv4()} >{`Result: ${roll.total}`}</p>);
-          })}
+          <div className='dice-history'>
+            <label>Dice History (latest on top)</label>
+            {history.map((roll, i) => {
+                console.log(`${roll.dice}`);
+                return (
+                    <p key={uuidv4()} className='dice-result' >
+                        {`Result: ${roll.dice.map(d => `(${d.name})${d.result}`).join(' + ')} + ${roll.modifier} = ${roll.total}`}
+                    </p>
+                );
+            })}
+          </div>
         </div>
     );
 }
