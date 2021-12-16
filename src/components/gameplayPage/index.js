@@ -18,7 +18,6 @@ class GameplayPage extends Component {
       <div className="page">
         <h2>GamePlay Page</h2>
         <DiceRoller />
-        {/** Leaving this out for now, so I can focus on Dice functionality
         <div className="basicInfo">
           <h3>{name}</h3>
           <label>{`Level ${level} ${subClass} ${this.props.class}`}</label>
@@ -63,7 +62,6 @@ class GameplayPage extends Component {
           </div>
         </div>
         <button onClick={() => this.props.updateCurrentPage(HOME_PAGE)} type="button">Return Home</button>
-         */}
       </div>
     );
   }
