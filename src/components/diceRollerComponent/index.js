@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './style.scss';
-import map from 'lodash/map';
 import {v4 as uuidv4} from 'uuid';
 
 const DICE_MAP = new Map([
@@ -80,6 +79,15 @@ const DiceRoller = () => {
         }));
     };
 
+    /* ==================================== *
+     * handleDiceRemove                     *
+     * ==================================== */
+    const handleDiceRemove = ({target}) => {
+        setDice(prev => ({...prev, 
+            [target.value]: prev[target.value] - 1
+        }));
+    };
+
     return (
         <div className="roll-space">
           <button type="button" onClick={handleDiceRoll} >ROLL THE CLIP</button>
@@ -91,6 +99,16 @@ const DiceRoller = () => {
             <button type="button" value="d12"  onClick={handleDiceSelect} >d12</button>
             <button type="button" value="d20"  onClick={handleDiceSelect} >d20</button>
             <button type="button" value="d100" onClick={handleDiceSelect} >d100</button>
+          </div>
+          <div className='dice-tray'>
+            {
+                // Calculate individual results
+                DICE_MAP.forEach((value, key) => {
+                    for(let p = 0; p < dice[key]; p++) {
+                        <button type="button" value={key} onClick={handleDiceRemove} >{key}</button>
+                    }
+                })
+            }
           </div>
           {history.map((roll, i) => {
               return (<p key={uuidv4()} >{`Result: ${roll.total}`}</p>);

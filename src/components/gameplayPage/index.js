@@ -5,42 +5,15 @@ import map from 'lodash/map';
 import { gotoPage, HOME_PAGE } from '../../containers/pageSlice';
 import DiceRoller from '../diceRollerComponent/index';
 
-const DICE_MAP = new Map([
-  ['d4', 4],
-  ['d6', 6],
-  ['d8', 8],
-  ['d10', 10],
-  ['d12', 12],
-  ['d20', 20],
-  ['d100', 100],
-]);
-
-const cleanRoll = {
-  dice: {
-    d4: {count: 0, result: []},
-    d6: {count: 0, result: []},
-    d8: {count: 0, result: []}, 
-    d10: {count: 0, result: []},
-    d12: {count: 0, result: []},
-    d20: {count: 0, result: []},
-    d100: {count: 0, result: []},
-  },
-  modifiers: 0,
-  result: 0,
-};
-
 
 class GameplayPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentRoll: cleanRoll,
-      history: [],
-    };
+    this.state = { };
   }
 
   render() {
-    const {name, level, subClass, abilities, skills, actions} = this.props;
+    const {name, level, subClass, abilities, skills, actions} = this.props.currentCharacter;
     return (
       <div className="page">
         <h2>GamePlay Page</h2>
@@ -97,8 +70,9 @@ class GameplayPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { characters, selectedCharacter } = state;
-  return characters[selectedCharacter];
+  return { 
+    currentCharacter: state.characters[state.selectedCharacter], 
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
