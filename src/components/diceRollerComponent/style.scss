@@ -1,3 +1,36 @@
+button {
+    border: none;
+    background-color: transparent;
+}
+
 .dice-tray {
     border: 2px solid black;
+    height: 50px;
+}
+
+.dice-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;
+    height: 50px;
+
+}
+
+.dice-result {
+    display: flex;
+    flex-direction: row;
+}
+
+.dice-result-combo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-self: start;
+    height: 15px;
+}
+
+.dice-d4::before {
+    width: 100%;
+    height: auto;
 }
