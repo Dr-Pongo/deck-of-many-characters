@@ -52,8 +52,36 @@ const DiceRoller = () => {
 
         // Calculate dice roll
         result.dice = dice.map((die, i) => {
-            const diceRoll = individualDiceRoll(die.value);
-            result.total += diceRoll;
+            let diceRoll;
+            // if(advantage) {
+            //     /* ==================================================================================== *
+            //      * So the main idea with advantage/disadvantage is:                                     *
+            //      * the unused number (the lower for advantage, and higher for disadvantage)             *
+            //      * will be negative and not used in the calculation for the total.                      *
+            //      * This way when we display the results, we can show both rolls to allow people to be   *
+            //      * equally upset for either. The negative number will display greyed out or something   *
+            //      * ==================================================================================== */
+                
+
+            //     let rollA = individualDiceRoll(die.value);
+            //     let rollB = individualDiceRoll(die.value);
+            //     if(rollA > rollB) {
+            //         rollB *= -1;
+            //         result.total += rollA;
+            //     } else {
+            //         rollA *= -1;
+            //         result.total += rollB;
+            //     }
+            //     diceRoll = [rollA, rollB];
+
+
+
+
+            // } else {
+                diceRoll = individualDiceRoll(die.value);
+                result.total += diceRoll;
+            // }
+            
             return {...die, result: diceRoll};
         });
 
@@ -79,8 +107,14 @@ const DiceRoller = () => {
      * handleDiceRemove                     *
      * ==================================== */
     const handleDiceRemove = (removeKey) => {
-        console.log(`Current Dice: ${dice}\nSelected Key: ${removeKey}`);
         setDice(prev => prev.filter(cur => cur.key !== removeKey));
+    };
+
+    /* ==================================== *
+     * handleAdvantageSelect                *
+     * ==================================== */
+    const handleAdvantageSelect = () => {
+        setAdvantage(prev => !prev);
     };
 
     /* ==================================== *
@@ -88,7 +122,8 @@ const DiceRoller = () => {
      * ==================================== */
     return (
         <div className="roll-space">
-          <button type="button" onClick={handleDiceRoll} >ROLL ALL THE DICE!</button>
+          <button type="button" onClick={handleDiceRoll} >ROLL THE DICE!</button>
+          <button type="button" onClick={handleAdvantageSelect} >Advantage</button>
           <div className="dice-box">
             {map(DICE_MAP, (die, d) => {
                 // All of the Displays have similar names, this be a neat way to do things
@@ -99,19 +134,18 @@ const DiceRoller = () => {
           <div className='dice-tray'>
             {dice.map((die, d) => {
                 const TagName = DICE_MAP[die.name][`D${die.value}Display`];
-                return <TagName dieValue={die.value} key={die.key} onClick={() => handleDiceSelect(d, die.value)} />
+                return <TagName dieValue={die.value} key={die.key} onClick={() => handleDiceRemove(die.key)} />
             })}
           </div>
           <div className='dice-history'>
             <label>Dice History (latest on top)</label>
             {history.map((roll, i) => {
-                console.log(`${roll.dice}`);
                 return (
                     <div key={uuidv4()} className='dice-result' >
                         {roll.dice.map(die => {
                             const TagName = DICE_MAP[die.name][`D${die.value}Display`];
                             return (
-                                <div className='dice-result-combo'>
+                                <div key={uuidv4()} className='dice-result-combo'>
                                     <TagName dieValue={die.result} key={die.key} />
                                     <p> + </p>
                                 </div>
