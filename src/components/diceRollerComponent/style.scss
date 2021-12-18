@@ -3,6 +3,14 @@ button {
     background-color: transparent;
 }
 
+[class*="-button-text"]{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-size: 1.4rem;
+    color: white;
+    z-index: 2;
+}
+
 .dice-tray {
     border: 2px solid black;
     height: 50px;

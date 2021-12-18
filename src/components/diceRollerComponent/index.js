@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import './style.scss';
 import {v4 as uuidv4} from 'uuid';
 import map from 'lodash/map';
-import D4Display from '../../features/d4/d4';
-import D6Display from '../../features/d6/d6';
+import { ToWords } from 'number-to-words';
+import D4Display from '../../features/dice/d4';
+import D6Display from '../../features/dice/d6';
+import D8Display from '../../features/dice/d8';
+import D10Display from '../../features/dice/d10';
+import D12Display from '../../features/dice/d12';
+import D20Display from '../../features/dice/d20';
+import D100Display from '../../features/dice/d100';
 
 // Dice Map constant
 // this helps with maths and keeping track of rolls
@@ -85,14 +91,27 @@ const DiceRoller = () => {
           <button type="button" onClick={handleDiceRoll} >ROLL ALL THE DICE!</button>
           <div className="dice-box">
             {map(DICE_MAP, (die, d) => {
+                // I'd like to try and so something liek this bc it looks cleaner, 
+                //   but the number in the PascalCase seems to cause issues
+                // const TagName = `D${die}Display`;
+                // return <TagName dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
                 switch(die){
                     case 4: 
                         return <D4Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
                     case 6: 
                         return <D6Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
+                    case 8: 
+                         return <D8Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
+                    case 10: 
+                        return <D10Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
+                    case 12: 
+                        return <D12Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
+                    case 20: 
+                        return <D20Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
+                    case 100: 
+                        return <D100Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
                     default:
                         return <button type="button" className={`dice-${d}`} key={uuidv4()} onClick={() => handleDiceSelect(d, die)} >{d}</button>
-
                 }
             })}
           </div>
