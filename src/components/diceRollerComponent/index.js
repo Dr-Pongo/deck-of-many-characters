@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './style.scss';
 import {v4 as uuidv4} from 'uuid';
 import map from 'lodash/map';
-import { ToWords } from 'number-to-words';
 import D4Display from '../../features/dice/d4';
 import D6Display from '../../features/dice/d6';
 import D8Display from '../../features/dice/d8';
@@ -13,14 +12,15 @@ import D100Display from '../../features/dice/d100';
 
 // Dice Map constant
 // this helps with maths and keeping track of rolls
+// also this helps clean up rendering all of the dice
 const DICE_MAP = {
-    d4: 4,
-    d6: 6,
-    d8: 8,
-    d10: 10,
-    d12: 12,
-    d20: 20,
-    d100: 100
+    d4: {value: 4, D4Display: D4Display},
+    d6: {value: 6, D6Display: D6Display},
+    d8: {value: 8, D8Display: D8Display},
+    d10: {value: 10, D10Display: D10Display},
+    d12: {value: 12, D12Display: D12Display},
+    d20: {value: 20, D20Display: D20Display},
+    d100: {value: 100, D100Display: D100Display},
 };
 
 /* ==================================== *
@@ -91,40 +91,15 @@ const DiceRoller = () => {
           <button type="button" onClick={handleDiceRoll} >ROLL ALL THE DICE!</button>
           <div className="dice-box">
             {map(DICE_MAP, (die, d) => {
-                // I'd like to try and so something liek this bc it looks cleaner, 
-                //   but the number in the PascalCase seems to cause issues
-                // const TagName = `D${die}Display`;
-                // return <TagName dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                switch(die){
-                    case 4: 
-                        return <D4Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                    case 6: 
-                        return <D6Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                    case 8: 
-                         return <D8Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                    case 10: 
-                        return <D10Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                    case 12: 
-                        return <D12Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                    case 20: 
-                        return <D20Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                    case 100: 
-                        return <D100Display dieValue={die} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                    default:
-                        return <button type="button" className={`dice-${d}`} key={uuidv4()} onClick={() => handleDiceSelect(d, die)} >{d}</button>
-                }
+                // All of the Displays have similar names, this be a neat way to do things
+                const TagName = die[`D${die.value}Display`];
+                return <TagName dieValue={die.value} key={die.key} onClick={() => handleDiceSelect(d, die.value)} />
             })}
           </div>
           <div className='dice-tray'>
             {dice.map((die, d) => {
-                switch(die.value){
-                    case 4: 
-                        return <D4Display dieValue={die.value} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                    case 6: 
-                        return <D6Display dieValue={die.value} key={die.key} onClick={() => handleDiceSelect(d, die)} />
-                    default:
-                        return <button type="button" className={`dice-${die.name}`} key={die.key} onClick={() => handleDiceRemove(die.key)} >{die.name}</button>
-                }
+                const TagName = DICE_MAP[die.name][`D${die.value}Display`];
+                return <TagName dieValue={die.value} key={die.key} onClick={() => handleDiceSelect(d, die.value)} />
             })}
           </div>
           <div className='dice-history'>
@@ -134,11 +109,10 @@ const DiceRoller = () => {
                 return (
                     <div key={uuidv4()} className='dice-result' >
                         {roll.dice.map(die => {
+                            const TagName = DICE_MAP[die.name][`D${die.value}Display`];
                             return (
                                 <div className='dice-result-combo'>
-                                    {(die.value !== 4 && die.value !== 6) && <button type='button' className={`${dice-die.name}`} key={die.key}>{die.result}</button>}
-                                    {die.value === 4 && <D4Display dieValue={die.result} key={die.key} />}
-                                    {die.value === 6 && <D6Display dieValue={die.result} key={die.key} />}
+                                    <TagName dieValue={die.result} key={die.key} />
                                     <p> + </p>
                                 </div>
                             );
