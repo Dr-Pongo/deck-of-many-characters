@@ -26,7 +26,7 @@ const DICE_MAP = {
 /* ==================================== *
  * Dice Roller Functional Component     *
  * ==================================== */
-const DiceRoller = () => {
+const DiceRoller = (props) => {
     const [history, setHistory] = useState([]);
     const [dice, setDice] = useState([]);
     const [modifiers, setModifiers] = useState(0);
@@ -43,6 +43,7 @@ const DiceRoller = () => {
     };
     
     const handleDiceRoll = () => {
+        if(dice.length < 1) return;
         // new result object that will populate history with necessary information
         const result = {
             dice: [],
@@ -51,45 +52,39 @@ const DiceRoller = () => {
         };
 
         // Calculate dice roll
+        /* ==================================================================================== *
+         * So the main idea with advantage/disadvantage is:                                     *
+         * the unused number (the lower for advantage, and higher for disadvantage)             *
+         * will be negative and not used in the calculation for the total.                      *
+         * This way when we display the results, we can show both rolls to allow people to be   *
+         * equally upset for either. The negative die will display greyed out or something      *
+         * ==================================================================================== */
         result.dice = dice.map((die, i) => {
-            let diceRoll;
-            // if(advantage) {
-            //     /* ==================================================================================== *
-            //      * So the main idea with advantage/disadvantage is:                                     *
-            //      * the unused number (the lower for advantage, and higher for disadvantage)             *
-            //      * will be negative and not used in the calculation for the total.                      *
-            //      * This way when we display the results, we can show both rolls to allow people to be   *
-            //      * equally upset for either. The negative number will display greyed out or something   *
-            //      * ==================================================================================== */
-                
+            let diceRoll = [];
 
-            //     let rollA = individualDiceRoll(die.value);
-            //     let rollB = individualDiceRoll(die.value);
-            //     if(rollA > rollB) {
-            //         rollB *= -1;
-            //         result.total += rollA;
-            //     } else {
-            //         rollA *= -1;
-            //         result.total += rollB;
-            //     }
-            //     diceRoll = [rollA, rollB];
-
-
-
-
-            // } else {
-                diceRoll = individualDiceRoll(die.value);
-                result.total += diceRoll;
-            // }
+            if(!advantage && !disadvantage) {
+                diceRoll.push(individualDiceRoll(die.value));
+            } else {
+                const rollA = individualDiceRoll(die.value);
+                const rollB = individualDiceRoll(die.value);
+                if(advantage) {
+                    diceRoll = rollA > rollB ? [rollA, rollB * -1] : [rollB, rollA * -1];
+                }
+                if(disadvantage) {
+                    diceRoll = rollA < rollB ? [rollA, rollB * -1] : [rollB, rollA * -1];
+                }
+            }
             
+            result.total += diceRoll[0];
             return {...die, result: diceRoll};
         });
-
         // Add modifier
         result.total += modifiers;
 
-        // Set history and empty out current dice pool
+        // Cleanup Time
         setHistory(prev => [result, ...prev]);
+        setDisAdvantage(false);
+        setAdvantage(false);
         setModifiers(0);
         setDice([]);
     }
@@ -114,7 +109,27 @@ const DiceRoller = () => {
      * handleAdvantageSelect                *
      * ==================================== */
     const handleAdvantageSelect = () => {
+        if(disadvantage){
+            setDisAdvantage(prev => !prev);
+        }
         setAdvantage(prev => !prev);
+    };
+
+    /* ==================================== *
+     * handleDisadvantageSelect             *
+     * ==================================== */
+    const handleDisadvantageSelect = () => {
+        if(advantage){
+            setAdvantage(prev => !prev);
+        }
+        setDisAdvantage(prev => !prev);
+    };
+
+    /* ==================================== *
+     * handleManualMod                      *
+     * ==================================== */
+    const handleManualMod = ({target}) => {
+        setModifiers(parseInt(target.value));
     };
 
     /* ==================================== *
@@ -123,13 +138,15 @@ const DiceRoller = () => {
     return (
         <div className="roll-space">
           <button type="button" onClick={handleDiceRoll} >ROLL THE DICE!</button>
-          <button type="button" onClick={handleAdvantageSelect} >Advantage</button>
+          <button type="button" className={advantage ? 'clicked' : ''} onClick={handleAdvantageSelect} >Advantage</button>
+          <button type="button" className={disadvantage ? 'clicked' : ''} onClick={handleDisadvantageSelect} >Disdvantage</button>
           <div className="dice-box">
             {map(DICE_MAP, (die, d) => {
                 // All of the Displays have similar names, this be a neat way to do things
                 const TagName = die[`D${die.value}Display`];
                 return <TagName dieValue={die.value} key={die.key} onClick={() => handleDiceSelect(d, die.value)} />
             })}
+            <input type='number' onChange={handleManualMod} value={modifiers} />
           </div>
           <div className='dice-tray'>
             {dice.map((die, d) => {
@@ -146,7 +163,13 @@ const DiceRoller = () => {
                             const TagName = DICE_MAP[die.name][`D${die.value}Display`];
                             return (
                                 <div key={uuidv4()} className='dice-result-combo'>
-                                    <TagName dieValue={die.result} key={die.key} />
+                                    {die.result.length === 1 ? 
+                                        <TagName dieValue={die.result} key={die.key} /> : 
+                                        <div className="dice-result-vantage" >
+                                            <TagName dieValue={(die.result[0])} />
+                                            <TagName dieValue={(die.result[1])} />
+                                        </div>
+                                        }
                                     <p> + </p>
                                 </div>
                             );

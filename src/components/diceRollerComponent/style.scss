@@ -10,6 +10,12 @@ button {
     color: white;
     z-index: 2;
 }
+[id*="-unused-roll"] {
+    fill: #808080;
+}
+#die-path {
+    fill: #5669F5;
+}
 
 .dice-tray {
     border: 2px solid black;
@@ -38,7 +44,6 @@ button {
     height: 15px;
 }
 
-.dice-d4::before {
-    width: 100%;
-    height: auto;
+.clicked {
+    color: blue;
 }
