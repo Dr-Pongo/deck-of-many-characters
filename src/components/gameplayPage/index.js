@@ -2,14 +2,22 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import "./styles.scss";
 import map from 'lodash/map';
+import {v4 as uuidv4} from 'uuid';
 import { gotoPage, HOME_PAGE } from '../../containers/pageSlice';
 import DiceRoller from '../diceRollerComponent/index';
+import { addAbilitySkillRoll } from '../../containers/diceTraySlice';
 
 
 class GameplayPage extends Component {
   constructor(props) {
     super(props);
     this.state = { };
+  }
+
+  handleAbilitySkillRoll = () => {
+    const diceToAdd = [{ name: 'd20', value: 20, key: uuidv4(), }];
+    const modifierToAdd = 0;
+    this.props.addAbilitySkillRoll({roll: diceToAdd, mod: modifierToAdd});
   }
 
   render() {
@@ -76,6 +84,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateCurrentPage: (destinationPage) => dispatch(gotoPage(destinationPage)),
+    addAbilitySkillRoll: (roll) => dispatch(addAbilitySkillRoll(roll)),
   };
 };
 
