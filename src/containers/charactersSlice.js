@@ -12,7 +12,6 @@ import { createSlice } from "@reduxjs/toolkit";
     initialState: {},
     reducers: {
         addNewCharacter: (state, action) => {
-            console.log(action);
             return {...state, [action.payload.id]: action.payload};
         },
         removeCharacter: (state, action) => {
