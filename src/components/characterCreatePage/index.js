@@ -7,6 +7,7 @@ import map from 'lodash/map';
 import {v4 as uuidv4} from 'uuid';
 import { gotoPage, HOME_PAGE } from '../../containers/pageSlice';
 import { addNewCharacter } from '../../containers/charactersSlice';
+import { WIP_COMPONENT } from '../app/index';
 
 //GLOBALS
 const SHOULD_BE_NUMBER = true;
@@ -308,7 +309,7 @@ class CharacterCreatePage extends Component {
                   )
               }) }
           </div>
-          <div className="actions" >
+          {WIP_COMPONENT && <div className="actions" >
             <h3>Actions!</h3>
             <button type="button" onClick={this.handleActionAddRemove()} >Add Action!</button>
             { 
@@ -366,7 +367,7 @@ class CharacterCreatePage extends Component {
                 );
               })
             }
-          </div>
+          </div>}
         </div>
       <button type="button" onClick={this.handleSubmit}>Save Character</button>
       <button type="button" onClick={this.handleCancel}>Cancel</button>

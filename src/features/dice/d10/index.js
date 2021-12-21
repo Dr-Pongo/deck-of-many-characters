@@ -4,7 +4,7 @@ import "./style.scss";
 const D10Display = (props) => {
   const vantageRoll = props.dieValue < 0 ? '-unused-roll' : '';
   return (
-    <button className='d10-svg-button-wrapper' onClick={props.onClick} >
+    <button className='button-wrapper' onClick={props.onClick} >
       <p className='d10-button-text'>{Math.abs(props.dieValue)}</p>
       <svg className='d10-svg' xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0, 0, 110, 115">
         <g id="Layer_1">

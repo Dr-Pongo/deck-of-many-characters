@@ -9,6 +9,8 @@ import D10Display from '../../features/dice/d10';
 import D12Display from '../../features/dice/d12';
 import D20Display from '../../features/dice/d20';
 import D100Display from '../../features/dice/d100';
+import { selectDiceTray, addDie, removeDie, updateModifier, clearDiceTray } from '../../containers/diceTraySlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Dice Map constant
 // this helps with maths and keeping track of rolls
@@ -27,18 +29,19 @@ const DICE_MAP = {
  * Dice Roller Functional Component     *
  * ==================================== */
 const DiceRoller = (props) => {
+    // Local State
     const [history, setHistory] = useState([]);
-    const [dice, setDice] = useState([]);
-    const [modifiers, setModifiers] = useState(0);
     const [advantage, setAdvantage] = useState(false);
     const [disadvantage, setDisAdvantage] = useState(false);
+    // store fun
+    const dispatch = useDispatch();
+    const {dice, modifier} = useSelector(selectDiceTray);
  
     /* ==================================== *
      * Handle Dice Roll!                    *
      * ==================================== */
     // Handle individual dice rolls based on the DICE_MAP die value
     const individualDiceRoll = (dieVal) => {
-        
         return Math.ceil(Math.random() * dieVal);
     };
     
@@ -47,7 +50,7 @@ const DiceRoller = (props) => {
         // new result object that will populate history with necessary information
         const result = {
             dice: [],
-            modifier: modifiers,
+            modifier: modifier,
             total: 0,
         };
 
@@ -79,30 +82,29 @@ const DiceRoller = (props) => {
             return {...die, result: diceRoll};
         });
         // Add modifier
-        result.total += modifiers;
+        result.total += result.modifier;
 
         // Cleanup Time
         setHistory(prev => [result, ...prev]);
         setDisAdvantage(false);
         setAdvantage(false);
-        setModifiers(0);
-        setDice([]);
+
+        // this handles cleaning up mods and dice
+        dispatch(clearDiceTray());
     }
 
     /* ==================================== *
      * handleDiceSelect                     *
      * ==================================== */
     const handleDiceSelect = (die, dieValue) => {
-        setDice(prev => ([...prev, 
-            { name: die, value: dieValue, key: uuidv4(), }
-        ]));
+        dispatch(addDie({ name: die, value: dieValue, key: uuidv4(), }));
     };
 
     /* ==================================== *
      * handleDiceRemove                     *
      * ==================================== */
     const handleDiceRemove = (removeKey) => {
-        setDice(prev => prev.filter(cur => cur.key !== removeKey));
+        dispatch(removeDie(removeKey));
     };
 
     /* ==================================== *
@@ -129,7 +131,7 @@ const DiceRoller = (props) => {
      * handleManualMod                      *
      * ==================================== */
     const handleManualMod = ({target}) => {
-        setModifiers(parseInt(target.value));
+        dispatch(updateModifier(parseInt(target.value)));;
     };
 
     /* ==================================== *
@@ -146,7 +148,7 @@ const DiceRoller = (props) => {
                 const TagName = die[`D${die.value}Display`];
                 return <TagName dieValue={die.value} key={die.key} onClick={() => handleDiceSelect(d, die.value)} />
             })}
-            <input type='number' onChange={handleManualMod} value={modifiers} />
+            <input type='number' onChange={handleManualMod} value={modifier} />
           </div>
           <div className='dice-tray'>
             {dice.map((die, d) => {
