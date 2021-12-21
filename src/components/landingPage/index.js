@@ -5,6 +5,7 @@ import { selectCharacters, removeCharacter } from '../../containers/charactersSl
 import { gotoPage, CREATE_PAGE, EDIT_PAGE, PLAY_PAGE } from '../../containers/pageSlice';
 import { setSelectedCharacter } from '../../containers/selectedCharacterSlice';
 import map from 'lodash/map';
+import { WIP_COMPONENT } from '../app/index';
 
 const LandingPage = () => {
     const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const LandingPage = () => {
           <div key={character.id} className="character">
             <h3>{`${character.name} Level ${character.level} ${character.subClass} ${character.class}`}</h3>
             <button onClick={() => dispatch(removeCharacter(character.id))} type="button">Delete</button>
-            <button onClick={() => handleEdit(character.id)} type="button">Edit</button>
+            {WIP_COMPONENT && <button onClick={() => handleEdit(character.id)} type="button">Edit</button>}
             <button onClick={() => handlePlay(character.id)} type="button">Play!</button>
           </div>
         )}

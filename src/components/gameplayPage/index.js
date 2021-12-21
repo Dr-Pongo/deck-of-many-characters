@@ -6,7 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 import { gotoPage, HOME_PAGE } from '../../containers/pageSlice';
 import DiceRoller from '../diceRollerComponent/index';
 import { addAbilitySkillRoll } from '../../containers/diceTraySlice';
-
+import { WIP_COMPONENT } from '../app/index';
 
 class GameplayPage extends Component {
   constructor(props) {
@@ -14,12 +14,45 @@ class GameplayPage extends Component {
     this.state = { };
   }
 
-  handleAbilitySkillRoll = () => {
+  /* ==================================== *
+   * handleAbilityRoll                    *
+   * ==================================== */
+  handleAbilityRoll = (ability, save = false) => {
+    const { proficiency } = this.props.currentCharacter;
     const diceToAdd = [{ name: 'd20', value: 20, key: uuidv4(), }];
-    const modifierToAdd = 0;
+    const modifierToAdd = this.calculateAbilityModifier(ability.val);
+    this.props.addAbilitySkillRoll({roll: diceToAdd, mod: (save ? modifierToAdd + proficiency: modifierToAdd)});
+  }
+
+  /* ==================================== *
+   * handleSkillRoll                      *
+   * ==================================== */
+  handleSkillRoll = (skill) => {
+    const diceToAdd = [{ name: 'd20', value: 20, key: uuidv4(), }];
+    const modifierToAdd = this.deriveSkillValue(skill);
     this.props.addAbilitySkillRoll({roll: diceToAdd, mod: modifierToAdd});
   }
 
+  /* ==================================== *
+   * Helpers                              *
+   * ==================================== */
+  calculateAbilityModifier = (abilityValue) => {
+    return Math.floor((abilityValue - 10) / 2);
+  };
+
+  deriveSkillValue = (iSkill) => {
+    const { proficiency, abilities } = this.props.currentCharacter;
+    const abilityValue = this.calculateAbilityModifier(abilities[iSkill.ability].val);
+    console.log(`iSkill.ability: ${iSkill.ability}`);
+    if(iSkill.prof) {
+      return iSkill.exp ? (abilityValue + proficiency * 2) : (abilityValue + proficiency);
+    }
+    return abilityValue;
+  };
+
+  /* ==================================== *
+   * Render Time                          *
+   * ==================================== */
   render() {
     const {name, level, subClass, abilities, skills, actions} = this.props.currentCharacter;
     return (
@@ -31,7 +64,13 @@ class GameplayPage extends Component {
           <label>{`Level ${level} ${subClass} ${this.props.class}`}</label>
           <div className="abilities" >
             { map(abilities, (ab, index) => {
-                  return (<label key={`${ab.name}+${index}`}>{`${ab.name}: ${ab.val}`}</label>)
+                  return (<button type='button' 
+                                  className='core-ability' 
+                                  onClick={() => this.handleAbilityRoll(ab)}
+                                  key={`${ab.name}+${index}`}>
+                            {`${ab.name}: ${ab.val}`}
+                          </button>
+                  );
               })}
           </div>
         </div>
@@ -40,9 +79,12 @@ class GameplayPage extends Component {
             <h3>Skills: </h3>
             { map(skills, (skill, index) => {
                 return (
-                  <div className="skillEditor" key={`${skill.name}-${skill.ability}`}>
-                      <label>{skill.name}</label>
-                  </div>
+                  <button type='button' 
+                          className="skill-button" 
+                          onClick={() => this.handleSkillRoll(skill)} 
+                          key={`${skill.name}-${skill.ability}`}>
+                    {skill.name}
+                  </button>
                 );
               }) }
           </div>
@@ -50,13 +92,15 @@ class GameplayPage extends Component {
             <h3>Saving Throws: </h3>
             { map(abilities, (ab, index) => {
                   return (
-                   <div className="save" key={ab.id} >
-                     <h4>{ab.name}</h4>
-                   </div> 
+                   <button type='button' 
+                           className="save" key={ab.id} 
+                           onClick={() => this.handleAbilityRoll(ab, ab.save)} >
+                     {ab.name}
+                   </button> 
                   )
               }) }
           </div>
-          <div className="actions" >
+          {WIP_COMPONENT && <div className="actions" >
             <h3>Actions!</h3>
             { actions.map((action, index) => {
                 return (
@@ -67,7 +111,7 @@ class GameplayPage extends Component {
                   </div>
                 );
              }) }
-          </div>
+          </div>}
         </div>
         <button onClick={() => this.props.updateCurrentPage(HOME_PAGE)} type="button">Return Home</button>
       </div>

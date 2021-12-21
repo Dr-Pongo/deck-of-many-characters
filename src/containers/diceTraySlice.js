@@ -31,6 +31,7 @@ export const selectDiceTray = (state) => state.diceTray;
 export const { addDie, 
                 removeDie, 
                 updateModifier, 
-                clearDiceTray 
+                clearDiceTray,
+                addAbilitySkillRoll 
             } = diceTraySlice.actions;
 export default diceTraySlice.reducer;
