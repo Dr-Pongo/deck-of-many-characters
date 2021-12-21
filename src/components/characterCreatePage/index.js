@@ -250,10 +250,10 @@ class CharacterCreatePage extends Component {
   render() {
     const {abilities, skills, level} = this.state;
     return (
-    <div className="page" >
+    <div className="char-create-page" >
       <h2>Character Creation</h2>
-      <form className="papaForm" >
-        <div className="basicInfo">
+      <form className="char-create-form" >
+        <div className="core-info">
           <label>Character Name: 
             <input type="text" 
               onChange={this.updateBasicInfoValue('name')} />
@@ -271,7 +271,9 @@ class CharacterCreatePage extends Component {
           <label>SubClass: 
             <input type="text" onChange={this.updateBasicInfoValue('subClass')} />
           </label>
-          <div className="abilities" >
+        </div>
+        <div className="additional-information"> 
+          <div className="abilities column-info-display" >
             { map(abilities, (ab, index) => {
                   return (
                     <AbilityEditor
@@ -281,13 +283,11 @@ class CharacterCreatePage extends Component {
                   )
               }) }
           </div>
-        </div>
-        <div className="additionalInfo"> 
-          <div className="skills" >
-            <h3>Skills: </h3>
+          <div className='skills column-info-display' >
+            <h3>Skills</h3>
             { map(skills, (skill, index) => {
                 return (
-                  <div className="skillEditor" key={`${skill.name}-${skill.ability}`}>
+                  <div className="skill-editor" key={`${skill.name}-${skill.ability}`}>
                       <h4>{skill.name}: </h4>
                       <p>{this.deriveSkillValue(skill.prof, skill.exp, skill.ability)}</p>
                       <button className={skill.prof ? 'clicked' : ''} type="button" onClick={() => this.handleProfSkillButtonClick(index, 'prof')}>Proficiency</button>
@@ -296,7 +296,7 @@ class CharacterCreatePage extends Component {
                 );
               }) }
           </div>
-          <div className="saves" >
+          <div className='saves column-info-display' >
             <h3>Saving Throws: </h3>
             { map(abilities, (ab, index) => {
                   return (
@@ -317,7 +317,7 @@ class CharacterCreatePage extends Component {
                 return (
                   <div key={action.id} className="action" >
                     <h4>Action #{index}</h4>
-                    <div className="actionInfo">
+                    <div className="action-info">
                       <label>Action Name: </label>
                       <input type="text" value={action.name} onChange={this.handleActionChange(action.id, 'name')} />
                       <button type="button" className={action.proficiency ? 'clicked' : ''} value={!action.proficiency} onClick={this.handleActionChange(action.id, 'proficiency')} >Proficiency</button>

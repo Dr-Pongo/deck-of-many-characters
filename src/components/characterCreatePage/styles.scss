@@ -1,9 +1,9 @@
-.papaForm {
+.char-create-form {
     display: flex;
     flex-direction: column;
 }
 
-.basicInfo {
+.core-info {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -12,13 +12,28 @@
     padding: .25rem;
 }
 
-.additionalInfo {
+.additional-information {
     display: inline-flex;
     flex-direction: row;
 }
 
-.abilities {
+.column-info-display {
+    h3 {
+        margin: 0 50%;
+        transform: translate(-50%, 0%);
+    }
+    border: solid black .05rem;
+    border-radius: .25rem;
     display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.abilities {
+    border: solid black .05rem;
+    border-radius: .25rem;
+    display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
 }
 
@@ -37,7 +52,7 @@
     flex-direction: column;
 }
 
-.skillEditor {
+.skill-editor {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -52,7 +67,7 @@
     border: solid black .025rem; 
 }
 
-.skillEditor * {
+.skill-editor * {
     margin: 2px;
 }
 
@@ -60,7 +75,7 @@
     color: blue;
 }
 
-.actionInfo {
+.action-info {
     display: flex;
     flex-direction: column;
 }

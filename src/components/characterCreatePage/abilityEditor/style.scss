@@ -1,5 +1,39 @@
-.abilityEditor {
+
+.ability-editor {
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin: .5rem;
+    border: .05rem solid black;
+    border-radius: .25rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    padding: 0;
+}
+
+.ability-name {
+    justify-self: flex-start;
+    font-weight: bold;
+}
+
+.ability-input {
+    justify-self: center;
+    text-align: center;
+    border: none;
+    font-size: 2rem;
+}
+
+.ability-mod {
+    display: flex;
+    justify-content: center;
+    background: white;
+    border: .05rem solid black;
+    border-radius: .25rem;
+    width: 2rem;
+    font-size: 1rem;
+    transform: translateY(50%);
 }
