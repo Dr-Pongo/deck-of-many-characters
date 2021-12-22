@@ -1,3 +1,5 @@
+@use "../app/variables";
+
 .char-create-form {
     display: flex;
     flex-direction: column;
@@ -5,10 +7,9 @@
 
 .core-info {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
-    border: solid black .025rem; 
     padding: .25rem;
 }
 
@@ -29,12 +30,27 @@
     justify-content: space-evenly;
 }
 
-.abilities {
-    border: solid black .05rem;
+.row-info-display {
+    h3 {
+        margin: 0 50%;
+        transform: translate(-50%, 0%);
+    }
     border-radius: .25rem;
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.input-combo {
+    display: flex; 
     flex-direction: column;
-    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.core-input {
+    border: .05rem solid black; 
+    border-radius: .25rem;
+    box-sizing: border-box;
 }
 
 .save {

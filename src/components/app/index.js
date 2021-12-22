@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider, useSelector } from "react-redux";
-import "./styles.css";
+import "./styles.scss";
 import CharacterCreatePage from '../characterCreatePage/index';
 import LandingPage from '../landingPage/index';
 import GameplayPage from '../gameplayPage/index';

@@ -248,32 +248,48 @@ class CharacterCreatePage extends Component {
    * Render Time!                         *
    * ==================================== */
   render() {
-    const {abilities, skills, level} = this.state;
+    const {abilities, skills, level, proficiency} = this.state;
     return (
     <div className="char-create-page" >
       <h2>Character Creation</h2>
       <form className="char-create-form" >
         <div className="core-info">
-          <label>Character Name: 
+          <div className='input-combo'>
+            <label for='charName'>Character Name</label>
             <input type="text" 
+              name='charName'
+              className='core-input'
               onChange={this.updateBasicInfoValue('name')} />
-          </label>
-          <label>Level: 
+          </div>
+          <div className='input-combo'>
+            <label for='level'>Level</label>
             <input type="number" 
+              name='level'
+              className='core-input'
               max="20" min="1" 
               value={level} 
               onChange={this.updateBasicInfoValue('level', SHOULD_BE_NUMBER)} />
-          </label>
-          <label>Class: 
+          </div>
+          <div className='input-combo'>
+            <label >Proficiency</label>
+            <p>{proficiency}</p>
+          </div>
+          <div className='input-combo'>
+            <label for='className'>Class</label>
             <input type="text" 
+              name='className'
+              className='core-input'
               onChange={this.updateBasicInfoValue('class')} />
-          </label>
-          <label>SubClass: 
-            <input type="text" onChange={this.updateBasicInfoValue('subClass')} />
-          </label>
+          </div>
+          <div className='input-combo'>
+            <label for='subClassName'>SubClass</label>
+              <input type="text"
+                name='subClassName'
+                className='core-input' 
+                onChange={this.updateBasicInfoValue('subClass')} />
+          </div>
         </div>
-        <div className="additional-information"> 
-          <div className="abilities column-info-display" >
+          <div className="abilities row-info-display" >
             { map(abilities, (ab, index) => {
                   return (
                     <AbilityEditor
@@ -283,6 +299,7 @@ class CharacterCreatePage extends Component {
                   )
               }) }
           </div>
+        <div className="additional-information"> 
           <div className='skills column-info-display' >
             <h3>Skills</h3>
             { map(skills, (skill, index) => {
