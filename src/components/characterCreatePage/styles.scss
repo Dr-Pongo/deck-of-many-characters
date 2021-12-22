@@ -14,20 +14,29 @@
 }
 
 .additional-information {
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
+    justify-content:center;
 }
 
 .column-info-display {
     h3 {
-        margin: 0 50%;
+        margin-left: 0%;
+        margin-bottom: .5rem;
         transform: translate(-50%, 0%);
     }
-    border: solid black .05rem;
+    border: variables.$round-thin-border;
     border-radius: .25rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    align-items: center;
+    width: 30%;
+}
+
+.column-info-header {
+    display: flex;
+    flex-direction: row;
 }
 
 .row-info-display {
@@ -53,26 +62,75 @@
     box-sizing: border-box;
 }
 
-.save {
+.skill-editor {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
     align-items: baseline;
+    margin-top: .15rem;
+    width: 95%;
 }
 
-.save * {
-    margin: 3px;
+.skill-editor-val {
+    width: 10%;
+    text-align: center;
 }
 
-.skills {
+.skill-editor-name {
+    width: 50%;
+}
+
+.skill-editor-buttons {
+    width: 20%;
+}
+
+.skill-btn {
+    background-color: whitesmoke;
+    border: .05rem black solid;
+    border-radius: .25rem;
+}
+
+.clicked {
+    color: blue;
+}
+
+.disabled {
+    color: grey;
+    background-color: lightgrey;
+}
+
+.save-column-info-display {
+    h3 {
+        margin-left: 30%;
+        margin-bottom: .5rem;
+        transform: translate(-50%, 0%);
+    }
+    border: variables.$round-thin-border;
+    border-radius: .25rem;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 20%;
+    padding: .3rem;
+    height: fit-content;
 }
 
-.skill-editor {
+.save-editor {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: baseline;
+    margin-top: .15rem;
+    width: 95%;
+}
+
+.save-editor-val {
+    width: 10%;
+}
+
+.save-editor-name {
+    width: 50%;
 }
 
 .action {
@@ -81,14 +139,6 @@
     align-items: baseline;
     align-content: flex-start;   
     border: solid black .025rem; 
-}
-
-.skill-editor * {
-    margin: 2px;
-}
-
-.clicked {
-    color: blue;
 }
 
 .action-info {

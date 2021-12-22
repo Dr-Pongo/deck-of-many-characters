@@ -4,10 +4,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: .5rem;
+    margin: 1rem;
     border: variables.$round-thin-border;
     border-radius: .25rem;
-    width: 15%;
+    width: 12%;
 }
 
 .ability-name {
@@ -17,10 +17,13 @@
 
 .ability-input {
     width: 50%;
+    margin-top: .5rem;
     box-sizing: border-box;
     justify-self: center;
     text-align: center;
     font-size: 2rem;
+    border: variables.$round-thin-border;
+    border-radius: .25rem;
 }
 
 .ability-mod {
