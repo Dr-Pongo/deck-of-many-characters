@@ -60,7 +60,7 @@
   border-radius: 5px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 
@@ -81,6 +81,14 @@
   width: 100%;
   max-width: 200px;
   padding-left: 8px;
+}
+
+.input-sized-p {
+  height: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .skill-editor {
@@ -167,7 +175,7 @@
 .form-complete-buttons {
   display: flex;
   flex-direction: row;
-  margin: 0 -2rem;
+  width: 100%;
   button {
     width: 50%;
     border: none;

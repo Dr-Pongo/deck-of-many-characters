@@ -432,8 +432,8 @@ class CharacterCreatePage extends Component {
               />
             </div>
             <div className="input-combo">
-              <label>Proficiency</label>
-              <p>{proficiency}</p>
+              <label>Proficiency Mod</label>
+              <p className="input-sized-p">+{proficiency}</p>
             </div>
           </div>
           <div className="core-info">
