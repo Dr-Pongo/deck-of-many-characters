@@ -1,0 +1,41 @@
+
+.abilities {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  button {
+    height: 50px;
+    width: 100px;
+    margin: 12px 6px;
+    border-radius: 5px;
+  }
+}
+
+.additionalInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.skills, .saves {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.buttons-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    height: 50px;
+    width: 80px;
+    margin: 8px 4px;
+    border-radius: 5px;
+    padding: 0;
+  }
+}

@@ -3,7 +3,9 @@ import React from "react";
 const D100Display = (props) => {
   return (
     <button className="button-wrapper" onClick={props.onClick}>
-      <p className="button-text">{Math.abs(props.dieValue)}</p>
+      <p id="d100-text" className="button-text">
+        {Math.abs(props.dieValue)}
+      </p>
       <svg
         className="d100-svg"
         xmlns="http://www.w3.org/2000/svg"

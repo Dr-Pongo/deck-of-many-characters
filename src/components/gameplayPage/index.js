@@ -68,54 +68,63 @@ class GameplayPage extends Component {
         <h2>GamePlay Page</h2>
         <DiceRoller />
         <div className="basicInfo">
-          <h3>{name}</h3>
+          <h2>{name}</h2>
           <label>{`Level ${level} ${subClass} ${this.props.class}`}</label>
           <div className="abilities">
-            {map(abilities, (ab, index) => {
-              return (
-                <button
-                  type="button"
-                  className="core-ability"
-                  onClick={() => this.handleAbilityRoll(ab)}
-                  key={`${ab.name}+${index}`}
-                >
-                  {`${ab.name}: ${ab.val}`}
-                </button>
-              );
-            })}
+            <h3>Abilities</h3>
+            <div className="abilities-list">
+              {map(abilities, (ab, index) => {
+                return (
+                  <button
+                    type="button"
+                    className="core-ability"
+                    onClick={() => this.handleAbilityRoll(ab)}
+                    key={`${ab.name}+${index}`}
+                  >
+                    <div>{ab.name}</div>
+                    <div>{ab.val}</div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className="additionalInfo">
-          <div className="skills">
-            <h3>Skills: </h3>
-            {map(skills, (skill, index) => {
-              return (
-                <button
-                  type="button"
-                  className="skill-button"
-                  onClick={() => this.handleSkillRoll(skill)}
-                  key={`${skill.name}-${skill.ability}`}
-                >
-                  {skill.name}
-                </button>
-              );
-            })}
-          </div>
           <div className="saves">
             <h3>Saving Throws </h3>
-            {map(abilities, (ab, index) => {
-              return (
-                <button
-                  type="button"
-                  className="save"
-                  key={ab.id}
-                  onClick={() => this.handleAbilityRoll(ab, ab.save)}
-                >
-                  {ab.name}
-                </button>
-              );
-            })}
+            <div className="buttons-list">
+              {map(abilities, (ab, index) => {
+                return (
+                  <button
+                    type="button"
+                    className="save"
+                    key={ab.id}
+                    onClick={() => this.handleAbilityRoll(ab, ab.save)}
+                  >
+                    {ab.name}
+                  </button>
+                );
+              })}
+            </div>
           </div>
+          <div className="skills">
+            <h3>Skills </h3>
+            <div className="buttons-list">
+              {map(skills, (skill, index) => {
+                return (
+                  <button
+                    type="button"
+                    className="skill-button"
+                    onClick={() => this.handleSkillRoll(skill)}
+                    key={`${skill.name}-${skill.ability}`}
+                  >
+                    {skill.name}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {WIP_COMPONENT && (
             <div className="actions">
               <h3>Actions!</h3>
