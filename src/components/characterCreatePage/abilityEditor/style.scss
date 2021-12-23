@@ -2,18 +2,18 @@
 
 .ability-editor {
     display: flex;
-    min-width: 10rem;
-    max-width: 15rem;
+    width: 160px;
     flex-direction: column;
     align-items: center;
-    margin: 1rem;
-    border-radius: .25rem;
+    margin: 16px 8px;
+    border-radius: 5px;
     box-shadow: variables.$subtle-box-shadow;
 }
 
 .ability-name {
     justify-self: flex-start;
     font-weight: bold;
+    margin: 8px 8px 4px;
 }
 
 .ability-input {
@@ -24,6 +24,7 @@
     text-align: center;
     font-size: 2rem;
     border: variables.$round-thin-border;
+    margin: 4px  8px 4px;
     border-radius: .25rem;
 }
 
@@ -31,9 +32,9 @@
     display: flex;
     justify-content: center;
     background: white;
-    border: .05rem solid black;
-    border-radius: .25rem;
+    border: 1px solid black;
+    border-radius: 5px;
     width: 2rem;
     font-size: 1rem;
-    transform: translateY(50%);
+    margin: 4px  8px 8px;
 }

@@ -1,82 +1,78 @@
-
-
 .dice-tray {
-    border: 2px solid black;
-    height: 50px;
+  border: 2px solid black;
+  height: 50px;
 }
 
 .dice-box {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-content: flex-start;
-    padding: .5rem;
-    height: fit-content;
-    border: 1px blue solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-start;
+  padding: 0.5rem;
+  height: fit-content;
+  border: 1px blue solid;
 }
 
 .dice-result {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .dice-result-combo {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-self: start;
-    height: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-self: start;
+  height: 15px;
 }
 
 .clicked {
-    color: blue;
+  color: blue;
 }
 
 .button-wrapper {
-    position: relative;
-    background-color: transparent;
-    border: none;
-    width: 15%;
-    max-width: 3.5rem;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  width: 15%;
+  max-width: 3.5rem;
 }
 
 .modifier {
-    width: 15%;
-    max-width: 5rem;
+  width: 15%;
+  max-width: 5rem;
 }
 
 .button-text {
-    position: absolute;
-    top: 50%;
-    left: 51%;
-    transform: translate(-50%, -50%);
-    font-size: 1.2rem;
-    color: white;
-    z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 51%;
+  font-size: 1.2rem;
+  color: white;
+  z-index: 2;
 }
 
 #d6-text {
-    top: 45%;
+  top: 45%;
 }
 
 #d8-text {
-    top: 45%;
+  top: 45%;
 }
 
 #d12-text {
-    top: 45%;
+  top: 45%;
 }
 
 #d20-text {
-    top: 43%; 
-    left: 52%;
+  top: 43%;
+  left: 52%;
 }
 
 .unused-roll {
-    fill: #808080;
+  fill: #808080;
 }
 
 .used-roll {
-    fill: #5669F5;
+  fill: #5669f5;
 }
-

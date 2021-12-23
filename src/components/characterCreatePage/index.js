@@ -447,7 +447,7 @@ class CharacterCreatePage extends Component {
               />
             </div>
             <div className="input-combo">
-              <label for="subClassName">SubClass</label>
+              <label for="subClassName">Subclass</label>
               <input
                 type="text"
                 name="subClassName"
@@ -528,9 +528,9 @@ class CharacterCreatePage extends Component {
                 );
               })}
             </div>
-            <div className="save-column-info-display">
+            <div className="column-info-display">
               <div className="column-info-header">
-                <h3>Saving Throws: </h3>
+                <h3>Saving Throws </h3>
               </div>
               {map(abilities, (ab, index) => {
                 return (
