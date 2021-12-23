@@ -29,13 +29,9 @@
 }
 
 .column-info-display {
-  h3 {
-    margin-left: 0%;
-    margin-bottom: 0.5rem;
-  }
   margin: 16px 8px;
   border: variables.$round-thin-border;
-  border-radius: 0.25rem;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -55,6 +51,7 @@
   h3 {
     width: 100%;
     text-align: center;
+    margin: 16px;
   }
 }
 
@@ -77,7 +74,7 @@
 
 .core-input {
   border: 0.05rem solid black;
-  border-radius: 0.25rem;
+  border-radius: 5px;
   box-sizing: border-box;
   height: 30px;
   width: 100%;
@@ -124,7 +121,7 @@
 .skill-btn {
   background-color: whitesmoke;
   border: 0.05rem black solid;
-  border-radius: 0.25rem;
+  border-radius: 5px;
 }
 
 .clicked {
@@ -163,7 +160,7 @@
 .save-btn {
   background-color: whitesmoke;
   border: 0.05rem black solid;
-  border-radius: 0.25rem;
+  border-radius: 5px;
 }
 
 .form-complete-buttons {
