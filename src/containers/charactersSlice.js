@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import map from "lodash/map";
 /*
  * characterSlice holds a list of all current characters
  *
@@ -9,13 +10,26 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const charactersSlice = createSlice({
   name: "characters",
-  initialState: {},
+  initialState: JSON.parse(localStorage.getItem('savedCharacters')) || {},
   reducers: {
     addNewCharacter: (state, action) => {
-      return { ...state, [action.payload.id]: action.payload };
+      const newCharacters = { ...state, [action.payload.id]: action.payload };
+      localStorage.setItem('savedCharacters', JSON.stringify(newCharacters));
+      return newCharacters;
     },
     removeCharacter: (state, action) => {
-      delete state[action.payload];
+      const newCharacters = state;
+      delete newCharacters[action.payload];
+      localStorage.setItem('savedCharacters', JSON.stringify(newCharacters));
+      return newCharacters;
+
+      // const newCharacters = map(state, (character, index) => {
+      //   if(index !== action.payload) {
+      //     return character;
+      //   }
+      // });
+      // localStorage.setItem('savedCharacters', JSON.stringify(newCharacters));
+      // return newCharacters;
     },
   },
 });

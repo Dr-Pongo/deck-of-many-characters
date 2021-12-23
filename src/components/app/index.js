@@ -13,10 +13,15 @@ import {
   EDIT_PAGE,
   PLAY_PAGE,
 } from "../../containers/pageSlice";
+// import { selectCharacters } from '../../containers/charactersSlice';
 export const WIP_COMPONENT = false;
 
 function App() {
   const currentPage = useSelector(selectPage);
+
+  // useEffect(()=> {
+  //   localStorage.setItem('savedCharacters', JSON.stringify(selectCharacters));
+  // }, [selectCharacters]);
 
   return (
     <Provider store={store}>
