@@ -145,19 +145,19 @@ const DiceRoller = (props) => {
    * ==================================== */
   return (
     <div className="roll-space">
-      <button type="button" onClick={handleDiceRoll}>
+      <button type="button" className="roll-button" onClick={handleDiceRoll}>
         ROLL THE DICE!
       </button>
       <button
         type="button"
-        className={advantage ? "clicked" : ""}
+        className={advantage ? "roll-button clicked" : "roll-button"}
         onClick={handleAdvantageSelect}
       >
         Advantage
       </button>
       <button
         type="button"
-        className={disadvantage ? "clicked" : ""}
+        className={disadvantage ? "roll-button clicked" : "roll-button"}
         onClick={handleDisadvantageSelect}
       >
         Disdvantage

@@ -48,7 +48,6 @@ class GameplayPage extends Component {
     const abilityValue = this.calculateAbilityModifier(
       abilities[iSkill.ability].val
     );
-    console.log(`iSkill.ability: ${iSkill.ability}`);
     if (iSkill.prof) {
       return iSkill.exp
         ? abilityValue + proficiency * 2
@@ -57,21 +56,35 @@ class GameplayPage extends Component {
     return abilityValue;
   };
 
+  deriveSaveValue = (ability) => {
+    const { proficiency } = this.props.currentCharacter;
+    const modifier = this.calculateAbilityModifier(ability.val);
+
+    if (ability.save) return modifier + proficiency;
+    return modifier;
+  };
+
   /* ==================================== *
    * Render Time                          *
    * ==================================== */
   render() {
-    const { name, level, subClass, abilities, skills, actions } =
-      this.props.currentCharacter;
+    const {
+      name,
+      level,
+      subClass,
+      abilities,
+      skills,
+      actions,
+      characterClass,
+    } = this.props.currentCharacter;
     return (
       <div className="gameplay main-page">
-        <h2>GamePlay Page</h2>
+        <h2>{name}</h2>
+        <div className="subheading">{`Level ${level} ${subClass} ${characterClass}`}</div>
         <DiceRoller />
         <div className="basicInfo">
-          <h2>{name}</h2>
-          <label>{`Level ${level} ${subClass} ${this.props.class}`}</label>
           <div className="abilities">
-            <h3>Abilities</h3>
+            <h3>Roll Ability Checks</h3>
             <div className="abilities-list">
               {map(abilities, (ab, index) => {
                 return (
@@ -81,8 +94,8 @@ class GameplayPage extends Component {
                     onClick={() => this.handleAbilityRoll(ab)}
                     key={`${ab.name}+${index}`}
                   >
-                    <div>{ab.name}</div>
-                    <div>{ab.val}</div>
+                    <div className="roll-name">{ab.name}</div>
+                    <div className="roll-value">{ab.val}</div>
                   </button>
                 );
               })}
@@ -91,7 +104,7 @@ class GameplayPage extends Component {
         </div>
         <div className="additionalInfo">
           <div className="saves">
-            <h3>Saving Throws </h3>
+            <h3>Roll Saving Throws </h3>
             <div className="buttons-list">
               {map(abilities, (ab, index) => {
                 return (
@@ -101,14 +114,15 @@ class GameplayPage extends Component {
                     key={ab.id}
                     onClick={() => this.handleAbilityRoll(ab, ab.save)}
                   >
-                    {ab.name}
+                    <div className="roll-name">{ab.name}</div>
+                    <div className="roll-value">{this.deriveSaveValue(ab)}</div>
                   </button>
                 );
               })}
             </div>
           </div>
           <div className="skills">
-            <h3>Skills </h3>
+            <h3>Roll Skills</h3>
             <div className="buttons-list">
               {map(skills, (skill, index) => {
                 return (
@@ -118,7 +132,10 @@ class GameplayPage extends Component {
                     onClick={() => this.handleSkillRoll(skill)}
                     key={`${skill.name}-${skill.ability}`}
                   >
-                    {skill.name}
+                    <div className="roll-name">{skill.name}</div>
+                    <div className="roll-value">
+                      {this.deriveSkillValue(skill)}
+                    </div>
                   </button>
                 );
               })}
@@ -143,6 +160,7 @@ class GameplayPage extends Component {
         <button
           onClick={() => this.props.updateCurrentPage(HOME_PAGE)}
           type="button"
+          className="go-home-button"
         >
           Return Home
         </button>

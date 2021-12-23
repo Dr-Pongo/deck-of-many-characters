@@ -19,7 +19,7 @@ class CharacterCreatePage extends Component {
       id: uuidv4(),
       name: "",
       level: 1,
-      class: "",
+      characterClass: "",
       subClass: "",
       proficiency: 2,
       abilities: {
@@ -176,7 +176,6 @@ class CharacterCreatePage extends Component {
     for (let p = min; p <= max; p++) {
       options.push({ value: p, label: `${p}` });
     }
-    console.log(options);
     return options;
   };
 
@@ -249,7 +248,6 @@ class CharacterCreatePage extends Component {
   handleAbilitySave =
     (key) =>
     ({ target }) => {
-      console.log(`${key}, ${target.value}`);
       this.setState({
         abilities: {
           ...this.state.abilities,
@@ -409,7 +407,7 @@ class CharacterCreatePage extends Component {
         <form className="char-create-form">
           <div className="core-info">
             <div className="input-combo">
-              <label for="charName">Character Name</label>
+              <label htmlFor="charName">Character Name</label>
               <input
                 type="text"
                 name="charName"
@@ -420,7 +418,7 @@ class CharacterCreatePage extends Component {
           </div>
           <div className="core-info">
             <div className="input-combo">
-              <label for="level">Level</label>
+              <label htmlFor="level">Level</label>
               <input
                 type="number"
                 name="level"
@@ -438,16 +436,16 @@ class CharacterCreatePage extends Component {
           </div>
           <div className="core-info">
             <div className="input-combo">
-              <label for="className">Class</label>
+              <label htmlFor="className">Class</label>
               <input
                 type="text"
                 name="className"
                 className="core-input"
-                onChange={this.updateBasicInfoValue("class")}
+                onChange={this.updateBasicInfoValue("characterClass")}
               />
             </div>
             <div className="input-combo">
-              <label for="subClassName">Subclass</label>
+              <label htmlFor="subClassName">Subclass</label>
               <input
                 type="text"
                 name="subClassName"
@@ -456,7 +454,7 @@ class CharacterCreatePage extends Component {
               />
             </div>
           </div>
-          <div className="abilities row-info-display">
+          <div className="row-info-display">
             {map(abilities, (ab, index) => {
               return (
                 <AbilityEditor

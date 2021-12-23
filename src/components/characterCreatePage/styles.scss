@@ -1,14 +1,5 @@
 @use "../app/variables";
 
-// .char-create-page{
-//     width: 80%;
-//     margin: 2rem 50%;
-//     transform: translate(-50%, 0);
-//     padding: 0 2rem;
-//     max-width: 700px;
-//     box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.2);
-// }
-
 .char-create-form {
   display: flex;
   flex-direction: column;
@@ -17,28 +8,29 @@
 .core-info {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: flex-start;
-  padding: 0.25rem;
+  padding: 4px;
 }
 
 .additional-information {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  border-radius: 5px;
+  margin: 8px;
+  // border: variables.$round-thin-border;
+  box-shadow: variables.$subtle-box-shadow;
 }
 
 .column-info-display {
   margin: 16px 8px;
-  border: variables.$round-thin-border;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 50%;
-  max-width: 20rem;
-  min-width: 15rem;
   padding-bottom: 12px;
 }
 
@@ -70,21 +62,22 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  max-width: 250px;
+  max-width: 300px;
 }
 
 .core-input {
   border: 0.05rem solid black;
   border-radius: 5px;
   box-sizing: border-box;
-  height: 30px;
+  height: 40px;
   width: 100%;
-  max-width: 200px;
+  max-width: 250px;
   padding-left: 8px;
+  font-size: 1rem;
 }
 
 .input-sized-p {
-  height: 30px;
+  height: 40px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -96,11 +89,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
-  margin-top: 0.15rem;
-  width: 80%;
-  max-width: 20rem;
-  margin: 4px 0;
-
+  margin-top: 4px;
+  width: 100%;
+  margin: 2px 0;
+  padding: 0 8px;
 }
 
 .skill-editor-name {
@@ -112,25 +104,25 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  width: 77px;
 }
 
 .skill-editor-buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 15%;
+  width: 40px;
 }
 
 .skill-editor-val {
-  justify-self: right;
   margin: 0;
 }
 
 .skill-btn {
   background-color: whitesmoke;
-  border: 0.05rem black solid;
+  border: 1px black solid;
   border-radius: 5px;
+  padding: 2px 3px;
 }
 
 .clicked {
@@ -148,8 +140,7 @@
   justify-content: space-between;
   align-items: baseline;
   width: 80%;
-  max-width: 20rem;
-  margin: 4px 0;
+  margin: 2px 0;
 }
 
 .save-editor-name {
@@ -158,7 +149,7 @@
 }
 .save-editor-val {
   margin: 0;
-  margin-right: 16px;
+  margin-right: 29px;
 }
 
 .save-editor-stuff {
@@ -170,6 +161,7 @@
   background-color: whitesmoke;
   border: 0.05rem black solid;
   border-radius: 5px;
+  padding: 2px 3px;
 }
 
 .form-complete-buttons {
@@ -180,7 +172,7 @@
     width: 50%;
     border: none;
     background-color: white;
-    min-height: 2rem;
+    height: 40px;
   }
 }
 
@@ -197,7 +189,7 @@
 //     flex-direction: row;
 //     align-items: baseline;
 //     align-content: flex-start;
-//     border: solid black .025rem;
+//     border: solid black 1px;
 // }
 
 // .action-info {

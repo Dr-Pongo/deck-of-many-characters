@@ -45,7 +45,8 @@ const LandingPage = () => {
       </button>
       {map(charList, (character) => (
         <div key={character.id} className="character">
-          <h3>{`${character.name || 'Unamed'} Level ${character.level} ${character.subClass} ${character.class}`}</h3>
+          <h3>{`${character.name || "Unamed"} `}</h3>
+          <div className="details">{`Level ${character.level} ${character.subClass} ${character.characterClass}`}</div>
           <div className="char-options">
             <button
               id="delete"
