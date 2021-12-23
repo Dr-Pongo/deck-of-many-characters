@@ -2,13 +2,12 @@ import React from 'react';
 import "./style.scss";
 
 const D10Display = (props) => {
-  const vantageRoll = props.dieValue < 0 ? '-unused-roll' : '';
   return (
     <button className='button-wrapper' onClick={props.onClick} >
       <p className='d10-button-text'>{Math.abs(props.dieValue)}</p>
       <svg className='d10-svg' xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0, 0, 110, 115">
         <g id="Layer_1">
-          <path id={`die-path${vantageRoll}`} d="M0,44.55 L55,6.87 L110,44.55 L109,79.27 L55,108.13 L1,79.27 z" />
+          <path className={props.dieValue < 0 ? 'unused-roll' : 'used-roll'} d="M0,44.55 L55,6.87 L110,44.55 L109,79.27 L55,108.13 L1,79.27 z" />
           <path d="M19.8,83.14 L55,6.87 L0,44.55 L1,79.27 z" fill="#000000" opacity="0.12"/>
           <path d="M90.2,83.14 L55,6.87 L110,44.55 L109,79.27 z" fill="#000000" opacity="0.18"/>
           <path d="M1,79.27 C1,79.27 19.6,83.14 19.82,83.14 C20.04,83.14 55,101.29 55,101.29 L55,108.13 z" fill="#000000" opacity="0.32"/>
