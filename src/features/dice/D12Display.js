@@ -1,10 +1,9 @@
 import React from 'react';
-import "./style.scss";
 
 const D12Display = (props) => {
   return (
     <button className='button-wrapper' onClick={props.onClick} >
-      <p className='d12-button-text'>{Math.abs(props.dieValue)}</p>
+      <p id='d12-text' className='button-text'>{Math.abs(props.dieValue)}</p>
       <svg className='d12-svg' xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="0, 0, 110, 115">
         <g id="Layer_1">
           <path className={props.dieValue < 0 ? 'unused-roll' : 'used-roll'} d="M0.31,39.73 L21.2,11 L55,0 L88.8,11 L109.69,39.75 L109.69,75.27 L88.8,104 L55,115 L21.2,104 L0.31,75.27 z" />

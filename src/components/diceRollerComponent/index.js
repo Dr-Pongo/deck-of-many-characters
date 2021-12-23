@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import './style.scss';
 import {v4 as uuidv4} from 'uuid';
 import map from 'lodash/map';
-import D4Display from '../../features/dice/d4';
-import D6Display from '../../features/dice/d6';
-import D8Display from '../../features/dice/d8';
-import D10Display from '../../features/dice/d10';
-import D12Display from '../../features/dice/d12';
-import D20Display from '../../features/dice/d20';
-import D100Display from '../../features/dice/d100';
+import D4Display from '../../features/dice/D4Display';
+import D6Display from '../../features/dice/D6Display';
+import D8Display from '../../features/dice/D8Display';
+import D10Display from '../../features/dice/D10Display';
+import D12Display from '../../features/dice/D12Display';
+import D20Display from '../../features/dice/D20Display';
+import D100Display from '../../features/dice/D100Display';
 import { selectDiceTray, addDie, removeDie, updateModifier, clearDiceTray } from '../../containers/diceTraySlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -148,7 +148,7 @@ const DiceRoller = (props) => {
                 const TagName = die[`D${die.value}Display`];
                 return <TagName dieValue={die.value} key={die.key} onClick={() => handleDiceSelect(d, die.value)} />
             })}
-            <input type='number' onChange={handleManualMod} value={modifier} />
+            <input className='modifier' type='number' onChange={handleManualMod} value={modifier} />
           </div>
           <div className='dice-tray'>
             {dice.map((die, d) => {

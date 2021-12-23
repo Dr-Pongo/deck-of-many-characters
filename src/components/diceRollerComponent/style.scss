@@ -10,8 +10,9 @@
     flex-direction: row;
     justify-content: flex-start;
     align-content: flex-start;
-    height: 50px;
-
+    padding: .5rem;
+    height: fit-content;
+    border: 1px blue solid;
 }
 
 .dice-result {
@@ -32,17 +33,43 @@
 }
 
 .button-wrapper {
-    border: none;
+    position: relative;
     background-color: transparent;
-    border: 1px green solid;
+    border: none;
+    width: 15%;
+    max-width: 3.5rem;
 }
 
-[class*="-button-text"]{
+.modifier {
+    width: 15%;
+    max-width: 5rem;
+}
+
+.button-text {
     position: absolute;
+    top: 50%;
+    left: 51%;
     transform: translate(-50%, -50%);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: white;
     z-index: 2;
+}
+
+#d6-text {
+    top: 45%;
+}
+
+#d8-text {
+    top: 45%;
+}
+
+#d12-text {
+    top: 45%;
+}
+
+#d20-text {
+    top: 43%; 
+    left: 52%;
 }
 
 .unused-roll {
@@ -52,3 +79,4 @@
 .used-roll {
     fill: #5669F5;
 }
+
