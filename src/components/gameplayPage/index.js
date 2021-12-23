@@ -56,7 +56,7 @@ class GameplayPage extends Component {
   render() {
     const {name, level, subClass, abilities, skills, actions} = this.props.currentCharacter;
     return (
-      <div className="page">
+      <div className="gameplay main-page">
         <h2>GamePlay Page</h2>
         <DiceRoller />
         <div className="basicInfo">

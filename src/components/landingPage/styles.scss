@@ -1,8 +1,33 @@
+@use '../app/variables';
+
 .character {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    border: solid black .01rem;
+    border-radius: .25rem;
+    box-shadow: variables.$subtle-box-shadow;
+    margin: .5rem 0;
+    padding: 1rem 0 1rem 1rem;
 }
 
-.character button {
-    margin: 0 5px;
+.char-options {
+    display: flex;
+    justify-content: space-around;
+    margin: -1rem 0;
+    width: 20%;
+    max-width: 10rem;
+    button {
+        width: 50%;
+        height: 100%;
+        border: none;
+    }
+}
+
+#play {
+    background-color: rgb(195, 235, 195);
+}
+
+#delete {
+    background-color: rgb(253, 176, 176);
 }

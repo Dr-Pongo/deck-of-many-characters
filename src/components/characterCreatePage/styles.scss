@@ -1,7 +1,13 @@
 @use "../app/variables";
 
-.char-create-page{
-}
+// .char-create-page{
+//     width: 80%;
+//     margin: 2rem 50%;
+//     transform: translate(-50%, 0);
+//     padding: 0 2rem;
+//     max-width: 700px;
+//     box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.2);
+// }
 
 .char-create-form {
     display: flex;
@@ -19,7 +25,7 @@
 .additional-information {
     display: flex;
     flex-direction: row;
-    justify-content:center;
+    justify-content: space-around;
 }
 
 .column-info-display {
@@ -28,13 +34,16 @@
         margin-bottom: .5rem;
         transform: translate(-50%, 0%);
     }
+    margin: 1rem 0;
     border: variables.$round-thin-border;
     border-radius: .25rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 30%;
+    width: 50%;
+    max-width: 20rem;
+    min-width: 15rem;
 }
 
 .column-info-header {
@@ -51,6 +60,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .input-combo {
@@ -69,23 +79,29 @@
 .skill-editor {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: baseline;
     margin-top: .15rem;
-    width: 95%;
+    width: 80%;
+    max-width: 20rem;
 }
 
-.skill-editor-val {
-    width: 10%;
-    text-align: center;
-}
-
-.skill-editor-name {
-    width: 50%;
+.skill-editor-stuff {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
 .skill-editor-buttons {
-    width: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 15%;
+}
+
+.skill-editor-val {
+    justify-self: right;
 }
 
 .skill-btn {
@@ -105,47 +121,66 @@
 
 .save-column-info-display {
     h3 {
-        margin-left: 30%;
         margin-bottom: .5rem;
-        transform: translate(-50%, 0%);
     }
+    margin: 1rem 0;
     border: variables.$round-thin-border;
     border-radius: .25rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    width: 20%;
-    padding: .3rem;
+    align-items: flex-start;
     height: fit-content;
+    padding: 1rem;
+    width: 40%;
+    max-width: 20rem;
+    min-width: 10rem;
 }
 
 .save-editor {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: baseline;
-    margin-top: .15rem;
-    width: 95%;
+    width: 80%;
+    max-width: 20rem;
 }
 
-.save-editor-val {
-    width: 10%;
-}
-
-.save-editor-name {
-    width: 50%;
-}
-
-.action {
+.save-editor-stuff {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
-    align-content: flex-start;   
-    border: solid black .025rem; 
+    justify-content: space-between;
 }
 
-.action-info {
+.form-complete-buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    margin: 0 -2rem;
+    button {
+        width: 50%;
+        border: none;
+        background-color: white;
+        min-height: 2rem;
+    }
 }
+
+#save {
+    background-color: rgb(195, 235, 195);
+}
+
+#cancel {
+    background-color: rgb(253, 176, 176);
+}
+
+// .action {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: baseline;
+//     align-content: flex-start;   
+//     border: solid black .025rem; 
+// }
+
+// .action-info {
+//     display: flex;
+//     flex-direction: column;
+// }

@@ -8,7 +8,6 @@ import {v4 as uuidv4} from 'uuid';
 import { gotoPage, HOME_PAGE } from '../../containers/pageSlice';
 import { addNewCharacter } from '../../containers/charactersSlice';
 import { WIP_COMPONENT } from '../app/index';
-import Select from 'react-select';
 
 //GLOBALS
 const SHOULD_BE_NUMBER = true;
@@ -271,7 +270,7 @@ class CharacterCreatePage extends Component {
   render() {
     const {abilities, skills, level, proficiency} = this.state;
     return (
-    <div className="char-create-page" >
+    <div className="char-create main-page" >
       <h2>Character Creation</h2>
       <form className="char-create-form" >
         <div className="core-info">
@@ -295,6 +294,8 @@ class CharacterCreatePage extends Component {
             <label >Proficiency</label>
             <p>{proficiency}</p>
           </div>
+        </div>
+        <div className="core-info">
           <div className='input-combo'>
             <label for='className'>Class</label>
             <input type="text" 
@@ -316,7 +317,7 @@ class CharacterCreatePage extends Component {
                     <AbilityEditor
                       key={ab.id}
                       ability={ab}
-                      handleChange={this.updateAbility(index)} />
+                      handleChange={this.updateAbility(index)} /> 
                   )
               }) }
           </div>
@@ -331,25 +332,31 @@ class CharacterCreatePage extends Component {
                 return (
                   <div className='skill-editor' key={`${skill.name}-${skill.ability}`}>
                     <h4 className='skill-editor-name'>{skill.name}</h4>
-                    <p className='skill-editor-val'>{this.deriveSkillValue(skill.prof, skill.exp, skill.ability)}</p>
-                    <div className='skill-editor-buttons'>
-                      <button className={skill.prof ? 'skill-btn clicked' : 'skill-btn'} type="button" onClick={() => this.handleProfSkillButtonClick(index, 'prof')}> P </button>
-                      {!skill.prof && <button className='skill-btn disabled' type="button" > E </button>}
-                      {skill.prof && <button className={skill.exp ? 'skill-btn clicked' : 'skill-btn'} type="button" onClick={() => this.handleExpSkillButtonClick(index, 'exp')}> E </button>}
+                    <div className='skill-editor-stuff'>
+                      <p className='skill-editor-val'>{this.deriveSkillValue(skill.prof, skill.exp, skill.ability)}</p>
+                      <div className='skill-editor-buttons'>
+                        <button className={skill.prof ? 'skill-btn clicked' : 'skill-btn'} type="button" onClick={() => this.handleProfSkillButtonClick(index, 'prof')}> P </button>
+                        {!skill.prof && <button className='skill-btn disabled' type="button" > E </button>}
+                        {skill.prof && <button className={skill.exp ? 'skill-btn clicked' : 'skill-btn'} type="button" onClick={() => this.handleExpSkillButtonClick(index, 'exp')}> E </button>}
+                      </div>
                     </div>
                   </div>
                 );
               }) }
           </div>
           <div className='save-column-info-display' >
-            <h3>Saving Throws: </h3>
+            <div className='column-info-header'>
+              <h3>Saving Throws: </h3>
+            </div>
             { map(abilities, (ab, index) => {
                   return (
                    <div className="save-editor" key={ab.id} >
                       {/* Printing out Ability Modifier, adding proficiency if ability save is true */}
-                      <p className='save-editor-val'>{`${ab.save ? this.calculateAbilityModifier(ab.val) + this.state.proficiency : this.calculateAbilityModifier(ab.val)}`}</p>
                       <h4 className='save-editor-name'>{ab.name}</h4>
-                      <button className={ab.save ? 'save-editor-btn clicked' : 'save-btn'} type="button" value={!ab.save} onClick={this.handleAbilitySave(index)}> P </button>
+                      <div className='save-editor-stuff'>
+                        <p className='save-editor-val'>{`${ab.save ? this.calculateAbilityModifier(ab.val) + this.state.proficiency : this.calculateAbilityModifier(ab.val)}`}</p>
+                        <button className={ab.save ? 'save-editor-btn clicked' : 'save-btn'} type="button" value={!ab.save} onClick={this.handleAbilitySave(index)}> P </button>
+                      </div>
                    </div> 
                   )
               }) }
@@ -415,8 +422,8 @@ class CharacterCreatePage extends Component {
           </div>}
         </div>
         <div className='form-complete-buttons' >
-          <button type="button" onClick={this.handleSubmit}>Save Character</button>
-          <button type="button" onClick={this.handleCancel}>Cancel</button>
+          <button id='save' type="button" onClick={this.handleSubmit}>Save</button>
+          <button id='cancel' type="button" onClick={this.handleCancel}>Cancel</button>
         </div>
       </form>
     </div>);

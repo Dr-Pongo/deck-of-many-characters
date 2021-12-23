@@ -56,3 +56,13 @@ table {
 //     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 //     padding: 0;
 // }
+
+.main-page {
+    width: 80%;
+    margin: 2rem 50%;
+    transform: translate(-50%, 0);
+    padding: 0 2rem;
+	max-width: 700px;
+	min-height: 700px;
+    box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.2);
+}

@@ -26,15 +26,17 @@ const LandingPage = () => {
     };
 
     return (
-      <div className="page">
+      <div className="landing main-page">
         <h2>Characters</h2>
         <button onClick={() => dispatch(gotoPage(CREATE_PAGE))} type="button">Create New Character</button>
         {map(charList, (character) => 
           <div key={character.id} className="character">
             <h3>{`${character.name} Level ${character.level} ${character.subClass} ${character.class}`}</h3>
-            <button onClick={() => dispatch(removeCharacter(character.id))} type="button">Delete</button>
-            {WIP_COMPONENT && <button onClick={() => handleEdit(character.id)} type="button">Edit</button>}
-            <button onClick={() => handlePlay(character.id)} type="button">Play!</button>
+            <div className='char-options'>
+              <button id='delete' onClick={() => dispatch(removeCharacter(character.id))} type="button">Delete</button>
+              {WIP_COMPONENT && <button onClick={() => handleEdit(character.id)} type="button">Edit</button>}
+              <button id='play' onClick={() => handlePlay(character.id)} type="button">Play!</button>
+            </div>
           </div>
         )}
       </div>);
