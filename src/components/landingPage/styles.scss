@@ -9,6 +9,14 @@
     box-shadow: variables.$subtle-box-shadow;
     margin: .5rem 0;
     padding: 1rem 0 1rem 1rem;
+    width: 500px;
+}
+
+.create-char-button {
+  width: 200px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 .char-options {
@@ -16,7 +24,7 @@
     justify-content: space-around;
     margin: -1rem 0;
     width: 20%;
-    max-width: 10rem;
+    width: 10rem;
     button {
         width: 50%;
         height: 100%;
