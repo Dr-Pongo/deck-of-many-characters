@@ -5,9 +5,9 @@
     flex-direction: column;
     align-items: center;
     margin: 1rem;
-    border: variables.$round-thin-border;
     border-radius: .25rem;
     width: 12%;
+    box-shadow: variables.$subtle-box-shadow;
 }
 
 .ability-name {

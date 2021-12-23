@@ -89,7 +89,11 @@ class CharacterCreatePage extends Component {
       this.setState({ [key]: event.target.value, });
       return;
     }
-    this.setState({ [key]: parseInt(event.target.value) });
+    if(event.target.value.length < 1) { return; }
+    let iNum = parseInt(event.target.value);
+    if(iNum == NaN || iNum < 1) { iNum = 1; }
+    if(iNum > 20) { iNum = 20; }
+    this.setState({ [key]: iNum });
   };
 
   calculateProficiency = () => {
@@ -116,11 +120,15 @@ class CharacterCreatePage extends Component {
    * Ability Method(s)                    *
    * ==================================== */
   updateAbility = (key) => (event) => {
-    console.log(`${key}`);
+    let iNum = parseInt(event.target.value);
+    if(event.target.value.length < 1) { return; }
+    if(iNum == NaN || iNum < 0){ iNum = 0; }
+    if(iNum > 30) { iNum = 30; }
+    
     this.setState({ 
       abilities: {...this.state.abilities, 
         [key]:{...this.state.abilities[key], 
-          val:parseInt(event.target.value)}}
+          val:iNum}}
     })
   };
 
@@ -322,8 +330,8 @@ class CharacterCreatePage extends Component {
             { map(skills, (skill, index) => {
                 return (
                   <div className='skill-editor' key={`${skill.name}-${skill.ability}`}>
-                    <p className='skill-editor-val'>{this.deriveSkillValue(skill.prof, skill.exp, skill.ability)}</p>
                     <h4 className='skill-editor-name'>{skill.name}</h4>
+                    <p className='skill-editor-val'>{this.deriveSkillValue(skill.prof, skill.exp, skill.ability)}</p>
                     <div className='skill-editor-buttons'>
                       <button className={skill.prof ? 'skill-btn clicked' : 'skill-btn'} type="button" onClick={() => this.handleProfSkillButtonClick(index, 'prof')}> P </button>
                       {!skill.prof && <button className='skill-btn disabled' type="button" > E </button>}
