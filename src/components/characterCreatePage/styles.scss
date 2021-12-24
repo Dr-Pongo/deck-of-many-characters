@@ -1,66 +1,198 @@
-.papaForm {
-    display: flex;
-    flex-direction: column;
+@use "../app/variables";
+
+.char-create-form {
+  display: flex;
+  flex-direction: column;
 }
 
-.basicInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: flex-start;
-    border: solid black .025rem; 
-    padding: .25rem;
+.core-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding: 4px;
 }
 
-.additionalInfo {
-    display: inline-flex;
-    flex-direction: row;
+.additional-information {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-radius: 5px;
+  margin: 8px;
+  // border: variables.$round-thin-border;
+  box-shadow: variables.$subtle-box-shadow;
 }
 
-.abilities {
-    display: flex;
-    justify-content: space-evenly;
+.column-info-display {
+  margin: 16px 8px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+  padding-bottom: 12px;
 }
 
-.save {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
+.column-info-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  width: 100%;
+
+  h3 {
+    width: 100%;
+    text-align: center;
+    margin: 16px;
+  }
 }
 
-.save * {
-    margin: 3px;
+.row-info-display {
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.skills {
-    display: flex;
-    flex-direction: column;
+.input-combo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 300px;
 }
 
-.skillEditor {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: baseline;
+.core-input {
+  border: 0.05rem solid black;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 40px;
+  width: 100%;
+  max-width: 250px;
+  padding-left: 8px;
+  font-size: 1rem;
 }
 
-.action {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    align-content: flex-start;   
-    border: solid black .025rem; 
+.input-sized-p {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.skillEditor * {
-    margin: 2px;
+.skill-editor {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 4px;
+  width: 100%;
+  margin: 2px 0;
+  padding: 0 8px;
+}
+
+.skill-editor-name {
+  margin: 0;
+  font-weight: normal;
+}
+
+.skill-editor-stuff {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 77px;
+}
+
+.skill-editor-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 40px;
+}
+
+.skill-editor-val {
+  margin: 0;
+}
+
+.skill-btn {
+  background-color: whitesmoke;
+  border: 1px black solid;
+  border-radius: 5px;
+  padding: 2px 3px;
 }
 
 .clicked {
-    color: blue;
+  color: blue;
 }
 
-.actionInfo {
-    display: flex;
-    flex-direction: column;
+.disabled {
+  color: grey;
+  background-color: lightgrey;
 }
+
+.save-editor {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 80%;
+  margin: 2px 0;
+}
+
+.save-editor-name {
+  font-weight: normal;
+  margin: 0;
+}
+.save-editor-val {
+  margin: 0;
+  margin-right: 29px;
+}
+
+.save-editor-stuff {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.save-btn {
+  background-color: whitesmoke;
+  border: 0.05rem black solid;
+  border-radius: 5px;
+  padding: 2px 3px;
+}
+
+.form-complete-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  button {
+    width: 50%;
+    border: none;
+    background-color: white;
+    height: 40px;
+  }
+}
+
+#save {
+  background-color: rgb(195, 235, 195);
+}
+
+#cancel {
+  background-color: rgb(253, 176, 176);
+}
+
+// .action {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: baseline;
+//     align-content: flex-start;
+//     border: solid black 1px;
+// }
+
+// .action-info {
+//     display: flex;
+//     flex-direction: column;
+// }

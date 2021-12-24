@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const diceTraySlice = createSlice({
-  name: 'diceTray',
-  initialState: { dice: [], modifier: 0, },
+  name: "diceTray",
+  initialState: { dice: [], modifier: 0 },
   reducers: {
     // Add new die with the following format:
     //   { name: die, value: dieValue, key: uuidv4(), }
@@ -11,27 +11,30 @@ const diceTraySlice = createSlice({
     },
     // Remove die by key value
     removeDie: (state, action) => {
-        state.dice = state.dice.filter(element => element.key !== action.payload);
+      state.dice = state.dice.filter(
+        (element) => element.key !== action.payload
+      );
     },
     updateModifier: (state, action) => {
-        state.modifier = action.payload;
+      state.modifier = action.payload;
     },
     // Remove all dice and modifiers
     clearDiceTray: (state, action) => {
-        return { dice: [], modifier: 0};
+      return { dice: [], modifier: 0 };
     },
     addAbilitySkillRoll: (state, action) => {
       state.dice = action.payload.roll;
       state.modifier = action.payload.mod;
     },
-  }
+  },
 });
 
 export const selectDiceTray = (state) => state.diceTray;
-export const { addDie, 
-                removeDie, 
-                updateModifier, 
-                clearDiceTray,
-                addAbilitySkillRoll 
-            } = diceTraySlice.actions;
+export const {
+  addDie,
+  removeDie,
+  updateModifier,
+  clearDiceTray,
+  addAbilitySkillRoll,
+} = diceTraySlice.actions;
 export default diceTraySlice.reducer;

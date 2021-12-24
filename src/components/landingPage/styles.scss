@@ -1,8 +1,53 @@
+@use "../app/variables";
+
 .character {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 5px;
+  box-shadow: variables.$subtle-box-shadow;
+  margin: 16px 0;
+  padding-left: 16px;
+  width: 500px;
+  height: 80px;
+  align-items: center;
+  h3 {
+    min-width: 40%;
+  }
+
+  .details {
+    width: 100%;
+    text-align: left;
+    justify-self: center;
+  }
 }
 
-.character button {
-    margin: 0 5px;
+.create-char-button {
+  width: 200px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  margin-top: 24px;
+}
+
+.char-options {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  min-width: 120px;
+  height: 100%;
+  button {
+    width: 50%;
+    height: 100%;
+    border: none;
+  }
+}
+
+#play {
+  background-color: rgb(195, 235, 195);
+}
+
+#delete {
+  background-color: rgb(253, 176, 176);
 }

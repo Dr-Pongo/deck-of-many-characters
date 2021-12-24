@@ -1,50 +1,94 @@
-
-.button-wrapper {
-    border: none;
-    background-color: transparent;
-}
-
-[class*="-button-text"]{
-    position: absolute;
-    transform: translate(-50%, -50%);
-    font-size: 1.4rem;
-    color: white;
-    z-index: 2;
-}
-[id*="-unused-roll"] {
-    fill: #808080;
-}
-#die-path {
-    fill: #5669F5;
-}
-
 .dice-tray {
-    border: 2px solid black;
-    height: 50px;
+  border: 2px solid black;
+  height: 50px;
 }
 
 .dice-box {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-content: flex-start;
-    height: 50px;
-
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-start;
+  padding: 0.5rem;
+  height: fit-content;
+  border: 1px blue solid;
 }
 
 .dice-result {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .dice-result-combo {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-self: start;
-    height: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-self: start;
+  height: 15px;
 }
 
 .clicked {
-    color: blue;
+  background-color: blue;
+  color: black;
+}
+
+.roll-button {
+  width: 160px;
+  height: 50px;
+  margin: 24px 8px;
+}
+
+.button-wrapper {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  width: 60px;
+  height: 60px;
+}
+
+.modifier {
+  width: 15%;
+  max-width: 5rem;
+}
+
+.button-text {
+  position: absolute;
+  top: 17px;
+  font-size: 1.2rem;
+  color: white;
+  z-index: 2;
+}
+
+#d4-text {
+  left: 25px;
+}
+
+#d6-text {
+  left: 25px;
+}
+
+#d8-text {
+  left: 25px;
+}
+
+#d10-text {
+  left: 19px;
+}
+
+#d12-text {
+  left: 18px;
+}
+
+#d20-text {
+  left: 20px;
+}
+#d100-text {
+  left: 13px;
+}
+
+.unused-roll {
+  fill: #808080;
+}
+
+.used-roll {
+  fill: #5669f5;
 }

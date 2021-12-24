@@ -1,0 +1,66 @@
+h2 {
+  margin-bottom: 0;
+}
+.subheading {
+  margin-bottom: 16px;
+  font-size: .9rem;
+}
+
+.roll-name {
+  margin-bottom: 2px;
+  font-size: .9rem;
+}
+.roll-value {
+  font-size: .9rem;
+}
+
+.abilities {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  button {
+    height: 70px;
+    width: 100px;
+    margin: 12px 6px;
+    border-radius: 5px;
+  }
+}
+
+.additionalInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.skills, .saves {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+.buttons-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    height: 70px;
+    width: 100px;
+    padding: 8px;
+    margin: 8px 4px;
+    border-radius: 5px;
+  }
+}
+
+.go-home-button {
+  height: 50px;
+  width: 200px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  background-color: rgb(253, 176, 176);
+  border-radius: 5px;
+  border: 1px solid black;
+}
