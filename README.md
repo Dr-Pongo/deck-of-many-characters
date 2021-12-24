@@ -22,3 +22,20 @@ From there you can `Delete` the character, or `Play!`.
 Selecting `Play!` will bring you to the Gameplay Page!
 
 This is where I will have a screenshot once it's fully styled! 
+
+
+## Getting Started (locally)
+
+```
+git clone git@github.com:Dr-Pongo/deck-of-many-characters.git
+
+cd dad-joke
+
+yarn
+
+yarn start
+```
+
+## Contributing
+
+Send up a PR if you're interested in updating the website in any way. It'd be greatly appreciated!
