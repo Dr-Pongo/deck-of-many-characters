@@ -89,8 +89,8 @@ class GameplayPage extends Component {
     } = this.props.currentCharacter;
     return (
       <div className="gameplay main-page">
-        <h2>{name}</h2>
-        <div className="subheading">{`Level ${level} ${subClass} ${characterClass}`}</div>
+        <h2>{name || "Unamed"}</h2>
+        <div className="subheading">{`Level ${level} ${subClass || ""} ${characterClass || "Character"}`}</div>
         <div ref={this.rollerRef}></div>
         <DiceRoller />
         <div className="basicInfo">
