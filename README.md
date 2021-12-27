@@ -1,44 +1,41 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# [Deck of Many Characters](https://www.deckofmanycharacters.com/)
 
-## Available Scripts
+## Purose
+Deck of Many Characters provides simple way to roll dice and create characters for Dungeons and Dragons 5th Edition! 
 
-In the project directory, you can run:
+[Navigate to the Deck of Many Characters website.](https://www.deckofmanycharacters.com/) Start by selecting `Create New Character`
 
-### `yarn start`
+![Ladingpage Screenshot](./public/README_Screenshots/LandingPage-empty.png)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Fill out your characters info in the provided fields:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+![Character Create Page](./public/README_Screenshots/Createpage-empty.png)
 
-### `yarn test`
+If you see some values changing as you update your character information don't worry! Modifiers for Proficiency, Ability Scores, and Skill update depending on the character's level, Ability Scores, and Proficiency/Expertise values. 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Once you complete the Character Creation Form, select `Save` and you'll be brought back to the landing page where your newly created character will be waiting!
 
-### `yarn build`
+![Populated Ladingpage Screenshot](./public/README_Screenshots/LandingPage-single.png)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+From there you can `Delete` the character, or `Play!`. 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Selecting `Play!` will bring you to the Gameplay Page!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This is where I will have a screenshot once it's fully styled! 
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Getting Started (locally)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+git clone git@github.com:Dr-Pongo/deck-of-many-characters.git
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+cd dad-joke
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+yarn
 
-## Learn More
+yarn start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Contributing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Send up a PR if you're interested in updating the website in any way. It'd be greatly appreciated!
