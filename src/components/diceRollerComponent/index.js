@@ -158,25 +158,29 @@ const DiceRoller = (props) => {
             />
           );
         })}
-        <p> + </p>
-        <input
-          className="mod-input"
-          type="number"
-          onChange={handleManualMod}
-          value={modifier}
-        />
       </div>
-      <div className="dice-tray">
-        {dice.map((die, d) => {
-          const TagName = DICE_MAP[die.name][`D${die.value}Display`];
-          return (
-            <TagName
-              dieValue={die.value}
-              key={die.key}
-              onClick={() => handleDiceRemove(die.key)}
-            />
-          );
-        })}
+      <div className='dice-tray-container' >
+        <div className="dice-tray">
+          {dice.map((die, d) => {
+            const TagName = DICE_MAP[die.name][`D${die.value}Display`];
+            return (
+              <TagName
+                dieValue={die.value}
+                key={die.key}
+                onClick={() => handleDiceRemove(die.key)}
+              />
+            );
+          })}
+        </div>
+        <div className='mod-info'>
+          <p> + </p>
+          <input
+            className="mod-input"
+            type="number"
+            onChange={handleManualMod}
+            value={modifier}
+          />
+        </div>
       </div>
       <div className="buttons-row">
         <button type="button" className="roll-button" onClick={handleDiceRoll}>
@@ -199,6 +203,9 @@ const DiceRoller = (props) => {
           onClick={handleDisadvantageSelect}
         >
           Disdvantage
+        </button>
+        <button type="button" className="roll-button" onClick={() => dispatch(clearDiceTray())}>
+          Clear All
         </button>
       </div>
       <div className="dice-history">
