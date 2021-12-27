@@ -12,7 +12,7 @@ class GameplayPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.rollerRef = React.createRef()  
+    this.rollerRef = React.createRef();
   }
 
   /* ==================================== *
@@ -96,7 +96,7 @@ class GameplayPage extends Component {
         <div className="basicInfo">
           <div className="abilities">
             <h3>Roll Ability Checks</h3>
-            <div className="abilities-list">
+            <div className="buttons-list">
               {map(abilities, (ab, index) => {
                 return (
                   <button

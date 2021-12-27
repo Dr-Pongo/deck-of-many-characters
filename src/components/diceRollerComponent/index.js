@@ -146,7 +146,7 @@ const DiceRoller = (props) => {
    * ==================================== */
   return (
     <div className="roll-space">
-      <div className="dice-box" >
+      <div className="dice-box">
         {map(DICE_MAP, (die, d) => {
           // All of the Displays have similar names, this be a neat way to do things
           const TagName = die[`D${die.value}Display`];
@@ -178,28 +178,34 @@ const DiceRoller = (props) => {
           );
         })}
       </div>
-      <button type="button" className="roll-button" onClick={handleDiceRoll}>
-        ROLL THE DICE!
-      </button>
-      <button
-        type="button"
-        className={advantage ? "roll-button clicked" : "roll-button"}
-        onClick={handleAdvantageSelect}
-      >
-        Advantage
-      </button>
-      <button
-        type="button"
-        className={disadvantage ? "roll-button clicked" : "roll-button"}
-        onClick={handleDisadvantageSelect}
-      >
-        Disdvantage
-      </button>
+      <div className="buttons-row">
+        <button type="button" className="roll-button" onClick={handleDiceRoll}>
+          ROLL THE DICE!
+        </button>
+        <button
+          type="button"
+          className={
+            advantage ? "roll-button clicked-advantage" : "roll-button"
+          }
+          onClick={handleAdvantageSelect}
+        >
+          Advantage
+        </button>
+        <button
+          type="button"
+          className={
+            disadvantage ? "roll-button clicked-disadvantage" : "roll-button"
+          }
+          onClick={handleDisadvantageSelect}
+        >
+          Disdvantage
+        </button>
+      </div>
       <div className="dice-history">
         <label>Dice History (latest on top)</label>
         {history.map((roll, i) => {
           return (
-            <div key={uuidv4()} className='dice-result-container' >
+            <div key={uuidv4()} className="dice-result-container">
               <div className="dice-result">
                 {roll.dice.map((die) => {
                   const TagName = DICE_MAP[die.name][`D${die.value}Display`];
@@ -213,13 +219,13 @@ const DiceRoller = (props) => {
                           <TagName dieValue={die.result[1]} />
                         </div>
                       )}
-                      <p> + </p>
+                      <p className="plus"> + </p>
                     </div>
                   );
                 })}
                 <p>{`${roll.modifier} = `}</p>
-                <p className='dice-result-total' >{`${roll.total}`}</p>
-                <hr/>
+                <p className="dice-result-total">{`${roll.total}`}</p>
+                <hr />
               </div>
             </div>
           );
