@@ -30,7 +30,7 @@ This is where I will have a screenshot once it's fully styled!
 ```
 git clone git@github.com:Dr-Pongo/deck-of-many-characters.git
 
-cd dad-joke
+cd deck-of-many-characters
 
 yarn
 
