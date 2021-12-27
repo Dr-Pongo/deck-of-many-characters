@@ -58,10 +58,17 @@ class GameplayPage extends Component {
 
   deriveSaveValue = (ability) => {
     const { proficiency } = this.props.currentCharacter;
-    const modifier = this.calculateAbilityModifier(ability.val);
+    let modifier = this.calculateAbilityModifier(ability.val);
 
-    if (ability.save) return modifier + proficiency;
+    if (ability.save) modifier = modifier + proficiency;
+    if (modifier >= 0) return `+${modifier}`;
     return modifier;
+  };
+
+  deriveAbilityScore = (score) => {
+    const modifier = this.calculateAbilityModifier(score);
+    if (modifier >= 0) return `${score} (+${modifier})`;
+    return `${score} (${modifier})`;
   };
 
   /* ==================================== *
@@ -95,7 +102,9 @@ class GameplayPage extends Component {
                     key={`${ab.name}+${index}`}
                   >
                     <div className="roll-name">{ab.name}</div>
-                    <div className="roll-value">{ab.val}</div>
+                    <div className="roll-value">
+                      {this.deriveAbilityScore(ab.val)}
+                    </div>
                   </button>
                 );
               })}
@@ -125,6 +134,7 @@ class GameplayPage extends Component {
             <h3>Roll Skills</h3>
             <div className="buttons-list">
               {map(skills, (skill, index) => {
+                const skillValue = this.deriveSkillValue(skill);
                 return (
                   <button
                     type="button"
@@ -134,7 +144,7 @@ class GameplayPage extends Component {
                   >
                     <div className="roll-name">{skill.name}</div>
                     <div className="roll-value">
-                      {this.deriveSkillValue(skill)}
+                      {skillValue >= 0 ? `+${skillValue}` : skillValue}
                     </div>
                   </button>
                 );
