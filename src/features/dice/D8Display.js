@@ -2,8 +2,8 @@ import React from "react";
 
 const D8Display = (props) => {
   return (
-    <button className="button-wrapper" onClick={props.onClick}>
-      <p id="d8-text" className="button-text">
+    <div className="dice-wrapper" onClick={props.onClick}>
+      <p id="d8-text" className="dice-text">
         {Math.abs(props.dieValue)}
       </p>
       <svg
@@ -36,7 +36,7 @@ const D8Display = (props) => {
           />
         </g>
       </svg>
-    </button>
+    </div>
   );
 };
 
