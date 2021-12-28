@@ -105,10 +105,15 @@ class GameplayPage extends Component {
           characterClass || "Character"
         }`}</div>
         <div>
-          <button type="button" className="prof-mod" onClick={this.handleProficiencyMod} >
+          <button
+            type="button"
+            className="prof-mod"
+            onClick={this.handleProficiencyMod}
+          >
             <div className="roll-name">{`Proficiency +${proficiency}`}</div>
           </button>
         </div>
+        <div ref={this.rollerRef} />
         <DiceRoller />
         <div className="basicInfo">
           <div className="abilities">
