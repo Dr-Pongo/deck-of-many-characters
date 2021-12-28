@@ -18,10 +18,7 @@ export const WIP_COMPONENT = false;
 
 function App() {
   const currentPage = useSelector(selectPage);
-
-  // useEffect(()=> {
-  //   localStorage.setItem('savedCharacters', JSON.stringify(selectCharacters));
-  // }, [selectCharacters]);
+  // localStorage.clear();
 
   return (
     <Provider store={store}>
@@ -29,7 +26,7 @@ function App() {
         <h1>Deck of Many Characters</h1>
         {currentPage === HOME_PAGE && <LandingPage />}
         {currentPage === CREATE_PAGE && <CharacterCreatePage />}
-        {currentPage === EDIT_PAGE && WIP_COMPONENT && <CharacterEditPage />}
+        {currentPage === EDIT_PAGE && <CharacterEditPage />}
         {currentPage === PLAY_PAGE && <GameplayPage />}
       </div>
     </Provider>

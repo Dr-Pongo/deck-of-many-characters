@@ -11,7 +11,6 @@ import { WIP_COMPONENT } from "../app/index";
 class GameplayPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
     this.rollerRef = React.createRef();
   }
 
@@ -90,7 +89,9 @@ class GameplayPage extends Component {
     return (
       <div className="gameplay main-page">
         <h2>{name || "Unamed"}</h2>
-        <div className="subheading">{`Level ${level} ${subClass || ""} ${characterClass || "Character"}`}</div>
+        <div className="subheading">{`Level ${level} ${subClass || ""} ${
+          characterClass || "Character"
+        }`}</div>
         <div ref={this.rollerRef}></div>
         <DiceRoller />
         <div className="basicInfo">

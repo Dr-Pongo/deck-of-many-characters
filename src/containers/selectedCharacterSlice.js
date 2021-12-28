@@ -6,6 +6,7 @@ const selectedCharacterSlice = createSlice({
   initialState: null,
   reducers: {
     setSelectedCharacter: (state, action) => {
+      console.log(action);
       return action.payload;
     },
   },
