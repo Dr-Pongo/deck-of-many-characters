@@ -48,7 +48,7 @@
   height: fit-content;
   padding: 0.5rem;
   overflow-y: scroll;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 .dice-result {
@@ -83,26 +83,28 @@
   align-items: center;
   align-self: start;
   padding: 2px;
+  transition: min-width .5s;
 
   .plus {
     margin-left: 2px;
     cursor: default;
   }
 
-
   .dice-wrapper {
     :hover {
       cursor: default;
     }
   }
-  :hover {
-    .adv-hide{
-      position: relative;
-      top: unset;
-      top: unset;
-    }
-  }
 
+}
+.dice-result-combo:hover {
+  .dice-result-vantage {
+    min-width: 120px;
+  }
+  .adv-hide {
+    top: 0px;
+    left: 60px;
+  }
 }
 
 .modifier-print {
@@ -186,8 +188,9 @@
   .adv-hide {
     z-index: 0;
     position: absolute;
-    top: 5px;
-    right: 0;
+    top: 7px;
+    left: 7px;
+    transition: top 0.3s, left 0.3s;
   }
 }
 
