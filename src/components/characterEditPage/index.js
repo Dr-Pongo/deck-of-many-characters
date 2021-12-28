@@ -15,7 +15,6 @@ const SHOULD_BE_NUMBER = true;
 class CharacterEditPage extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.currentCharacter);
     this.state = {
       ...this.props.currentCharacter,
     };
@@ -273,7 +272,7 @@ class CharacterEditPage extends Component {
     } = this.state;
     return (
       <div className="create-char main-page">
-        <h2>Character Creation</h2>
+        <h2>Character Edit</h2>
         <form className="char-create-form">
           <div className="core-info">
             <div className="input-combo">
