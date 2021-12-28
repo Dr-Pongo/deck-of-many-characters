@@ -469,8 +469,10 @@ class CharacterCreatePage extends Component {
             <div className="skills column-info-display">
               <div className="column-info-header">
                 <h3>Skills</h3>
-                {/* <p>Proficiency</p>
-              <p>Expertise</p> */}
+                <div className='prof-exp-label' >
+                  <p>Proficiency</p>
+                  <p>Expertise</p>
+                </div>
               </div>
               {map(skills, (skill, index) => {
                 return (
@@ -496,15 +498,9 @@ class CharacterCreatePage extends Component {
                           onClick={() =>
                             this.handleProfSkillButtonClick(index, "prof")
                           }
-                        >
-                          {" "}
-                          P{" "}
-                        </button>
+                        />
                         {!skill.prof && (
-                          <button className="skill-btn disabled" type="button">
-                            {" "}
-                            E{" "}
-                          </button>
+                          <button className="skill-btn disabled" type="button"/>
                         )}
                         {skill.prof && (
                           <button
@@ -515,10 +511,7 @@ class CharacterCreatePage extends Component {
                             onClick={() =>
                               this.handleExpSkillButtonClick(index, "exp")
                             }
-                          >
-                            {" "}
-                            E{" "}
-                          </button>
+                          />
                         )}
                       </div>
                     </div>
@@ -529,6 +522,9 @@ class CharacterCreatePage extends Component {
             <div className="column-info-display">
               <div className="column-info-header">
                 <h3>Saving Throws </h3>
+                <div className='prof-exp-label-save' >
+                  Proficiency
+                </div>
               </div>
               {map(abilities, (ab, index) => {
                 return (
@@ -543,14 +539,11 @@ class CharacterCreatePage extends Component {
                           : this.calculateAbilityModifier(ab.val)
                       }`}</p>
                       <button
-                        className={ab.save ? "save-btn clicked" : "save-btn"}
+                        className={ab.save ? "skill-btn clicked" : "skill-btn"}
                         type="button"
                         value={!ab.save}
                         onClick={this.handleAbilitySave(index)}
-                      >
-                        {" "}
-                        P{" "}
-                      </button>
+                      />
                     </div>
                   </div>
                 );

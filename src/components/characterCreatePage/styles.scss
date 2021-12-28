@@ -48,6 +48,29 @@
   }
 }
 
+.prof-exp-label {
+  position: absolute;
+  display: flex;
+  align-self: flex-end;
+  margin: -4px;
+  margin-top: 8px;
+
+  p {
+    transform: rotate(-50deg);
+    margin: -8px;
+    font-size: 0.55rem;
+  }
+}
+
+.prof-exp-label-save {
+  position: absolute;
+  align-self: flex-end;
+  margin-right: 10px;
+  margin-top: 5px;
+  transform: rotate(-50deg);
+  font-size: 0.55rem;
+}
+
 .row-info-display {
   border-radius: 5px;
   display: flex;
@@ -121,17 +144,17 @@
 .skill-btn {
   background-color: whitesmoke;
   border: 1px black solid;
-  border-radius: 5px;
-  padding: 2px 3px;
+  border-radius: 10px;
+  width: 20px;
 }
 
 .clicked {
-  color: blue;
+  background-color: rgb(161, 235, 161);
 }
 
 .disabled {
   color: grey;
-  background-color: lightgrey;
+  background-color: darkgray;
 }
 
 .save-editor {
@@ -156,12 +179,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-.save-btn {
-  background-color: whitesmoke;
-  border: 0.05rem black solid;
-  border-radius: 5px;
-  padding: 2px 3px;
 }
 
 .form-complete-buttons {
