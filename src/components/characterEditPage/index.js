@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./styles.scss";
+import "../characterCreatePage/styles.scss";
 import AbilityEditor from "../characterCreatePage/abilityEditor/index";
 import map from "lodash/map";
 // UUID DOCS: npmjs.com/package/uuid
