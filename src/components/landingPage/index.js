@@ -12,8 +12,8 @@ import {
   PLAY_PAGE,
 } from "../../containers/pageSlice";
 import { setSelectedCharacter } from "../../containers/selectedCharacterSlice";
+import DiceRoller from "../diceRollerComponent/index";
 import map from "lodash/map";
-import { WIP_COMPONENT } from "../app/index";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -46,7 +46,9 @@ const LandingPage = () => {
       {map(charList, (character) => (
         <div key={character.id} className="character">
           <h3>{`${character.name || "Unamed"} `}</h3>
-          <div className="details">{`Level ${character.level} ${character.subClass || ""} ${character.characterClass || "Character"}`}</div>
+          <div className="details">{`Level ${character.level} ${
+            character.subClass || ""
+          } ${character.characterClass || "Character"}`}</div>
           <div className="char-options">
             <button
               id="delete"
@@ -55,11 +57,10 @@ const LandingPage = () => {
             >
               Delete
             </button>
-            {WIP_COMPONENT && (
-              <button onClick={() => handleEdit(character.id)} type="button">
-                Edit
-              </button>
-            )}
+
+            <button onClick={() => handleEdit(character.id)} type="button">
+              Edit
+            </button>
             <button
               id="play"
               onClick={() => handlePlay(character.id)}
@@ -70,6 +71,8 @@ const LandingPage = () => {
           </div>
         </div>
       ))}
+      <h3>Roll Some Dice</h3>
+      <DiceRoller />
     </div>
   );
 };
