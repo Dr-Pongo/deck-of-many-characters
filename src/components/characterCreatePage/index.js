@@ -517,6 +517,8 @@ class CharacterCreatePage extends Component {
                     </div>
                   </div>
                 );
+              }).sort((first, second) => {
+                return first.key < second.key ? -1 : 1;
               })}
             </div>
             <div className="column-info-display">

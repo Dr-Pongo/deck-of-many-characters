@@ -39,6 +39,17 @@ class GameplayPage extends Component {
   };
 
   /* ==================================== *
+   * handleProficiencyMod                 *
+   * ==================================== */
+  handleProficiencyMod = () => {
+    const { proficiency } = this.props.currentCharacter;
+    this.props.addAbilitySkillRoll({
+      roll: [],
+      mod: proficiency,
+    });
+  };
+
+  /* ==================================== *
    * Helpers                              *
    * ==================================== */
   calculateAbilityModifier = (abilityValue) => {
@@ -80,6 +91,7 @@ class GameplayPage extends Component {
     const {
       name,
       level,
+      proficiency,
       subClass,
       abilities,
       skills,
@@ -92,6 +104,11 @@ class GameplayPage extends Component {
         <div className="subheading">{`Level ${level} ${subClass || ""} ${
           characterClass || "Character"
         }`}</div>
+        <div>
+          <button type="button" className="prof-mod" onClick={this.handleProficiencyMod} >
+            <div className="roll-name">{`Proficiency +${proficiency}`}</div>
+          </button>
+        </div>
         <DiceRoller />
         <div className="basicInfo">
           <div className="abilities">
