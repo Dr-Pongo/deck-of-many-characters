@@ -368,15 +368,9 @@ class CharacterEditPage extends Component {
                           onClick={() =>
                             this.handleProfSkillButtonClick(index, "prof")
                           }
-                        >
-                          {" "}
-                          P{" "}
-                        </button>
+                        />
                         {!skill.prof && (
-                          <button className="skill-btn disabled" type="button">
-                            {" "}
-                            E{" "}
-                          </button>
+                          <button className="skill-btn disabled" type="button"/>
                         )}
                         {skill.prof && (
                           <button
@@ -387,10 +381,7 @@ class CharacterEditPage extends Component {
                             onClick={() =>
                               this.handleExpSkillButtonClick(index, "exp")
                             }
-                          >
-                            {" "}
-                            E{" "}
-                          </button>
+                          />
                         )}
                       </div>
                     </div>
@@ -417,14 +408,11 @@ class CharacterEditPage extends Component {
                           : this.calculateAbilityModifier(ab.val)
                       }`}</p>
                       <button
-                        className={ab.save ? "save-btn clicked" : "save-btn"}
+                        className={ab.save ? "skill-btn clicked" : "skill-btn"}
                         type="button"
                         value={!ab.save}
                         onClick={this.handleAbilitySave(index)}
-                      >
-                        {" "}
-                        P{" "}
-                      </button>
+                      />
                     </div>
                   </div>
                 );
