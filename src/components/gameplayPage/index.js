@@ -92,7 +92,6 @@ class GameplayPage extends Component {
         <div className="subheading">{`Level ${level} ${subClass || ""} ${
           characterClass || "Character"
         }`}</div>
-        <div ref={this.rollerRef}></div>
         <DiceRoller />
         <div className="basicInfo">
           <div className="abilities">
