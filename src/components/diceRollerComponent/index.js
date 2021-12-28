@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./style.scss";
 import { v4 as uuidv4 } from "uuid";
 import map from "lodash/map";
@@ -42,6 +42,7 @@ const DiceRoller = (props) => {
   // store fun
   const dispatch = useDispatch();
   const { dice, modifier } = useSelector(selectDiceTray);
+  const rollerRef = useRef(null);
 
   /* ==================================== *
    * Handle Dice Roll!                    *
@@ -145,23 +146,6 @@ const DiceRoller = (props) => {
    * ==================================== */
   return (
     <div className="roll-space">
-      <button type="button" className="roll-button" onClick={handleDiceRoll}>
-        ROLL THE DICE!
-      </button>
-      <button
-        type="button"
-        className={advantage ? "roll-button clicked" : "roll-button"}
-        onClick={handleAdvantageSelect}
-      >
-        Advantage
-      </button>
-      <button
-        type="button"
-        className={disadvantage ? "roll-button clicked" : "roll-button"}
-        onClick={handleDisadvantageSelect}
-      >
-        Disdvantage
-      </button>
       <div className="dice-box">
         {map(DICE_MAP, (die, d) => {
           // All of the Displays have similar names, this be a neat way to do things
@@ -174,47 +158,82 @@ const DiceRoller = (props) => {
             />
           );
         })}
-        <input
-          className="modifier"
-          type="number"
-          onChange={handleManualMod}
-          value={modifier}
-        />
       </div>
-      <div className="dice-tray">
-        {dice.map((die, d) => {
-          const TagName = DICE_MAP[die.name][`D${die.value}Display`];
-          return (
-            <TagName
-              dieValue={die.value}
-              key={die.key}
-              onClick={() => handleDiceRemove(die.key)}
-            />
-          );
-        })}
+      <div className='dice-tray-container' >
+        <div className="dice-tray">
+          {dice.map((die, d) => {
+            const TagName = DICE_MAP[die.name][`D${die.value}Display`];
+            return (
+              <TagName
+                dieValue={die.value}
+                key={die.key}
+                onClick={() => handleDiceRemove(die.key)}
+              />
+            );
+          })}
+        </div>
+        <div className='mod-info'>
+          <p> + </p>
+          <input
+            className="mod-input"
+            type="number"
+            onChange={handleManualMod}
+            value={modifier}
+          />
+        </div>
+      </div>
+      <div className="buttons-row">
+        <button type="button" className="roll-button" onClick={handleDiceRoll}>
+          ROLL THE DICE!
+        </button>
+        <button
+          type="button"
+          className={
+            advantage ? "roll-button clicked-advantage" : "roll-button"
+          }
+          onClick={handleAdvantageSelect}
+        >
+          Advantage
+        </button>
+        <button
+          type="button"
+          className={
+            disadvantage ? "roll-button clicked-disadvantage" : "roll-button"
+          }
+          onClick={handleDisadvantageSelect}
+        >
+          Disdvantage
+        </button>
+        <button type="button" className="roll-button" onClick={() => dispatch(clearDiceTray())}>
+          Clear All
+        </button>
       </div>
       <div className="dice-history">
         <label>Dice History (latest on top)</label>
         {history.map((roll, i) => {
           return (
-            <div key={uuidv4()} className="dice-result">
-              {roll.dice.map((die) => {
-                const TagName = DICE_MAP[die.name][`D${die.value}Display`];
-                return (
-                  <div key={uuidv4()} className="dice-result-combo">
-                    {die.result.length === 1 ? (
-                      <TagName dieValue={die.result} key={die.key} />
-                    ) : (
-                      <div className="dice-result-vantage">
-                        <TagName dieValue={die.result[0]} />
-                        <TagName dieValue={die.result[1]} />
-                      </div>
-                    )}
-                    <p> + </p>
-                  </div>
-                );
-              })}
-              <p>{`${roll.modifier} = ${roll.total}`}</p>
+            <div key={uuidv4()} className="dice-result-container">
+              <div className="dice-result">
+                {roll.dice.map((die) => {
+                  const TagName = DICE_MAP[die.name][`D${die.value}Display`];
+                  return (
+                    <div key={uuidv4()} className="dice-result-combo">
+                      {die.result.length === 1 ? (
+                        <TagName dieValue={die.result} key={die.key} />
+                      ) : (
+                        <div className="dice-result-vantage">
+                          <TagName dieValue={die.result[0]} />
+                          <TagName dieValue={die.result[1]} />
+                        </div>
+                      )}
+                      <p className="plus"> + </p>
+                    </div>
+                  );
+                })}
+                <p>{`${roll.modifier} = `}</p>
+                <p className="dice-result-total">{`${roll.total}`}</p>
+                <hr />
+              </div>
             </div>
           );
         })}

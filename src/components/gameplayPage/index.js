@@ -12,6 +12,7 @@ class GameplayPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.rollerRef = React.createRef();
   }
 
   /* ==================================== *
@@ -25,6 +26,7 @@ class GameplayPage extends Component {
       roll: diceToAdd,
       mod: save ? modifierToAdd + proficiency : modifierToAdd,
     });
+    this.rollerRef.current.scrollIntoView();
   };
 
   /* ==================================== *
@@ -34,6 +36,7 @@ class GameplayPage extends Component {
     const diceToAdd = [{ name: "d20", value: 20, key: uuidv4() }];
     const modifierToAdd = this.deriveSkillValue(skill);
     this.props.addAbilitySkillRoll({ roll: diceToAdd, mod: modifierToAdd });
+    this.rollerRef.current.scrollIntoView();
   };
 
   /* ==================================== *
@@ -86,13 +89,14 @@ class GameplayPage extends Component {
     } = this.props.currentCharacter;
     return (
       <div className="gameplay main-page">
-        <h2>{name}</h2>
-        <div className="subheading">{`Level ${level} ${subClass} ${characterClass}`}</div>
+        <h2>{name || "Unamed"}</h2>
+        <div className="subheading">{`Level ${level} ${subClass || ""} ${characterClass || "Character"}`}</div>
+        <div ref={this.rollerRef}></div>
         <DiceRoller />
         <div className="basicInfo">
           <div className="abilities">
             <h3>Roll Ability Checks</h3>
-            <div className="abilities-list">
+            <div className="buttons-list">
               {map(abilities, (ab, index) => {
                 return (
                   <button
