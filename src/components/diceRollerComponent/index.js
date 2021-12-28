@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import "./style.scss";
 import { v4 as uuidv4 } from "uuid";
 import map from "lodash/map";
@@ -42,7 +42,6 @@ const DiceRoller = (props) => {
   // store fun
   const dispatch = useDispatch();
   const { dice, modifier } = useSelector(selectDiceTray);
-  const rollerRef = useRef(null);
 
   /* ==================================== *
    * Handle Dice Roll!                    *
@@ -155,11 +154,12 @@ const DiceRoller = (props) => {
               dieValue={die.value}
               key={die.key}
               onClick={() => handleDiceSelect(d, die.value)}
+              isRollResult={false}
             />
           );
         })}
       </div>
-      <div className='dice-tray-container' >
+      <div className="dice-tray-container">
         <div className="dice-tray">
           {dice.map((die, d) => {
             const TagName = DICE_MAP[die.name][`D${die.value}Display`];
@@ -168,11 +168,12 @@ const DiceRoller = (props) => {
                 dieValue={die.value}
                 key={die.key}
                 onClick={() => handleDiceRemove(die.key)}
+                isRollResult={false}
               />
             );
           })}
         </div>
-        <div className='mod-info'>
+        <div className="mod-info">
           <p> + </p>
           <input
             className="mod-input"
@@ -204,7 +205,11 @@ const DiceRoller = (props) => {
         >
           Disdvantage
         </button>
-        <button type="button" className="roll-button" onClick={() => dispatch(clearDiceTray())}>
+        <button
+          type="button"
+          className="roll-button"
+          onClick={() => dispatch(clearDiceTray())}
+        >
           Clear All
         </button>
       </div>
@@ -219,18 +224,29 @@ const DiceRoller = (props) => {
                   return (
                     <div key={uuidv4()} className="dice-result-combo">
                       {die.result.length === 1 ? (
-                        <TagName dieValue={die.result} key={die.key} />
+                        <TagName
+                          dieValue={die.result}
+                          key={die.key}
+                          isRollResult={true}
+                        />
                       ) : (
                         <div className="dice-result-vantage">
-                          <TagName dieValue={die.result[0]} />
-                          <TagName dieValue={die.result[1]} />
+                          <TagName
+                            dieValue={die.result[0]}
+                            isRollResult={true}
+                          />
+                          <TagName
+                            dieValue={die.result[1]}
+                            isRollResult={true}
+                          />
                         </div>
                       )}
                       <p className="plus"> + </p>
                     </div>
                   );
                 })}
-                <p>{`${roll.modifier} = `}</p>
+                <p className="modifier-print">{`${roll.modifier}`}</p>
+                <p>=</p>
                 <p className="dice-result-total">{`${roll.total}`}</p>
                 <hr />
               </div>

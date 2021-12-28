@@ -21,18 +21,16 @@ const charactersSlice = createSlice({
       delete newCharacters[action.payload];
       localStorage.setItem("savedCharacters", JSON.stringify(newCharacters));
       return newCharacters;
-
-      // const newCharacters = map(state, (character, index) => {
-      //   if(index !== action.payload) {
-      //     return character;
-      //   }
-      // });
-      // localStorage.setItem('savedCharacters', JSON.stringify(newCharacters));
-      // return newCharacters;
+    },
+    updateCharacter: (state, action) => {
+      const newCharacters = { ...state, [action.payload.id]: action.payload };
+      localStorage.setItem("savedCharacters", JSON.stringify(newCharacters));
+      return newCharacters;
     },
   },
 });
 
 export const selectCharacters = (state) => state.characters;
-export const { addNewCharacter, removeCharacter } = charactersSlice.actions;
+export const { addNewCharacter, removeCharacter, updateCharacter } =
+  charactersSlice.actions;
 export default charactersSlice.reducer;

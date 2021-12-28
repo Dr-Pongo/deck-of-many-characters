@@ -1,8 +1,14 @@
 import React from "react";
 
 const D20Display = (props) => {
+  const deriveClassName = () => {
+    if (!props.isRollResult) return "dice-wrapper";
+    return props.dieValue < 0
+      ? "dice-wrapper adv-hide"
+      : "dice-wrapper adv-top";
+  };
   return (
-    <div className="dice-wrapper" onClick={props.onClick}>
+    <div className={deriveClassName()} onClick={props.onClick}>
       <p id="d20-text" className="dice-text">
         {Math.abs(props.dieValue)}
       </p>
