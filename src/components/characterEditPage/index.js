@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./styles.scss";
+import "../characterCreatePage/styles.scss";
 import AbilityEditor from "../characterCreatePage/abilityEditor/index";
 import map from "lodash/map";
 // UUID DOCS: npmjs.com/package/uuid
@@ -15,7 +15,6 @@ const SHOULD_BE_NUMBER = true;
 class CharacterEditPage extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.currentCharacter);
     this.state = {
       ...this.props.currentCharacter,
     };
@@ -273,7 +272,7 @@ class CharacterEditPage extends Component {
     } = this.state;
     return (
       <div className="create-char main-page">
-        <h2>Character Creation</h2>
+        <h2>Character Edit</h2>
         <form className="char-create-form">
           <div className="core-info">
             <div className="input-combo">
@@ -397,6 +396,8 @@ class CharacterEditPage extends Component {
                     </div>
                   </div>
                 );
+              }).sort((first, second) => {
+                return first.key < second.key ? -1 : 1;
               })}
             </div>
             <div className="column-info-display">
