@@ -470,8 +470,8 @@ class CharacterCreatePage extends Component {
               <div className="column-info-header">
                 <h3>Skills</h3>
                 <div className='prof-exp-label' >
-                  <p>Proficiency</p>
-                  <p>Expertise</p>
+                  <p>Prof</p>
+                  <p>Exp</p>
                 </div>
               </div>
               {map(skills, (skill, index) => {
@@ -525,7 +525,7 @@ class CharacterCreatePage extends Component {
               <div className="column-info-header">
                 <h3>Saving Throws </h3>
                 <div className='prof-exp-label-save' >
-                  Proficiency
+                  Prof
                 </div>
               </div>
               {map(abilities, (ab, index) => {
