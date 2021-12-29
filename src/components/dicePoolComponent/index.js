@@ -27,20 +27,31 @@ const DICE_MAP = {
  * Dice Roller Functional Component     *
  * ==================================== */
 const DicePool = (props) => {
-  const [dice, setDice] = useState([]);
+  const { addDice, removeDice, currentDice } = props;
 
   /* ==================================== *
    * handleDiceSelect                     *
    * ==================================== */
   const handleDiceSelect = (die, dieValue) => {
-    setDice([...dice, { name: die, value: dieValue, key: uuidv4() }]);
+    addDice({ name: die, value: dieValue, key: uuidv4() });
   };
 
   /* ==================================== *
    * handleDiceRemove                     *
    * ==================================== */
   const handleDiceRemove = (removeKey) => {
-    setDice(dice.filter(die => die.key !== removeKey));
+    removeDice(removeKey);
+  };
+
+  /* ==================================== *
+   * getDieCount                          *
+   * ==================================== */
+  const getDieCount = (dieValue) => {
+    return currentDice.reduce((prev, cur) => {
+      if(cur.value === dieValue) {
+        prev++;
+      }
+    }, 0);
   };
 
   /* ==================================== *
@@ -52,26 +63,33 @@ const DicePool = (props) => {
         {map(DICE_MAP, (die, d) => {
           // All of the Displays have similar names, this be a neat way to do things
           const TagName = die[`D${die.value}Display`];
+          const tempCount = 2;
           return (
-            <TagName
-              dieValue={die.value}
-              key={die.key}
-              onClick={() => handleDiceSelect(d, die.value)}
-              isRollResult={false}
-            />
-          );
-        })}
-      </div>
-      <div className="dice-pool-tray">
-        {dice.map((die, d) => {
-          const TagName = DICE_MAP[die.name][`D${die.value}Display`];
-          return (
-            <TagName
-              dieValue={die.value}
-              key={die.key}
-              onClick={() => handleDiceRemove(die.key)}
-              isRollResult={false}
-            />
+            <div className='dice-pool-tray' >
+              <TagName
+                dieValue={die.value}
+                key={die.key}
+                onClick={() => handleDiceSelect(d, die.value)}
+                isRollResult={false}
+              />
+              <div>
+                <button 
+                  type='button' 
+                  className='add-die'
+                  onClick={() => handleDiceSelect(d, die.value)}
+                >
+                  +
+                </button>
+                <p>{`x${tempCount}`}</p>
+                <button
+                  type='button' 
+                  className='remove-die'
+                  onClick={() => handleDiceRemove(die.key)}
+                >
+                  -
+                </button>
+              </div>
+            </div>
           );
         })}
       </div>
@@ -80,7 +98,7 @@ const DicePool = (props) => {
         className="pool-clear"
         onClick={() => setDice([])}
       >
-        Clear Dice
+        Clear Selection
       </button>
     </div>
   );

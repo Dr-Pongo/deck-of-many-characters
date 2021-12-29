@@ -7,7 +7,6 @@
   display: flex;
   justify-content: space-around;
   padding: 2px;
-  border: 1px pink solid;
 }
 
 .dice-tray {
@@ -139,7 +138,7 @@
   max-height: 60px;
   border-radius: 5px;
   padding: 2px;
-  border: 1px green solid;
+  
   :hover {
     cursor: pointer;
   }

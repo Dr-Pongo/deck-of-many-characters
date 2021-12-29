@@ -709,7 +709,11 @@ class CharacterCreatePage extends Component {
                           X
                           </button>
                         </div>
-                        <DicePool />
+                        <DicePool 
+                          addDice={} 
+                          removeDice={} 
+                          currentDice={action.resultDice} 
+                        />
                       </div>
                     )}
                   </div>
