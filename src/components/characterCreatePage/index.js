@@ -333,7 +333,7 @@ class CharacterCreatePage extends Component {
         resultActive: false,
         resultAbility: "",
         resultBonus: 0,
-        resultDice: "",
+        resultDice: [],
       };
 
       // If a remove ID is recieved, removed selected ID from the current actions list
@@ -551,8 +551,11 @@ class CharacterCreatePage extends Component {
                 );
               })}
             </div>
-            <div className="column-info-display-action">
-              <div className='action-header'>
+            {/* ================================== *
+              * ACTIONS!                           *
+              * ================================== */}
+            <div className="column-info-display">
+              <div className='column-info-display'>
                 <h3>Actions!</h3>
                 <button type="button" className='action-button' onClick={this.handleActionAddRemove()}>
                   Add Action!
@@ -560,36 +563,24 @@ class CharacterCreatePage extends Component {
               </div>
               {this.state.actions.map((action, index) => {
                 return (
-                  <div key={action.id} className="row-info-display">
+                  <div key={action.id} className="column-info-display action">
                     <div className='action-header'>
-                      <h4>Action #{index}</h4>
-                      <button
+                      {/* <button
                         type="button"
-                        className='action-button'
+                        className='close'
                         onClick={this.handleActionAddRemove(action.id)}
                       >
-                        Remove Action
-                      </button>
+                        X
+                      </button> */}
                     </div>
-                    <div className="row-info-display">
-                      <label>Action Name: </label>
+                    <div className="column-info-display">
+                      <label>Action Name</label>
                       <input
                         type="text"
-                        className='core-input'
+                        className='action-input'
                         value={action.name}
                         onChange={this.handleActionChange(action.id, "name")}
                       />
-                      <button
-                        type="button"
-                        className={action.proficiency ? "action-button clicked" : "action-button"}
-                        value={!action.proficiency}
-                        onClick={this.handleActionChange(
-                          action.id,
-                          "proficiency"
-                        )}
-                      >
-                        +Prof
-                      </button>
                     </div>
                     {!action.attemptActive && (
                       <button
@@ -604,11 +595,15 @@ class CharacterCreatePage extends Component {
                         Attempt Modifier
                       </button>
                     )}
+                    {/* =====================
+                        ATTEMPT SECTION
+                        ===================== */}
                     {action.attemptActive && (
-                      <div className="actionInfo">
-                        <label>Attempt Ability:</label>
+                      <div className='attempt-row'>
+                        <label>Attempt Ability</label>
                         <select
                           value={action.attemptAbility}
+                          className='action-input'
                           onChange={this.handleActionChange(
                             action.id,
                             "attemptAbility"
@@ -623,10 +618,19 @@ class CharacterCreatePage extends Component {
                             );
                           })}
                         </select>
-                        <label>Attempt Bonus:</label>
+                        <button
+                          className='attempt-prof-btn'
+                          type="button"
+                          onClick={this.handleActionChange(
+                            action.id,
+                            "proficiency"
+                          )}
+                        />
+                        <button className="attempt-prof-btn disabled" type="button"/>
+                        <p> + </p>
                         <input
                           type="number"
-                          className='core-input'
+                          className='action-mod-input'
                           value={action.attemptBonus}
                           onChange={this.handleActionChange(
                             action.id,
@@ -635,14 +639,14 @@ class CharacterCreatePage extends Component {
                         />
                         <button
                           type="button"
-                          className='action-button'
+                          className='close'
                           value={!action.attemptActive}
                           onClick={this.handleActionChange(
                             action.id,
                             "attemptActive"
                           )}
                         >
-                          Remove Modifier
+                        X
                         </button>
                       </div>
                     )}
@@ -659,14 +663,18 @@ class CharacterCreatePage extends Component {
                         Result Modifier
                       </button>
                     )}
+                    {/* =====================
+                        RESULT SECTION
+                        ===================== */}
                     {action.resultActive && (
-                      <div className="actionInfo">
-                        <label>Result Ability:</label>
+                      <div className='attempt-row'>
+                        <label>Result Ability</label>
                         <select
-                          value={action.resultAbility}
+                          value={action.resultActive}
+                          className='action-input'
                           onChange={this.handleActionChange(
                             action.id,
-                            "resultAbility"
+                            "resultActive"
                           )}
                         >
                           <option value="none">None</option>
@@ -678,36 +686,28 @@ class CharacterCreatePage extends Component {
                             );
                           })}
                         </select>
-                        <label>Result Bonus:</label>
-                        <input
-                          type="number"
-                          className='core-input'
-                          value={action.resultBonus}
-                          onChange={this.handleActionChange(
-                            action.id,
-                            "resultBonus"
-                          )}
-                        />
-                        <label>Result Dice:</label>
-                        <input
-                          type="text"
-                          className='core-input'
-                          value={action.resultDice}
-                          onChange={this.handleActionChange(
-                            action.id,
-                            "resultDice"
-                          )}
-                        />
+                        <div className='row-info-display'>
+                          <p>+</p>
+                          <input
+                            type="number"
+                            className='action-mod-input'
+                            value={action.resultBonus}
+                            onChange={this.handleActionChange(
+                              action.id,
+                              "resultBonus"
+                            )}
+                          />
+                        </div>
                         <button
                           type="button"
-                          className='action-button'
+                          className='close'
                           value={!action.resultActive}
                           onClick={this.handleActionChange(
                             action.id,
                             "resultActive"
                           )}
                         >
-                          Remove Modifier
+                        X
                         </button>
                       </div>
                     )}
