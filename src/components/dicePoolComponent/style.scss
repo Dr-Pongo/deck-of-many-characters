@@ -9,46 +9,31 @@
   padding: 2px;
 }
 
-.dice-tray {
+.dice-pool-tray {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-content: flex-start;
   flex-wrap: wrap;
   padding: 5px;
-  border: 1px blue solid;
+  border: 1px pink solid;
   border-radius: 5px;
-  min-height: 75px;
+  height: 60px;
   width: 100%;
 }
 
-.dice-box {
+.dice-pool-box {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-content: flex-start;
   align-items: center;
-  padding: 5px;
-  height: 80px;
+  height: 60px;
 }
 
 .buttons-row {
   display: flex;
   justify-content: space-evenly;
-}
-
-.modifier-print {
-  font-size: 1.4rem;
-  margin: 2px;
-  margin-right: 4px;
-}
-
-.clicked-advantage {
-  background-color: #c3ebc3;
-}
-
-.clicked-disadvantage {
-  background-color: #fdb0b0;
 }
 
 .roll-button {
@@ -57,35 +42,4 @@
   margin: 24px 8px;
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-}
-
-.dice-wrapper {
-  position: relative;
-  background-color: transparent;
-  border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
-  padding: 2px;
-
-  :hover {
-    cursor: pointer;
-  }
-}
-
-.dice-text {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  height: 30px;
-  width: 30px;
-  margin: 0;
-  padding: 0;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: red;
-  z-index: 2;
 }

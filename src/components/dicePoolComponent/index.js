@@ -48,7 +48,7 @@ const DicePool = (props) => {
    * ==================================== */
   return (
     <div className="dice-pool">
-      <div className="dice-box">
+      <div className="dice-pool-box">
         {map(DICE_MAP, (die, d) => {
           // All of the Displays have similar names, this be a neat way to do things
           const TagName = die[`D${die.value}Display`];
