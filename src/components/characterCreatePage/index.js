@@ -7,7 +7,7 @@ import map from "lodash/map";
 import { v4 as uuidv4 } from "uuid";
 import { gotoPage, HOME_PAGE } from "../../containers/pageSlice";
 import { addNewCharacter } from "../../containers/charactersSlice";
-import { WIP_COMPONENT } from "../app/index";
+import DicePool from "../dicePoolComponent";
 
 //GLOBALS
 const SHOULD_BE_NUMBER = true;
@@ -667,48 +667,49 @@ class CharacterCreatePage extends Component {
                         RESULT SECTION
                         ===================== */}
                     {action.resultActive && (
-                      <div className='attempt-row'>
-                        <label>Result Ability</label>
-                        <select
-                          value={action.resultActive}
-                          className='action-input'
-                          onChange={this.handleActionChange(
-                            action.id,
-                            "resultActive"
-                          )}
-                        >
-                          <option value="none">None</option>
-                          {map(abilities, (ab, index) => {
-                            return (
-                              <option key={uuidv4()} value={abilities[ab]}>
-                                {ab.name}
-                              </option>
-                            );
-                          })}
-                        </select>
-                        <div className='row-info-display'>
-                          <p>+</p>
-                          <input
-                            type="number"
-                            className='action-mod-input'
-                            value={action.resultBonus}
+                      <div className='result-display'>
+                        <div className='result-row'>
+                          <label>Result Ability</label>
+                          <select
+                            value={action.resultAbility}
+                            className='action-input'
                             onChange={this.handleActionChange(
                               action.id,
-                              "resultBonus"
+                              "resultAbility"
                             )}
-                          />
+                          >
+                            <option value="none">None</option>
+                            {map(abilities, (ab, index) => {
+                              return (
+                                <option key={uuidv4()} value={abilities[ab]}>
+                                  {ab.name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                            <p>+</p>
+                            <input
+                              type="number"
+                              className='action-mod-input'
+                              value={action.resultBonus}
+                              onChange={this.handleActionChange(
+                                action.id,
+                                "resultBonus"
+                              )}
+                            />
+                          <button
+                            type="button"
+                            className='close'
+                            value={!action.resultActive}
+                            onClick={this.handleActionChange(
+                              action.id,
+                              "resultActive"
+                            )}
+                          >
+                          X
+                          </button>
                         </div>
-                        <button
-                          type="button"
-                          className='close'
-                          value={!action.resultActive}
-                          onClick={this.handleActionChange(
-                            action.id,
-                            "resultActive"
-                          )}
-                        >
-                        X
-                        </button>
+                        <DicePool />
                       </div>
                     )}
                   </div>
