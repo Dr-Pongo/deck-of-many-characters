@@ -62,30 +62,26 @@ const DicePool = (props) => {
           );
         })}
       </div>
-      <div className="dice-tray-container">
-        <div className="dice-tray">
-          {dice.map((die, d) => {
-            const TagName = DICE_MAP[die.name][`D${die.value}Display`];
-            return (
-              <TagName
-                dieValue={die.value}
-                key={die.key}
-                onClick={() => handleDiceRemove(die.key)}
-                isRollResult={false}
-              />
-            );
-          })}
-        </div>
+      <div className="dice-pool-tray">
+        {dice.map((die, d) => {
+          const TagName = DICE_MAP[die.name][`D${die.value}Display`];
+          return (
+            <TagName
+              dieValue={die.value}
+              key={die.key}
+              onClick={() => handleDiceRemove(die.key)}
+              isRollResult={false}
+            />
+          );
+        })}
       </div>
-      <div className="buttons-row">
-        <button
-          type="button"
-          className="roll-button"
-          onClick={() => setDice([])}
-        >
-          Clear All
-        </button>
-      </div>
+      <button
+        type="button"
+        className="pool-clear"
+        onClick={() => setDice([])}
+      >
+        Clear Dice
+      </button>
     </div>
   );
 };
