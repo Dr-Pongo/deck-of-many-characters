@@ -1,0 +1,44 @@
+.stat-array-generator {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 600px;
+}
+.big-toggle-button {
+  width: 200px;
+  height: 60px;
+  border-radius: 5px;
+  margin: 8px 16px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.detail-row {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  width: 100%;
+
+  .detail {
+    margin: 8px;
+  }
+}
+
+select {
+  width: 200px;
+  height: 40px;
+  border: 1px solid black;
+  margin: 8px 16px;
+  padding-left: 8px;
+}
+
+.stat {
+  margin: 4px;
+}
