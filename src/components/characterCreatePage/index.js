@@ -551,159 +551,170 @@ class CharacterCreatePage extends Component {
                 );
               })}
             </div>
-            {WIP_COMPONENT && (
-              <div className="actions">
+            <div className="column-info-display-action">
+              <div className='action-header'>
                 <h3>Actions!</h3>
-                <button type="button" onClick={this.handleActionAddRemove()}>
+                <button type="button" className='action-button' onClick={this.handleActionAddRemove()}>
                   Add Action!
                 </button>
-                {this.state.actions.map((action, index) => {
-                  return (
-                    <div key={action.id} className="action">
+              </div>
+              {this.state.actions.map((action, index) => {
+                return (
+                  <div key={action.id} className="row-info-display">
+                    <div className='action-header'>
                       <h4>Action #{index}</h4>
-                      <div className="action-info">
-                        <label>Action Name: </label>
+                      <button
+                        type="button"
+                        className='action-button'
+                        onClick={this.handleActionAddRemove(action.id)}
+                      >
+                        Remove Action
+                      </button>
+                    </div>
+                    <div className="row-info-display">
+                      <label>Action Name: </label>
+                      <input
+                        type="text"
+                        className='core-input'
+                        value={action.name}
+                        onChange={this.handleActionChange(action.id, "name")}
+                      />
+                      <button
+                        type="button"
+                        className={action.proficiency ? "action-button clicked" : "action-button"}
+                        value={!action.proficiency}
+                        onClick={this.handleActionChange(
+                          action.id,
+                          "proficiency"
+                        )}
+                      >
+                        +Prof
+                      </button>
+                    </div>
+                    {!action.attemptActive && (
+                      <button
+                        type="button"
+                        className='action-button'
+                        value={!action.attemptActive}
+                        onClick={this.handleActionChange(
+                          action.id,
+                          "attemptActive"
+                        )}
+                      >
+                        Attempt Modifier
+                      </button>
+                    )}
+                    {action.attemptActive && (
+                      <div className="actionInfo">
+                        <label>Attempt Ability:</label>
+                        <select
+                          value={action.attemptAbility}
+                          onChange={this.handleActionChange(
+                            action.id,
+                            "attemptAbility"
+                          )}
+                        >
+                          <option value="none">None</option>
+                          {map(abilities, (ab, index) => {
+                            return (
+                              <option key={uuidv4()} value={abilities[ab]}>
+                                {ab.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                        <label>Attempt Bonus:</label>
                         <input
-                          type="text"
-                          value={action.name}
-                          onChange={this.handleActionChange(action.id, "name")}
+                          type="number"
+                          className='core-input'
+                          value={action.attemptBonus}
+                          onChange={this.handleActionChange(
+                            action.id,
+                            "attemptBonus"
+                          )}
                         />
                         <button
                           type="button"
-                          className={action.proficiency ? "clicked" : ""}
-                          value={!action.proficiency}
-                          onClick={this.handleActionChange(
-                            action.id,
-                            "proficiency"
-                          )}
-                        >
-                          Proficiency
-                        </button>
-                      </div>
-                      {!action.attemptActive && (
-                        <button
-                          type="button"
+                          className='action-button'
                           value={!action.attemptActive}
                           onClick={this.handleActionChange(
                             action.id,
                             "attemptActive"
                           )}
                         >
-                          Attempt Modifier
+                          Remove Modifier
                         </button>
-                      )}
-                      {action.attemptActive && (
-                        <div className="actionInfo">
-                          <label>Attempt Ability:</label>
-                          <select
-                            value={action.attemptAbility}
-                            onChange={this.handleActionChange(
-                              action.id,
-                              "attemptAbility"
-                            )}
-                          >
-                            <option value="none">None</option>
-                            {map(abilities, (ab, index) => {
-                              return (
-                                <option key={uuidv4()} value={abilities[ab]}>
-                                  {ab.name}
-                                </option>
-                              );
-                            })}
-                          </select>
-                          <label>Attempt Bonus:</label>
-                          <input
-                            type="number"
-                            value={action.attemptBonus}
-                            onChange={this.handleActionChange(
-                              action.id,
-                              "attemptBonus"
-                            )}
-                          />
-                          <button
-                            type="button"
-                            value={!action.attemptActive}
-                            onClick={this.handleActionChange(
-                              action.id,
-                              "attemptActive"
-                            )}
-                          >
-                            Remove Modifier
-                          </button>
-                        </div>
-                      )}
-                      {!action.resultActive && (
+                      </div>
+                    )}
+                    {!action.resultActive && (
+                      <button
+                        type="button"
+                        className='action-button'
+                        value={!action.resultActive}
+                        onClick={this.handleActionChange(
+                          action.id,
+                          "resultActive"
+                        )}
+                      >
+                        Result Modifier
+                      </button>
+                    )}
+                    {action.resultActive && (
+                      <div className="actionInfo">
+                        <label>Result Ability:</label>
+                        <select
+                          value={action.resultAbility}
+                          onChange={this.handleActionChange(
+                            action.id,
+                            "resultAbility"
+                          )}
+                        >
+                          <option value="none">None</option>
+                          {map(abilities, (ab, index) => {
+                            return (
+                              <option key={uuidv4()} value={abilities[ab]}>
+                                {ab.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                        <label>Result Bonus:</label>
+                        <input
+                          type="number"
+                          className='core-input'
+                          value={action.resultBonus}
+                          onChange={this.handleActionChange(
+                            action.id,
+                            "resultBonus"
+                          )}
+                        />
+                        <label>Result Dice:</label>
+                        <input
+                          type="text"
+                          className='core-input'
+                          value={action.resultDice}
+                          onChange={this.handleActionChange(
+                            action.id,
+                            "resultDice"
+                          )}
+                        />
                         <button
                           type="button"
+                          className='action-button'
                           value={!action.resultActive}
                           onClick={this.handleActionChange(
                             action.id,
                             "resultActive"
                           )}
                         >
-                          Result Modifier
+                          Remove Modifier
                         </button>
-                      )}
-                      {action.resultActive && (
-                        <div className="actionInfo">
-                          <label>Result Ability:</label>
-                          <select
-                            value={action.resultAbility}
-                            onChange={this.handleActionChange(
-                              action.id,
-                              "resultAbility"
-                            )}
-                          >
-                            <option value="none">None</option>
-                            {map(abilities, (ab, index) => {
-                              return (
-                                <option key={uuidv4()} value={abilities[ab]}>
-                                  {ab.name}
-                                </option>
-                              );
-                            })}
-                          </select>
-                          <label>Result Bonus:</label>
-                          <input
-                            type="number"
-                            value={action.resultBonus}
-                            onChange={this.handleActionChange(
-                              action.id,
-                              "resultBonus"
-                            )}
-                          />
-                          <label>Result Dice:</label>
-                          <input
-                            type="text"
-                            value={action.resultDice}
-                            onChange={this.handleActionChange(
-                              action.id,
-                              "resultDice"
-                            )}
-                          />
-                          <button
-                            type="button"
-                            value={!action.resultActive}
-                            onClick={this.handleActionChange(
-                              action.id,
-                              "resultActive"
-                            )}
-                          >
-                            Remove Modifier
-                          </button>
-                        </div>
-                      )}
-                      <button
-                        type="button"
-                        onClick={this.handleActionAddRemove(action.id)}
-                      >
-                        Remove Action
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <div className="form-complete-buttons">
             <button id="save" type="button" onClick={this.handleSubmit}>
