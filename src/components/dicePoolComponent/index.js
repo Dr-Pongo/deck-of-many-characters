@@ -48,9 +48,9 @@ const DicePool = (props) => {
    * ==================================== */
   const getDieCount = (dieValue) => {
     return currentDice.reduce((prev, cur) => {
-      if(cur.value === dieValue) {
-        prev++;
-      }
+      return cur.value === dieValue ? 
+        prev++ :
+        prev;
     }, 0);
   };
 
@@ -63,7 +63,6 @@ const DicePool = (props) => {
         {map(DICE_MAP, (die, d) => {
           // All of the Displays have similar names, this be a neat way to do things
           const TagName = die[`D${die.value}Display`];
-          const tempCount = 2;
           return (
             <div className='dice-pool-tray' >
               <TagName
@@ -80,7 +79,7 @@ const DicePool = (props) => {
                 >
                   +
                 </button>
-                <p>{`x${tempCount}`}</p>
+                <p>{`x${getDieCount(die.value)}`}</p>
                 <button
                   type='button' 
                   className='remove-die'
