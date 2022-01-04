@@ -13,6 +13,7 @@ import {
 } from "../../containers/pageSlice";
 import { setSelectedCharacter } from "../../containers/selectedCharacterSlice";
 import DiceRoller from "../diceRollerComponent/index";
+import StatRoller from "../statRollerComponent/index";
 import map from "lodash/map";
 
 const LandingPage = () => {
@@ -73,6 +74,7 @@ const LandingPage = () => {
       ))}
       <h3>Roll Some Dice</h3>
       <DiceRoller />
+      <StatRoller />
     </div>
   );
 };
