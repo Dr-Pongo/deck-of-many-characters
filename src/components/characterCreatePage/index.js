@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { gotoPage, HOME_PAGE } from "../../containers/pageSlice";
 import { addNewCharacter } from "../../containers/charactersSlice";
 import { WIP_COMPONENT } from "../app/index";
+import StatRoller from "../statRollerComponent/index";
 
 //GLOBALS
 const SHOULD_BE_NUMBER = true;
@@ -455,6 +456,9 @@ class CharacterCreatePage extends Component {
             </div>
           </div>
           <div className="row-info-display">
+            <StatRoller />
+          </div>
+          <div className="row-info-display">
             {map(abilities, (ab, index) => {
               return (
                 <AbilityEditor
@@ -469,7 +473,7 @@ class CharacterCreatePage extends Component {
             <div className="skills column-info-display">
               <div className="column-info-header">
                 <h3>Skills</h3>
-                <div className='prof-exp-label' >
+                <div className="prof-exp-label">
                   <p>Prof</p>
                   <p>Exp</p>
                 </div>
@@ -500,7 +504,10 @@ class CharacterCreatePage extends Component {
                           }
                         />
                         {!skill.prof && (
-                          <button className="skill-btn disabled" type="button"/>
+                          <button
+                            className="skill-btn disabled"
+                            type="button"
+                          />
                         )}
                         {skill.prof && (
                           <button
@@ -524,9 +531,7 @@ class CharacterCreatePage extends Component {
             <div className="column-info-display">
               <div className="column-info-header">
                 <h3>Saving Throws </h3>
-                <div className='prof-exp-label-save' >
-                  Prof
-                </div>
+                <div className="prof-exp-label-save">Prof</div>
               </div>
               {map(abilities, (ab, index) => {
                 return (

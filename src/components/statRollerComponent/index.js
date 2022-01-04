@@ -194,7 +194,11 @@ const StatRoller = (props) => {
         onClick={() => toggleShowStatGenerator(!showStatGenerator)}
         className="big-toggle-button"
       >
-        {!showStatGenerator ? "I NEED A STAT ARRAY STAT" : "HIDE THIS SHIT"}
+        {!showStatGenerator
+          ? array.length > 0
+            ? array.join(", ")
+            : "I NEED A STAT ARRAY STAT"
+          : "HIDE THIS SHIT"}
       </button>
       {showStatGenerator && (
         <div className="column">
@@ -202,9 +206,10 @@ const StatRoller = (props) => {
           <div className="detail-row">
             <select
               value={arrayGeneratorType}
-              onChange={(event) =>
-                updateGeneratorType(parseInt(event.target.value))
-              }
+              onChange={(event) => {
+                updateGeneratorType(parseInt(event.target.value));
+                updateArray([]);
+              }}
             >
               <option value="0" key="Standard Array">
                 Standard Array
@@ -242,30 +247,33 @@ const StatRoller = (props) => {
             <div className="detail">{`Max: ${
               lookup[arrayGeneratorType]?.max || "N/A"
             }`}</div>
-            <div className="detail">{`Target: ${
+            <div className="detail">{`Average Composite: ${
               lookup[arrayGeneratorType]?.numberToBeat || "N/A"
             }`}</div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => generateArray()}
-            className="big-toggle-button"
-          >
-            ROLL IT
-          </button>
-          <div>
+          {!(arrayGeneratorType === 0 && array.length !== 0) && (
+            <button
+              type="button"
+              onClick={() => generateArray()}
+              className="big-toggle-button"
+            >
+              {array.length > 0 ? "ROLL IT AGAIN" : "ROLL IT"}
+            </button>
+          )}
+          <div className="stat-row">
             {array.map((stat, index) => {
               return (
                 <span className="stat" key={`${stat}-${index}`}>
                   {stat}
+                  {index < array.length - 1 ? "," : ""}
                 </span>
               );
             })}
           </div>
 
           <div>
-            {`Total Stat Score: ${
+            {`Stat Composite Score: ${
               array.length > 0
                 ? array.reduce((accumulator, current) => accumulator + current)
                 : "N/A"

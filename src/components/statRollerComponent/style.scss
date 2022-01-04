@@ -7,7 +7,7 @@
 }
 .big-toggle-button {
   width: 200px;
-  height: 60px;
+  height: 40px;
   border-radius: 5px;
   margin: 8px 16px;
 }
@@ -22,7 +22,7 @@
 
 .detail-row {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   width: 100%;
 
@@ -39,6 +39,10 @@ select {
   padding-left: 8px;
 }
 
-.stat {
-  margin: 4px;
+.stat-row {
+  padding: 12px 0;
+
+  .stat {
+    margin: 2px;
+  }
 }
