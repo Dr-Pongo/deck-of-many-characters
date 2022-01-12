@@ -95,7 +95,7 @@ const DicePool = (props) => {
       <button
         type="button"
         className="pool-clear"
-        onClick={() => setDice([])}
+        // onClick={() => setDice([])}
       >
         Clear Selection
       </button>

@@ -381,30 +381,26 @@ class CharacterCreatePage extends Component {
       (actionID, addDie = null, removeDie = -1) =>
       ({ target }) => {
         // We need some type checks here so we don't get 'true' instead of a good true...
-        let newValue;
-        switch (actionKeyValue) {
-          case "proficiency":
-          case "attemptActive":
-          case "resultActive":
-            newValue = target.value === "true";
-            break;
-          case "attemptBonus":
-          case "resultBonus":
-            newValue = parseInt(target.value);
-            break;
-          default:
-            newValue = target.value;
-        }
+        // let newValue;
+        // switch (actionKeyValue) {
+        //   case "proficiency":
+        //   case "attemptBonus":
+        //   case "resultBonus":
+        //     newValue = parseInt(target.value);
+        //     break;
+        //   default:
+        //     newValue = target.value;
+        // }
   
-        const actions = this.state?.actions.map((action) => {
-          return action.id === actionID
-            ? { ...action, [actionKeyValue]: newValue }
-            : action;
-        });
+        // const actions = this.state?.actions.map((action) => {
+        //   return action.id === actionID
+        //     ? { ...action, [actionKeyValue]: newValue }
+        //     : action;
+        // });
   
-        this.setState({
-          actions,
-        });
+        // this.setState({
+        //   actions,
+        // });
       };
 
   /* ==================================== *
@@ -740,8 +736,8 @@ class CharacterCreatePage extends Component {
                           </button>
                         </div>
                         <DicePool 
-                          addDice={} 
-                          removeDice={} 
+                          // addDice={} 
+                          // removeDice={} 
                           currentDice={action.resultDice} 
                         />
                       </div>
