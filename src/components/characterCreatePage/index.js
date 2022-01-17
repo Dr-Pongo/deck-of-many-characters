@@ -333,7 +333,15 @@ class CharacterCreatePage extends Component {
         resultActive: false,
         resultAbility: "",
         resultBonus: 0,
-        resultDice: [],
+        resultDice: {
+          d4: 0, 
+          d6: 0, 
+          d8: 0, 
+          d10: 0, 
+          d12: 0, 
+          d20: 0, 
+          d100: 0,
+        },
       };
 
       // If a remove ID is recieved, removed selected ID from the current actions list
@@ -377,31 +385,22 @@ class CharacterCreatePage extends Component {
       });
     };
 
-    handleActionDiceChange =
-      (actionID, addDie = null, removeDie = -1) =>
-      ({ target }) => {
-        // We need some type checks here so we don't get 'true' instead of a good true...
-        // let newValue;
-        // switch (actionKeyValue) {
-        //   case "proficiency":
-        //   case "attemptBonus":
-        //   case "resultBonus":
-        //     newValue = parseInt(target.value);
-        //     break;
-        //   default:
-        //     newValue = target.value;
-        // }
-  
-        // const actions = this.state?.actions.map((action) => {
-        //   return action.id === actionID
-        //     ? { ...action, [actionKeyValue]: newValue }
-        //     : action;
-        // });
-  
-        // this.setState({
-        //   actions,
-        // });
-      };
+    handleActionDiceChange = 
+      (dieToAdd, actionkey, increment) => {
+        const actions = this.state?.actions.map((action) => {
+          if(action.id === actionkey) {
+            const newValue = increment ? action.resultDice[dieToAdd] + 1 : action.resultDice[dieToAdd] - 1;
+            return { ...action, resultDice: {...action.resultDice, [dieToAdd]: newValue }};
+          }
+          else {
+            return action;
+          }
+        });
+
+        this.setState({
+          actions,
+        });
+    };
 
   /* ==================================== *
    * Form Finishers                       *
@@ -736,7 +735,8 @@ class CharacterCreatePage extends Component {
                           </button>
                         </div>
                         <DicePool 
-                          // addDice={} 
+                          actionKey={action.id}
+                          addDice={this.handleActionDiceAdd} 
                           // removeDice={} 
                           currentDice={action.resultDice} 
                         />

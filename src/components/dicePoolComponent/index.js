@@ -39,8 +39,8 @@ const DicePool = (props) => {
   /* ==================================== *
    * handleDiceRemove                     *
    * ==================================== */
-  const handleDiceRemove = (removeKey) => {
-    removeDice(removeKey);
+  const handleDiceRemove = (dieValueToRemove) => {
+    removeDice(dieValueToRemove);
   };
 
   /* ==================================== *
