@@ -325,6 +325,7 @@ class CharacterCreatePage extends Component {
         id: uuidv4(),
         name: "",
         proficiency: false,
+        expertise: false,
         // attempt
         attemptActive: false,
         attemptAbility: "",
@@ -362,8 +363,10 @@ class CharacterCreatePage extends Component {
       let newValue;
       switch (actionKeyValue) {
         case "proficiency":
+        case "expertise":
         case "attemptActive":
         case "resultActive":
+          console.log(`${actionKeyValue} :: ${target.value}`);
           newValue = target.value === "true";
           break;
         case "attemptBonus":
@@ -667,14 +670,33 @@ class CharacterCreatePage extends Component {
                           })}
                         </select>
                         <button
-                          className='attempt-prof-btn'
+                          className={action.proficiency ? 
+                            'attempt-prof-btn clicked' : 
+                            'attempt-prof-btn'
+                          }
                           type="button"
+                          value={!action.proficiency}
                           onClick={this.handleActionChange(
                             action.id,
                             "proficiency"
                           )}
                         />
-                        <button className="attempt-prof-btn disabled" type="button"/>
+                        {!action.proficiency && <button
+                          className='attempt-prof-btn disabled'
+                          type="button"
+                        />}
+                        {action.proficiency && <button
+                          className={action.expertise ? 
+                            'attempt-prof-btn clicked' : 
+                            'attempt-prof-btn'
+                          }
+                          type="button"
+                          value={!action.expertise}
+                          onClick={this.handleActionChange(
+                            action.id,
+                            "expertise"
+                          )}
+                        />}
                         <p> + </p>
                         <input
                           type="number"
@@ -686,8 +708,8 @@ class CharacterCreatePage extends Component {
                           )}
                         />
                         <button
-                          type="button"
                           className='close'
+                          type="button"
                           value={!action.attemptActive}
                           onClick={this.handleActionChange(
                             action.id,
