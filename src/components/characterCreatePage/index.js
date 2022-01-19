@@ -386,9 +386,9 @@ class CharacterCreatePage extends Component {
     };
 
     handleActionDiceChange = 
-      (dieToAdd, actionkey, increment) => {
+      (dieToAdd, actionKey, increment) => {
         const actions = this.state?.actions.map((action) => {
-          if(action.id === actionkey) {
+          if(action.id === actionKey) {
             const newValue = increment ? action.resultDice[dieToAdd] + 1 : action.resultDice[dieToAdd] - 1;
             return { ...action, resultDice: {...action.resultDice, [dieToAdd]: newValue }};
           }
@@ -400,6 +400,29 @@ class CharacterCreatePage extends Component {
         this.setState({
           actions,
         });
+    };
+
+    handleActionDiceClear = (actionkey) => {
+      const actions = this.state?.actions.map((action) => {
+        if(action.id === actionkey) {
+          return { ...action, resultDice: {
+            d4: 0, 
+            d6: 0, 
+            d8: 0, 
+            d10: 0, 
+            d12: 0, 
+            d20: 0, 
+            d100: 0,
+          }};
+        }
+        else {
+          return action;
+        }
+      });
+
+      this.setState({
+        actions,
+      });
     };
 
   /* ==================================== *
@@ -736,8 +759,8 @@ class CharacterCreatePage extends Component {
                         </div>
                         <DicePool 
                           actionKey={action.id}
-                          addDice={this.handleActionDiceAdd} 
-                          // removeDice={} 
+                          handleDiceChange={this.handleActionDiceChange} 
+                          handleDiceClear={this.handleActionDiceClear} 
                           currentDice={action.resultDice} 
                         />
                       </div>

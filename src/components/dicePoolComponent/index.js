@@ -22,37 +22,15 @@ const DICE_MAP = {
   d20: { value: 20, D20Display: D20Display },
   d100: { value: 100, D100Display: D100Display },
 };
+const INCREMENT = true;
+const DECREMENT = false;
 
 /* ==================================== *
  * Dice Roller Functional Component     *
  * ==================================== */
 const DicePool = (props) => {
-  const { addDice, removeDice, currentDice } = props;
+  const { actionKey, handleDiceChange, handleDiceClear, currentDice } = props;
 
-  /* ==================================== *
-   * handleDiceSelect                     *
-   * ==================================== */
-  const handleDiceSelect = (die, dieValue) => {
-    addDice({ name: die, value: dieValue, key: uuidv4() });
-  };
-
-  /* ==================================== *
-   * handleDiceRemove                     *
-   * ==================================== */
-  const handleDiceRemove = (dieValueToRemove) => {
-    removeDice(dieValueToRemove);
-  };
-
-  /* ==================================== *
-   * getDieCount                          *
-   * ==================================== */
-  const getDieCount = (dieValue) => {
-    return currentDice.reduce((prev, cur) => {
-      return cur.value === dieValue ? 
-        prev++ :
-        prev;
-    }, 0);
-  };
 
   /* ==================================== *
    * Render Time!                         *
@@ -68,22 +46,23 @@ const DicePool = (props) => {
               <TagName
                 dieValue={die.value}
                 key={die.key}
-                onClick={() => handleDiceSelect(d, die.value)}
+                // onClick={() => handleDiceSelect(d, die.value)}
                 isRollResult={false}
               />
               <div>
                 <button 
                   type='button' 
                   className='add-die'
-                  onClick={() => handleDiceSelect(d, die.value)}
+                  onClick={() => handleDiceChange(d, actionKey, INCREMENT)}
                 >
                   +
                 </button>
-                <p>{`x${getDieCount(die.value)}`}</p>
+                <p>{`x${currentDice[d]}`}</p>
                 <button
                   type='button' 
                   className='remove-die'
-                  onClick={() => handleDiceRemove(die.key)}
+                  onClick={() => handleDiceChange(d, actionKey, DECREMENT)}
+                  disabled={currentDice[d] == 0}
                 >
                   -
                 </button>
@@ -95,7 +74,7 @@ const DicePool = (props) => {
       <button
         type="button"
         className="pool-clear"
-        // onClick={() => setDice([])}
+        onClick={() => handleDiceClear(actionKey)}
       >
         Clear Selection
       </button>
