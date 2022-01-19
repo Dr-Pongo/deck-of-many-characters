@@ -172,21 +172,18 @@ class GameplayPage extends Component {
               })}
             </div>
           </div>
-
-          {WIP_COMPONENT && (
-            <div className="actions">
-              <h3>Actions!</h3>
-              {actions.map((action, index) => {
-                return (
-                  <div key={action.id} className="action">
-                    <label>{`${action.name}`}</label>
-                    <button type="button">Attempt</button>
-                    <button type="button">Result</button>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          <div className="actions">
+            <h3>Actions!</h3>
+            {actions.map((action, index) => {
+              return (
+                <div key={action.id} className="action" >
+                  <label>{action.name || "Unamed Action"}</label>
+                  <button type="button" className="skill-button" >Attempt</button>
+                  <button type="button" className="skill-button" >Result</button>
+                </div>
+              );
+            })}
+          </div>
         </div>
         <button
           onClick={() => this.props.updateCurrentPage(HOME_PAGE)}
