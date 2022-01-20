@@ -180,6 +180,7 @@ class GameplayPage extends Component {
                   <label>{action.name || "Unamed Action"}</label>
                   <button type="button" className="skill-button" >Attempt</button>
                   <button type="button" className="skill-button" >Result</button>
+                  {action.description && <p>{action.description}</p>}
                 </div>
               );
             })}

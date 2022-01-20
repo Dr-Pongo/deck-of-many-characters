@@ -617,13 +617,13 @@ class CharacterCreatePage extends Component {
                 return (
                   <div key={action.id} className="column-info-display action">
                     <div className='action-header'>
-                      {/* <button
+                      <button
                         type="button"
                         className='close'
                         onClick={this.handleActionAddRemove(action.id)}
                       >
                         X
-                      </button> */}
+                      </button>
                     </div>
                     <div className="column-info-display">
                       <label>Action Name</label>
