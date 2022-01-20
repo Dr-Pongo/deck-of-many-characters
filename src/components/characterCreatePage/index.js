@@ -324,6 +324,7 @@ class CharacterCreatePage extends Component {
         // must Haves
         id: uuidv4(),
         name: "",
+        description: "",
         proficiency: false,
         expertise: false,
         // attempt
@@ -631,6 +632,15 @@ class CharacterCreatePage extends Component {
                         className='action-input'
                         value={action.name}
                         onChange={this.handleActionChange(action.id, "name")}
+                      />
+                    </div>
+                    <div className="column-info-display">
+                      <label>Description</label>
+                      <input
+                        type="text"
+                        className='action-input'
+                        value={action.description}
+                        onChange={this.handleActionChange(action.id, "description")}
                       />
                     </div>
                     {!action.attemptActive && (
