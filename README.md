@@ -1,5 +1,6 @@
 # [Deck of Many Characters](https://www.deckofmanycharacters.com/)
-
+## Note: 
+  Everything is being actively updated, so the screenshots may end up out of sync with what's live. I'll update when I can :)
 ## Purose
 Deck of Many Characters provides simple way to roll dice and create characters for Dungeons and Dragons 5th Edition! 
 
