@@ -345,21 +345,16 @@ class CharacterCreatePage extends Component {
           d100: 0,
         },
       };
-
-      // If a remove ID is recieved, removed selected ID from the current actions list
-      // Otherwise add a new initialAction from above
-      // const actions = removeID
-      //   ? this.state.actions.filter((action) => action.id !== removeID)
-      //   : [...this.state.actions, initialAction];
+      
+      let actions = this.state.actions;
       if(removeID) {
-        const newActions = this.state.actions;
-        delete newActions[removeID];
+        delete actions[removeID];
       } else {
-        const newActions = {...this.state.actions, [initialAction.id]: initialAction};
+        actions = {...this.state.actions, [initialAction.id]: initialAction};
       }
 
       this.setState({
-        newActions,
+        actions,
       });
     };
 
@@ -373,7 +368,6 @@ class CharacterCreatePage extends Component {
         case "expertise":
         case "attemptActive":
         case "resultActive":
-          console.log(`${actionKeyValue} :: ${target.value}`);
           newValue = target.value === "true";
           break;
         case "attemptBonus":
@@ -384,13 +378,8 @@ class CharacterCreatePage extends Component {
           newValue = target.value;
       }
 
-      // const actions = this.state?.actions.map((action) => {
-      //   return action.id === actionID
-      //     ? { ...action, [actionKeyValue]: newValue }
-      //     : action;
-      // });
       const actions = {...this.state.actions, 
-        actionID: {...this.state.actions[actionID], 
+        [actionID]: {...this.state.actions[actionID], 
           [actionKeyValue]: newValue
       }};
 
@@ -400,32 +389,23 @@ class CharacterCreatePage extends Component {
     };
 
     handleActionDiceChange = 
-      (dieToAdd, actionKey, increment) => {
-        const newValue = increment ? this.state.actions[actionKey].resultDice[dieToAdd] + 1 : this.state.actions[actionKey].resultDice[dieToAdd] - 1;
+      (dieToAdd, actionID, increment) => {
+        const newValue = increment ? this.state.actions[actionID].resultDice[dieToAdd] + 1 : this.state.actions[actionID].resultDice[dieToAdd] - 1;
         const actions = {...this.state.actions, 
-          actionKey: {...this.state.actions[actionkey], 
-            {...this.state.actions[actionkey].resultDice, [dieToAdd]: newValue}
-        }}
-
-        // const actions = this.state?.actions.map((action) => {
-        //   if(action.id === actionKey) {
-        //     const newValue = increment ? action.resultDice[dieToAdd] + 1 : action.resultDice[dieToAdd] - 1;
-        //     return { ...action, resultDice: {...action.resultDice, [dieToAdd]: newValue }};
-        //   }
-        //   else {
-        //     return action;
-        //   }
-        // });
+          [actionID]: {...this.state.actions[actionID], 
+            resultDice: {...this.state.actions[actionID].resultDice, 
+              [dieToAdd]: newValue
+        }}}
 
         this.setState({
           actions,
         });
     };
 
-    handleActionDiceClear = (actionkey) => {
-      const actions = this.state?.actions.map((action) => {
-        if(action.id === actionkey) {
-          return { ...action, resultDice: {
+    handleActionDiceClear = (actionID) => {
+      const actions = {...this.state.actions, 
+        [actionID]: {...this.state.actions[actionID], 
+          resultDice: {
             d4: 0, 
             d6: 0, 
             d8: 0, 
@@ -433,12 +413,7 @@ class CharacterCreatePage extends Component {
             d12: 0, 
             d20: 0, 
             d100: 0,
-          }};
-        }
-        else {
-          return action;
-        }
-      });
+      }}};
 
       this.setState({
         actions,
@@ -629,7 +604,7 @@ class CharacterCreatePage extends Component {
                   Add Action!
                 </button>
               </div>
-              {this.state.actions.map((action, index) => {
+              {map(this.state.actions, (action, index) => {
                 return (
                   <div key={action.id} className="column-info-display action">
                     <div className='action-header'>

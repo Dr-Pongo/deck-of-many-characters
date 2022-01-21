@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "./style.scss";
 import { v4 as uuidv4 } from "uuid";
 import map from "lodash/map";
@@ -42,7 +41,7 @@ const DicePool = (props) => {
           // All of the Displays have similar names, this be a neat way to do things
           const TagName = die[`D${die.value}Display`];
           return (
-            <div className='dice-pool-tray' >
+            <div key={uuidv4()} className='dice-pool-tray' >
               <TagName
                 dieValue={die.value}
                 key={die.key}
@@ -62,7 +61,7 @@ const DicePool = (props) => {
                   type='button' 
                   className='remove-die'
                   onClick={() => handleDiceChange(d, actionKey, DECREMENT)}
-                  disabled={currentDice[d] == 0}
+                  disabled={currentDice[d] ===   0}
                 >
                   -
                 </button>

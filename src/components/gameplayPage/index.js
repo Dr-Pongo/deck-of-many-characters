@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import { gotoPage, HOME_PAGE } from "../../containers/pageSlice";
 import DiceRoller from "../diceRollerComponent/index";
 import { addAbilitySkillRoll } from "../../containers/diceTraySlice";
-import { WIP_COMPONENT } from "../app/index";
 
 class GameplayPage extends Component {
   constructor(props) {

@@ -22,13 +22,13 @@ import { useDispatch, useSelector } from "react-redux";
 // this helps with maths and keeping track of rolls
 // also this helps clean up rendering all of the dice
 const DICE_MAP = {
-  d4: { value: 4, D4Display: D4Display },
-  d6: { value: 6, D6Display: D6Display },
-  d8: { value: 8, D8Display: D8Display },
-  d10: { value: 10, D10Display: D10Display },
-  d12: { value: 12, D12Display: D12Display },
-  d20: { value: 20, D20Display: D20Display },
-  d100: { value: 100, D100Display: D100Display },
+  d4:   { value: 4,   D4Display: D4Display,     key: uuidv4()},
+  d6:   { value: 6,   D6Display: D6Display,     key: uuidv4()},
+  d8:   { value: 8,   D8Display: D8Display,     key: uuidv4()},
+  d10:  { value: 10,  D10Display: D10Display,   key: uuidv4()},
+  d12:  { value: 12,  D12Display: D12Display,   key: uuidv4()},
+  d20:  { value: 20,  D20Display: D20Display,   key: uuidv4()},
+  d100: { value: 100, D100Display: D100Display, key: uuidv4()},
 };
 
 /* ==================================== *
@@ -233,10 +233,12 @@ const DiceRoller = (props) => {
                         <div className="dice-result-vantage">
                           <TagName
                             dieValue={die.result[0]}
+                            key={die.key}
                             isRollResult={true}
                           />
                           <TagName
                             dieValue={die.result[1]}
+                            key={die.key}
                             isRollResult={true}
                           />
                         </div>
