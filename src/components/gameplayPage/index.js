@@ -50,6 +50,12 @@ class GameplayPage extends Component {
   };
 
   /* ==================================== *
+   * handleActionRolls!                   *
+   * ==================================== */
+  
+
+
+  /* ==================================== *
    * Helpers                              *
    * ==================================== */
   calculateAbilityModifier = (abilityValue) => {

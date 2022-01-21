@@ -155,7 +155,7 @@ class CharacterCreatePage extends Component {
           exp: false,
         },
       },
-      actions: [],
+      actions: {},
     };
   }
 
@@ -348,12 +348,18 @@ class CharacterCreatePage extends Component {
 
       // If a remove ID is recieved, removed selected ID from the current actions list
       // Otherwise add a new initialAction from above
-      const actions = removeID
-        ? this.state.actions.filter((action) => action.id !== removeID)
-        : [...this.state.actions, initialAction];
+      // const actions = removeID
+      //   ? this.state.actions.filter((action) => action.id !== removeID)
+      //   : [...this.state.actions, initialAction];
+      if(removeID) {
+        const newActions = this.state.actions;
+        delete newActions[removeID];
+      } else {
+        const newActions = {...this.state.actions, [initialAction.id]: initialAction};
+      }
 
       this.setState({
-        actions,
+        newActions,
       });
     };
 
@@ -378,11 +384,15 @@ class CharacterCreatePage extends Component {
           newValue = target.value;
       }
 
-      const actions = this.state?.actions.map((action) => {
-        return action.id === actionID
-          ? { ...action, [actionKeyValue]: newValue }
-          : action;
-      });
+      // const actions = this.state?.actions.map((action) => {
+      //   return action.id === actionID
+      //     ? { ...action, [actionKeyValue]: newValue }
+      //     : action;
+      // });
+      const actions = {...this.state.actions, 
+        actionID: {...this.state.actions[actionID], 
+          [actionKeyValue]: newValue
+      }};
 
       this.setState({
         actions,
@@ -391,15 +401,21 @@ class CharacterCreatePage extends Component {
 
     handleActionDiceChange = 
       (dieToAdd, actionKey, increment) => {
-        const actions = this.state?.actions.map((action) => {
-          if(action.id === actionKey) {
-            const newValue = increment ? action.resultDice[dieToAdd] + 1 : action.resultDice[dieToAdd] - 1;
-            return { ...action, resultDice: {...action.resultDice, [dieToAdd]: newValue }};
-          }
-          else {
-            return action;
-          }
-        });
+        const newValue = increment ? this.state.actions[actionKey].resultDice[dieToAdd] + 1 : this.state.actions[actionKey].resultDice[dieToAdd] - 1;
+        const actions = {...this.state.actions, 
+          actionKey: {...this.state.actions[actionkey], 
+            resultDice[dieToAdd]: newValue
+        }}
+
+        // const actions = this.state?.actions.map((action) => {
+        //   if(action.id === actionKey) {
+        //     const newValue = increment ? action.resultDice[dieToAdd] + 1 : action.resultDice[dieToAdd] - 1;
+        //     return { ...action, resultDice: {...action.resultDice, [dieToAdd]: newValue }};
+        //   }
+        //   else {
+        //     return action;
+        //   }
+        // });
 
         this.setState({
           actions,
