@@ -51,7 +51,19 @@ class GameplayPage extends Component {
   /* ==================================== *
    * handleActionRolls!                   *
    * ==================================== */
-  
+  handleActionAttemptRoll = (action) => {
+    const { proficiency, abilities } = this.props.currentCharacter;
+    // add d20, and modifier to dice pool
+    const diceToAdd = [{ name: "d20", value: 20, key: uuidv4() }];
+    // Grabbing modifier depending on attemptAbility
+    const abilityModifier = action.attemptAbility !== 'none' ? this.calculateAbilityModifier(abilities[action.attemptAbility.toLowerCase()].val) : 0;
+    const profModifier = action.proficiency ? 
+    this.props.addAbilitySkillRoll({
+      roll: diceToAdd,
+      mod: abilityModifier + action.attemptBonus,
+    });
+    this.rollerRef.current.scrollIntoView();
+  };
 
   /* ==================================== *
    * Helpers                              *
@@ -182,7 +194,13 @@ class GameplayPage extends Component {
               return (
                 <div key={action.id} className="action" >
                   <label>{action.name || "Unamed Action"}</label>
-                  <button type="button" className="skill-button" >Attempt</button>
+                  <button 
+                    type="button" 
+                    className="skill-button" 
+                    onClick={() => this.handleActionAttemptRoll(action)} 
+                  >
+                    Attempt
+                  </button>
                   <button type="button" className="skill-button" >Result</button>
                   {action.description && <p>{action.description}</p>}
                 </div>
