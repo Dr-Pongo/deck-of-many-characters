@@ -404,7 +404,7 @@ class CharacterCreatePage extends Component {
         const newValue = increment ? this.state.actions[actionKey].resultDice[dieToAdd] + 1 : this.state.actions[actionKey].resultDice[dieToAdd] - 1;
         const actions = {...this.state.actions, 
           actionKey: {...this.state.actions[actionkey], 
-            resultDice[dieToAdd]: newValue
+            {...this.state.actions[actionkey].resultDice, [dieToAdd]: newValue}
         }}
 
         // const actions = this.state?.actions.map((action) => {
