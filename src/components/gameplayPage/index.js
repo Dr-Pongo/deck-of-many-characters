@@ -79,7 +79,6 @@ class GameplayPage extends Component {
 
     // add d20, and modifier to dice pool
     let diceToAdd = [];
-
     map(action.resultDice, (die, index) => {
       for (let p = 0; p < die; p++) {
         diceToAdd.push({ name: index, value: parseInt(index.substring(1)), key: uuidv4() });
@@ -91,13 +90,32 @@ class GameplayPage extends Component {
       this.calculateAbilityModifier(abilities[action.resultAbility.toLowerCase()].val) + action.resultBonus : 
       action.resultBonus;
     
-    this.props.addAbilitySkillRoll( { roll: diceToAdd, mod: modifier } )
+    this.props.addAbilitySkillRoll({ 
+      roll: diceToAdd, 
+      mod: modifier
+    });
+
     this.rollerRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   /* ==================================== *
    * Helpers                              *
    * ==================================== */
+  calculateActionModifiers = (ability, bonus, attempt = false, proficiency, expertise) => {
+    // let modifier = ability !== 'none' ? 
+    //   this.calculateAbilityModifier(abilities[ability.toLowerCase()].val) + bonus : 
+    //   bonus;
+    
+    // if(attempt) {
+    //   if (action.proficiency) {
+    //     modifier = action.expertise
+    //      ? modifier + proficiency * 2
+    //      : modifier + proficiency;
+    //   }
+    // }
+    // return modifier;
+  }
+
   calculateAbilityModifier = (abilityValue) => {
     return Math.floor((abilityValue - 10) / 2);
   };
@@ -231,6 +249,7 @@ class GameplayPage extends Component {
                     onClick={() => this.handleActionAttemptRoll(action)} 
                   >
                     Attempt
+                    {/* {`Attempt +${}`} */}
                   </button>}
                   {action.resultActive && 
                   <button 

@@ -331,10 +331,16 @@ class CharacterCreatePage extends Component {
         attemptActive: false,
         attemptAbility: "",
         attemptBonus: 0,
+        attemptModifierTotal: (proficiency) => {
+
+        },
         // result
         resultActive: false,
         resultAbility: "",
         resultBonus: 0,
+        resultModifierTotal: (proficiency) => {
+
+        },
         resultDice: {
           d4: 0, 
           d6: 0, 
