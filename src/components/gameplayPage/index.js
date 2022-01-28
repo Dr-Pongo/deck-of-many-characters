@@ -24,7 +24,7 @@ class GameplayPage extends Component {
       roll: diceToAdd,
       mod: save ? modifierToAdd + proficiency : modifierToAdd,
     });
-    this.rollerRef.current.scrollIntoView();
+    this.rollerRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   /* ==================================== *
@@ -34,7 +34,7 @@ class GameplayPage extends Component {
     const diceToAdd = [{ name: "d20", value: 20, key: uuidv4() }];
     const modifierToAdd = this.deriveSkillValue(skill);
     this.props.addAbilitySkillRoll({ roll: diceToAdd, mod: modifierToAdd });
-    this.rollerRef.current.scrollIntoView();
+    this.rollerRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   /* ==================================== *
@@ -55,14 +55,44 @@ class GameplayPage extends Component {
     const { proficiency, abilities } = this.props.currentCharacter;
     // add d20, and modifier to dice pool
     const diceToAdd = [{ name: "d20", value: 20, key: uuidv4() }];
-    // Grabbing modifier depending on attemptAbility
-    const abilityModifier = action.attemptAbility !== 'none' ? this.calculateAbilityModifier(abilities[action.attemptAbility.toLowerCase()].val) : 0;
-    const profModifier = action.proficiency ? 
-    this.props.addAbilitySkillRoll({
-      roll: diceToAdd,
-      mod: abilityModifier + action.attemptBonus,
+
+    // Grabbing modifier depending on attemptAbility and attempt bonus
+    let modifier = action.attemptAbility !== 'none' ? 
+      this.calculateAbilityModifier(abilities[action.attemptAbility.toLowerCase()].val) + action.attemptBonus : 
+      action.attemptBonus;
+    
+    if (action.proficiency) {
+       modifier = action.expertise
+        ? modifier + proficiency * 2
+        : modifier + proficiency;
+    }
+
+    this.props.addAbilitySkillRoll( { roll: diceToAdd, mod: modifier } );
+    this.rollerRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  /* ==================================== *
+   * handleActionResultRolls!                   *
+   * ==================================== */
+  handleActionResultRoll = (action) => {
+    const { abilities } = this.props.currentCharacter;
+
+    // add d20, and modifier to dice pool
+    let diceToAdd = [];
+
+    map(action.resultDice, (die, index) => {
+      for (let p = 0; p < die; p++) {
+        diceToAdd.push({ name: index, value: parseInt(index.substring(1)), key: uuidv4() });
+      }
     });
-    this.rollerRef.current.scrollIntoView();
+
+    // Grabbing modifier depending on resultAbility and result bonus
+    let modifier = action.resultAbility !== 'none' ? 
+      this.calculateAbilityModifier(abilities[action.resultAbility.toLowerCase()].val) + action.resultBonus : 
+      action.resultBonus;
+    
+    this.props.addAbilitySkillRoll( { roll: diceToAdd, mod: modifier } )
+    this.rollerRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   /* ==================================== *
@@ -115,7 +145,7 @@ class GameplayPage extends Component {
       characterClass,
     } = this.props.currentCharacter;
     return (
-      <div className="gameplay main-page">
+      <div className="gameplay main-page" ref={this.rollerRef}>
         <h2>{name || "Unamed"}</h2>
         <div className="subheading">{`Level ${level} ${subClass || ""} ${
           characterClass || "Character"
@@ -190,18 +220,26 @@ class GameplayPage extends Component {
           </div>
           <div className="actions">
             <h3>Actions!</h3>
-            {actions.map((action, index) => {
+            {map(actions, (action, index) => {
               return (
                 <div key={action.id} className="action" >
                   <label>{action.name || "Unamed Action"}</label>
+                  {action.attemptActive && 
                   <button 
                     type="button" 
                     className="skill-button" 
                     onClick={() => this.handleActionAttemptRoll(action)} 
                   >
                     Attempt
-                  </button>
-                  <button type="button" className="skill-button" >Result</button>
+                  </button>}
+                  {action.resultActive && 
+                  <button 
+                    type="button" 
+                    className="skill-button" 
+                    onClick={() => this.handleActionResultRoll(action)}
+                  >
+                    Result
+                  </button>}
                   {action.description && <p>{action.description}</p>}
                 </div>
               );
